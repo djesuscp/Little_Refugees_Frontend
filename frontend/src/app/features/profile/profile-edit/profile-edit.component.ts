@@ -108,6 +108,8 @@ export class ProfileEditComponent implements OnInit {
         // Actualizar usuario en AuthService y en memoria
         this.auth.updateCurrentUser(updatedUser);
         this.user = updatedUser;
+        this.auth.logout();
+        this.router.navigate(['/']);
       },
       error: (err) => {
         const msg = err.error?.message ?? 'No se pudo actualizar el perfil.';
