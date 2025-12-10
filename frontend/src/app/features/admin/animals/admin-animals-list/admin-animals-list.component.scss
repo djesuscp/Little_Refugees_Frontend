@@ -1,0 +1,576 @@
+/* =========================================
+   FUENTE GLOBAL DEL COMPONENTE
+========================================= */
+.animals-page,
+.animals-page * {
+  font-family: "Inter", sans-serif;
+}
+
+/* =========================================
+   PALETA
+========================================= */
+$blue-main:  #4A90E2;
+$green-main: #6DBF73;
+$yellow-cta: #F9CC41;
+$beige-bg:   #F5F0E6;
+$text-dark:  #333;
+$text-muted: #555;
+
+/* =========================================
+   PAGE LAYOUT
+========================================= */
+.animals-page {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 24px;
+  max-width: 1200px;
+  margin: 24px auto;
+  padding: 0 24px;
+  background: $beige-bg;
+  min-height: calc(100vh - 80px);
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================
+   SIDEBAR
+========================================= */
+/* Crear animal */
+.create-animal-aside {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.75em;
+  margin-bottom: 1em;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+
+  h2 {
+    margin: 0 0 16px 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: $blue-main;
+  }
+  .create-button {
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    background: $green-main;
+    color: #fff;
+    font-weight: 600;
+    transition: .2s ease;
+
+    &:hover {
+      background: darken($green-main, 10%);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+/* =========================================
+   FILTERS PANEL
+========================================= */
+.filters {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 26px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+
+  h2 {
+    margin: 0 0 16px 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: $blue-main;
+  }
+}
+
+.filters-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  label {
+    font-weight: 600;
+    color: $text-dark;
+  }
+
+  input {
+    width: 90%;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.18);
+    background: $beige-bg;
+    color: $text-dark;
+    font-size: 0.95rem;
+    transition: .18s;
+
+    &:focus {
+      border-color: $blue-main;
+      box-shadow: 0 0 0 3px rgba(74,144,226,0.25);
+      outline: none;
+    }
+  }
+
+  small {
+    font-size: 0.8rem;
+    color: $text-muted;
+  }
+}
+
+.filter-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.age-range {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  input {
+    max-width: 80px;
+  }
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  input {
+    width: auto;
+  }
+}
+
+/* Filter buttons */
+.filters-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+
+  button {
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background .18s, transform .18s;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+
+  button[type="submit"] {
+    background: $green-main;
+    color: #fff;
+
+    &:hover {
+      background: darken($green-main, 10%);
+    }
+  }
+
+  button[type="button"] {
+    background: #e6e6e6;
+
+    &:hover {
+      background: #d0d0d0;
+    }
+  }
+}
+
+/* =========================================
+   LISTA DE ANIMALES
+========================================= */
+.animals-list {
+  h1 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: $blue-main;
+  }
+}
+
+/* =========================================
+   CARDS GRID
+========================================= */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+/* =========================================
+   ANIMAL CARD
+========================================= */
+.animal-card {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+  display: flex;
+  flex-direction: column;
+
+  .image-wrapper {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  .card-content {
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    h3 {
+      margin: 0;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: $text-dark;
+    }
+
+    .meta {
+      font-size: 0.95rem;
+      color: $text-muted;
+    }
+
+    .description {
+      font-size: 0.95rem;
+      color: $text-dark;
+      margin: 4px 0;
+      line-height: 1.4;
+    }
+
+    .shelter-info {
+      font-size: 0.9rem;
+      color: $text-muted;
+      margin-top: 6px;
+    }
+
+    button {
+      margin-top: 10px;
+      align-self: flex-start;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: none;
+      background: $green-main;
+      color: #fff;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background .2s, transform .2s;
+
+      &:hover {
+        background: darken($green-main, 10%);
+        transform: translateY(-2px);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+/* =========================================
+   PAGINATION
+========================================= */
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: none;
+    background: #eaeaea;
+    cursor: pointer;
+    transition: background .18s, transform .18s;
+
+    &:hover:not(:disabled) {
+      background: #d9d9d9;
+      transform: translateY(-2px);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+  }
+}
+
+/* =========================================
+   RESPONSIVE EXTRAS
+========================================= */
+
+@media (max-width: 540px) {
+  .animals-page {
+    padding: 0 14px;
+  }
+
+  .filters {
+    padding: 20px;
+  }
+
+  .animal-card .image-wrapper {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (max-width: 360px) {
+  h1 {
+    font-size: 1.6rem !important;
+  }
+
+  .filters {
+    padding: 16px;
+  }
+}
+
+
+
+
+// .animals-page {
+//   display: grid;
+//   grid-template-columns: 280px 1fr;
+//   gap: 24px;
+//   max-width: 1200px;
+//   margin: 24px auto;
+//   padding: 0 24px;
+
+//   @media (max-width: 900px) {
+//     grid-template-columns: 1fr;
+//   }
+// }
+
+// /* SIDEBAR */
+// .sidebar {
+  
+// }
+
+// .create-button {
+//   padding: 8px 10px;
+//   border-radius: 8px;
+//   border: none;
+//   cursor: pointer;
+//   background: #1c7c54;
+//     color: #fff;
+//     &:hover {
+//       background: #145c3e;
+//     }
+// }
+
+// .filters {
+//   background: #ffffff;
+//   border-radius: 12px;
+//   padding: 25px;
+//   box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+
+//   h2 {
+//     margin-top: 0;
+//     margin-bottom: 16px;
+//     font-size: 1.3rem;
+//     color: #1c7c54;
+//   }
+// }
+
+// .filters-form {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 16px;
+
+//   label {
+//     font-weight: 500;
+//     display: block;
+//     margin-bottom: 4px;
+//   }
+
+//   input {
+//     width: 90%;
+//     padding: 6px 8px;
+//     border-radius: 6px;
+//     border: 1px solid #ddd;
+//   }
+
+//   small {
+//     font-size: 0.8rem;
+//     color: #777;
+//   }
+// }
+
+// .filter-block {
+//   display: flex;
+//   flex-direction: column;
+// }
+
+// .age-range {
+//   display: flex;
+//   align-items: center;
+//   gap: 6px;
+
+//   input {
+//     max-width: 80px;
+//   }
+// }
+
+// .checkbox-row {
+//   display: flex;
+//   align-items: center;
+//   gap: 8px;
+
+//   input {
+//     width: auto;
+//   }
+// }
+
+// .filters-actions {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 8px;
+//   margin-top: 8px;
+
+//   button {
+//     padding: 8px 10px;
+//     border-radius: 8px;
+//     border: none;
+//     cursor: pointer;
+//   }
+
+//   button[type="submit"] {
+//     background: #1c7c54;
+//     color: #fff;
+//     &:hover {
+//       background: #145c3e;
+//     }
+//   }
+
+//   button[type="button"] {
+//     background: #f0f0f0;
+//     color: #333;
+//     &:hover {
+//       background: #c4c4c4;
+//     }
+//   }
+// }
+
+// /* LISTA DE ANIMALES */
+// .animals-list {
+//   h1 {
+//     margin-top: 0;
+//     margin-bottom: 16px;
+//     font-size: 1.8rem;
+//     color: #1c7c54;
+//   }
+// }
+
+// .cards-grid {
+//   display: grid;
+//   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+//   gap: 20px;
+// }
+
+// .animal-card {
+//   background: #ffffff;
+//   border-radius: 12px;
+//   overflow: hidden;
+//   box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+//   display: flex;
+//   flex-direction: column;
+
+//   .image-wrapper {
+//     width: 100%;
+//     aspect-ratio: 4 / 3;
+//     overflow: hidden;
+
+//     img {
+//       width: 100%;
+//       height: 100%;
+//       object-fit: cover;
+//       display: block;
+//     }
+//   }
+
+//   .card-content {
+//     padding: 14px 16px;
+//     display: flex;
+//     flex-direction: column;
+//     gap: 6px;
+
+//     h3 {
+//       margin: 0;
+//       font-size: 1.3rem;
+//       color: #333;
+//     }
+
+//     .meta {
+//       margin: 0;
+//       font-size: 0.95rem;
+//       color: #666;
+//     }
+
+//     .description {
+//       font-size: 0.95rem;
+//       color: #555;
+//       margin: 4px 0;
+//     }
+
+//     .shelter-info {
+//       font-size: 0.9rem;
+//       color: #666;
+//       margin-top: 6px;
+//     }
+
+//     button {
+//       margin-top: 10px;
+//       align-self: flex-start;
+//       padding: 6px 12px;
+//       border-radius: 8px;
+//       border: none;
+//       background: #1c7c54;
+//       color: #fff;
+//       cursor: pointer;
+//       font-size: 0.95rem;
+//       transition: background 0.2s;
+
+//       &:hover {
+//         background: #145c3e;
+//       }
+//     }
+//   }
+// }
+
+// /* Paginación */
+// .pagination {
+//   margin-top: 20px;
+//   display: flex;
+//   gap: 12px;
+//   align-items: center;
+//   justify-content: center;
+
+//   button {
+//     padding: 6px 12px;
+//     border-radius: 8px;
+//     border: none;
+//     cursor: pointer;
+//     background: #f0f0f0;
+//   }
+
+//   button:disabled {
+//     opacity: 0.5;
+//     cursor: default;
+//   }
+// }

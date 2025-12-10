@@ -1,0 +1,136 @@
+<section class="adoptions-page">
+
+  <!-- SIDEBAR DE FILTROS -->
+  <aside class="filters">
+    <h2>Filtrar solicitudes</h2>
+
+    <form [formGroup]="filtersForm" (ngSubmit)="onSearchSubmit()" class="filters-form">
+
+      <!-- Búsqueda por nombre del animal
+      <div class="filter-block">
+        <label>Nombre del animal</label>
+        <input formControlName="animalName" placeholder="Ej: Luna, Max..." />
+      </div>-->
+
+      <!-- Búsqueda por nombre del usuario
+      <div class="filter-block">
+        <label>Nombre del usuario</label>
+        <input formControlName="userName" placeholder="Ej: María, Juan..." />
+      </div>-->
+
+      <!-- Orden por fecha -->
+      <div class="filter-block">
+        <label>Ordenar por fecha</label>
+        <select formControlName="sortDirection">
+          <option value="desc">De más reciente a más antiguo</option>
+          <option value="asc">De más antiguo a más reciente</option>
+        </select>
+      </div>
+
+      <!-- Filtro por estado -->
+      <div class="filter-block">
+        <label>Estado de la solicitud</label>
+
+        <label class="checkbox-row">
+          <input type="checkbox" formControlName="statusPending" />
+          <span>Pendientes</span>
+        </label>
+
+        <label class="checkbox-row">
+          <input type="checkbox" formControlName="statusApproved" />
+          <span>Aprobadas</span>
+        </label>
+
+        <label class="checkbox-row">
+          <input type="checkbox" formControlName="statusRejected" />
+          <span>Rechazadas</span>
+        </label>
+      </div>
+
+      <!-- Botones -->
+      <div class="filters-actions">
+        <button type="submit">Aplicar filtros</button>
+        <button type="button" (click)="onResetFilters()">Limpiar filtros</button>
+      </div>
+    </form>
+  </aside>
+
+  <!-- LISTA DE SOLICITUDES -->
+  <section class="adoptions-list">
+    <header class="list-header">
+      <h1>Solicitudes de adopción de mi protectora</h1>
+    </header>
+
+    @if (loading) {
+      <p>Cargando solicitudes...</p>
+    } @else {
+
+      @if (requests.length === 0) {
+        <p>No se han encontrado solicitudes con los filtros seleccionados.</p>
+      } @else {
+
+        <div class="cards-grid">
+          @for (req of requests; track req.id) {
+            <article class="adoption-card">
+              <div class="image-wrapper">
+                <!-- Placeholder por ahora -->
+                <img [src]="getAnimalPhotoUrl(req)" [alt]="req.animal.name" />
+              </div>
+
+              <div class="card-content">
+                <!-- Cabecera: animal + estado -->
+                <div class="card-header-row">
+                  <h3>{{ req.animal.name }}</h3>
+                  <span [class]="getStatusClass(req.status)">
+                    {{ getStatusLabel(req.status) }}
+                  </span>
+                </div>
+
+                <p class="meta">
+                  {{ req.animal.species }} · {{ req.animal.breed }} · {{ req.animal.gender }}
+                  · {{ getAnimalAgeLabel(req) }}
+                </p>
+
+                <!-- Info del usuario -->
+                <p class="user-info">
+                  Solicitante: <strong>{{ req.user.fullName }}</strong><br />
+                  {{ req.user.email }}
+                </p>
+
+                <!-- Mensaje -->
+                <p class="message">
+                  <strong>Mensaje del solicitante:</strong><br />
+                  {{ req.message }}
+                </p>
+
+                <!-- Fecha -->
+                <p class="date">
+                  Enviada el:
+                  {{ req.createdAt | date:'short' }}
+                </p>
+
+                <button type="button" (click)="onReviewRequest(req)">
+                  Revisar solicitud
+                </button>
+              </div>
+            </article>
+          }
+        </div>
+
+        <!-- Paginación -->
+        <div class="pagination">
+          <button type="button" (click)="onPrevPage()" [disabled]="currentPage === 1">
+            « Anterior
+          </button>
+
+          <span>Página {{ currentPage }}</span>
+
+          <button type="button" (click)="onNextPage()" [disabled]="!hasMore">
+            Siguiente »
+          </button>
+        </div>
+      }
+    }
+  </section>
+
+</section>

@@ -1,0 +1,74 @@
+<section class="shelter-create-root">
+  <h1>Crear protectora</h1>
+  <p class="subtitle">
+    Rellena los datos de tu protectora para comenzar a gestionarla.
+  </p>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <!-- Nombre -->
+    <label>Nombre de la protectora:</label>
+    <input formControlName="name" placeholder="Ej: Refugio Amigos Peludos" />
+
+    @if (form.get('name')?.touched && form.get('name')?.invalid) {
+      <div class="error">
+        @if (form.get('name')?.errors?.['required']) {
+          <small>El nombre es obligatorio.</small>
+        }
+        @if (form.get('name')?.errors?.['minlength']) {
+          <small>Debe tener al menos 3 caracteres.</small>
+        }
+      </div>
+    }
+
+    <!-- Email -->
+    <label>Email de contacto:</label>
+    <input formControlName="email" placeholder="contacto&#64;refugio.com" />
+
+    @if (form.get('email')?.touched && form.get('email')?.invalid) {
+      <div class="error">
+        @if (form.get('email')?.errors?.['required']) {
+          <small>El email es obligatorio.</small>
+        }
+        @if (form.get('email')?.errors?.['realEmail']) {
+          <small>Introduce un email válido, por ejemplo: contacto&#64;refugio.com</small>
+        }
+      </div>
+    }
+
+    <!-- Dirección -->
+    <label>Dirección principal:</label>
+    <input formControlName="address" placeholder="Calle, número, ciudad" />
+
+    @if (form.get('address')?.touched && form.get('address')?.invalid) {
+      <div class="error">
+        @if (form.get('address')?.errors?.['required']) {
+          <small>La dirección es obligatoria.</small>
+        }
+        @if (form.get('address')?.errors?.['minlength']) {
+          <small>Debe tener al menos 5 caracteres.</small>
+        }
+      </div>
+    }
+
+    <!-- Teléfono (opcional) -->
+    <label>Teléfono (opcional):</label>
+    <input formControlName="phone" placeholder="+34 600 000 000" />
+    
+    <div class="error">
+      @if (form.get('phone')?.errors?.['minlength']) {
+        <small>Debe ser un número de teléfono real.</small>
+      }
+    </div>
+
+    <!-- Descripción (opcional) -->
+    <label>Descripción (opcional):</label>
+    <textarea formControlName="description" rows="4"
+      placeholder="Cuenta brevemente sobre tu protectora, misión y objetivos.">
+    </textarea>
+
+    <button type="submit" [disabled]="loading || form.invalid">
+      Crear protectora
+    </button>
+  </form>
+</section>

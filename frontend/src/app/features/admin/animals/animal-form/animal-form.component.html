@@ -1,0 +1,208 @@
+<section class="animal-form-root">
+
+  <header class="header">
+    @if (mode === 'create') {
+      <h1>Crear animal</h1>
+    } @else {
+      <h1>Editar animal</h1>
+    }
+  </header>
+
+  @if (loading) {
+    <p>Cargando datos...</p>
+  } @else {
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="animal-form">
+
+      <!-- Nombre -->
+      <label>Nombre *</label>
+      <input formControlName="name" />
+
+      <!-- Especie -->
+      <label>Especie *</label>
+      <input formControlName="species" />
+
+      <!-- Raza -->
+      <label>Raza *</label>
+      <input formControlName="breed" />
+
+      <!-- Género -->
+      <label>Género *</label>
+      <select formControlName="gender">
+        <option value="">Selecciona género</option>
+        <option value="macho">Macho</option>
+        <option value="hembra">Hembra</option>
+      </select>
+
+      <!-- Edad -->
+      <label>Edad (años)</label>
+      <input type="number" min="0" formControlName="age" />
+
+      <!-- Descripción -->
+      <label>Descripción</label>
+      <textarea rows="4" formControlName="description"></textarea>
+
+      <!-- Adoptado (solo en edición) -->
+      <!-- @if (mode === 'edit') {
+        <label class="checkbox-row">
+          <input type="checkbox" formControlName="adopted" />
+          <span>Marcado como adoptado</span>
+        </label>
+      } -->
+      @if (mode === 'edit') {
+        <label>Estado de adopción *</label>
+        <select formControlName="adopted">
+          <option [ngValue]="false">No adoptado</option>
+          <option [ngValue]="true">Adoptado</option>
+        </select>
+      }
+
+      <!-- Fotos (Cloudinary) -->
+      <div class="photos-section">
+        <h2>Fotos</h2>
+
+        <!-- *** CLOUDINARY: fotos existentes en modo edición -->
+        @if (mode === 'edit') {
+          @if (existingPhotos.length === 0) {
+            <p class="no-photos">No hay fotos subidas.</p>
+          } @else {
+            <div class="photos-row">
+              @for (photo of existingPhotos; track photo.id) {
+                <div class="photo-thumb">
+                  <img [src]="photo.url" [alt]="form.value.name || 'Foto animal'" />
+                  <button
+                    class="btn-pic"
+                    type="button"
+                    (click)="onDeleteExistingPhoto(photo)"
+                    [disabled]="uploadingPhotos || loading"
+                  >
+                    Eliminar
+                  </button>
+                </div>
+              }
+            </div>
+          }
+        }
+
+        <!-- *** CLOUDINARY: selección y subida de nuevas fotos -->
+        <div class="add-photo-row">
+          @if (!canManagePhotos) {
+            <small>Para subir fotos: primero crea el animal; a continuación, desde la lista de animales, pulsa el botón editar para añadir fotos desde el formulario de edición.</small>
+          } @else {
+            <label class="custom-file-btn">
+              Seleccionar imágenes
+              <input
+                type="file"
+                multiple
+                accept=".jpg,.jpeg,.png,.webp"
+                (change)="onFilesSelected($event)"
+                [disabled]="!canManagePhotos || uploadingPhotos || remainingSlots <= 0"
+              />
+            </label>
+            <button
+              type="button"
+              (click)="onUploadSelectedPhotos()"
+              [disabled]="!canManagePhotos || uploadingPhotos || selectedFiles.length === 0"
+            >
+              Agregar fotos
+            </button>
+            <small>Puedes subir hasta {{ remainingSlots }} foto(s) más.</small>
+          }
+        </div>
+
+        @if (selectedFiles.length > 0) {
+          <ul class="selected-files">
+            @for (file of selectedFiles; track file.name) {
+              <li>
+                {{ file.name }} ({{ file.size / 1024 | number:'1.0-0' }} KB)
+                <button type="button" (click)="onRemoveSelectedFile(file)">
+                  Quitar
+                </button>
+              </li>
+            }
+          </ul>
+        }
+      </div>
+
+      <!-- Fotos (URLs)
+      <div class="photos-section">
+        <h2>Fotos</h2>-->
+
+        <!-- Añadir nueva URL
+        <div class="add-photo-row">
+          <input
+            type="text"
+            [(ngModel)]="newPhotoUrl"
+            placeholder="Pega aquí la URL de la foto"
+            name="newPhotoUrl"
+          />
+          <button type="button" (click)="onAddPhotoUrl()">
+            Añadir foto
+          </button>
+        </div>-->
+
+        <!-- Lista de URLs añadidas 
+        @if (photoUrls.length === 0) {
+          <p class="no-photos">No hay fotos añadidas.</p>
+        } @else {
+          <ul class="photos-list">
+            @for (url of photoUrls; track url) {
+              <li>
+                <span class="photo-url">{{ url }}</span>
+                <button type="button" (click)="onRemovePhotoUrl($index)">
+                  Eliminar
+                </button>
+              </li>
+            }
+          </ul>
+        }
+      </div>-->
+
+      <!-- Botones -->
+      <div class="actions">
+        <button type="submit" [disabled]="loading">
+          @if (mode === 'create') { Crear animal } @else { Guardar cambios }
+        </button>
+
+        <button type="button" class="btn-secondary" (click)="onCancel()">
+          Cancelar
+        </button>
+
+        @if (mode === 'edit') {
+          <button
+            type="button"
+            class="btn-danger"
+            (click)="onClickDelete()"
+            [disabled]="loading"
+          >
+            Eliminar animal
+          </button>
+        }
+      </div>
+    </form>
+  }
+  
+  <!-- Diálogo de confirmación de eliminación -->
+  @if (showDeletePhotoDialog) {
+    <app-confirm-action-dialog
+      title="Eliminar fotografía"
+      message="¿Seguro que quieres eliminar esta fotografía?"
+      confirmLabel="Sí, eliminar"
+      cancelLabel="Cancelar"
+      (confirm)="onConfirmDeletePhoto()"
+      (cancel)="onCancelDeletePhoto()"
+    />
+  }
+
+  <!-- Diálogo de confirmación de eliminación -->
+  @if (showDeleteDialog) {
+    <app-confirm-action-dialog
+      title="Eliminar animal"
+      message="¿Seguro que quieres eliminar este animal? Esta acción no se puede deshacer."
+      confirmLabel="Sí, eliminar"
+      cancelLabel="Cancelar"
+      (confirm)="onConfirmDelete()"
+      (cancel)="onCancelDeleteDialog()"
+    />
+  }
+</section>

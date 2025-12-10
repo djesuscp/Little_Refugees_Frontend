@@ -1,0 +1,58 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h2>Registrarse</h2>
+
+  <!-- fullName -->
+  <label>Nombre completo</label>
+  <input formControlName="fullName" />
+
+  @if (form.get('fullName')?.touched && form.get('fullName')?.invalid) {
+    <div class="error">
+      @if (form.get('fullName')?.errors?.['required']) {
+        <small>El nombre es obligatorio.</small>
+      }
+      @if (form.get('fullName')?.errors?.['minlength']) {
+        <small>Debe tener al menos 3 caracteres.</small>
+      }
+    </div>
+  }
+
+  <!-- email -->
+  <label>Email</label>
+  <input formControlName="email" />
+
+  @if (form.get('email')?.touched && form.get('email')?.invalid) {
+    <div class="error">
+      @if (form.get('email')?.errors?.['required']) {
+        <small>El email es obligatorio.</small>
+      }
+      @if (form.get('email')?.errors?.['realEmail']) {
+        <small>Introduce un email válido, por ejemplo: usuario&#64;dominio.com</small>
+      }
+    </div>
+  }
+
+
+  <!-- password -->
+  <label>Contraseña</label>
+  <input type="password" formControlName="password" />
+
+  @if (form.get('password')?.touched && form.get('password')?.invalid) {
+    <div class="error">
+      @if (form.get('password')?.errors?.['required']) {
+        <small>La contraseña es obligatoria.</small>
+      }
+      @if (form.get('password')?.errors?.['minlength']) {
+        <small>Debe tener al menos 6 caracteres.</small>
+      }
+      @if (form.get('password')?.errors?.['maxlength']) {
+        <small>No puede tener más de 30 caracteres.</small>
+      }
+    </div>
+  }
+
+  <button type="submit" [disabled]="loading">
+    Crear cuenta
+  </button>
+
+  <a routerLink="/auth/login">¿Ya tienes cuenta? Inicia sesión</a>
+</form>

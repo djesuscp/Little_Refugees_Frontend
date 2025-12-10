@@ -1,0 +1,15 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h2>Iniciar sesión</h2>
+
+  <label>Usuario</label>
+  <input formControlName="email" />
+
+  <label>Contraseña</label>
+  <input type="password" formControlName="password" />
+
+  <button type="submit" [disabled]="loading">
+    Entrar
+  </button>
+
+  <a routerLink="/auth/register">¿No tienes cuenta? Regístrate</a>
+</form>

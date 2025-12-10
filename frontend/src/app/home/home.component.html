@@ -1,0 +1,203 @@
+<section class="home-root">
+
+  @if(user) {
+    <!-- HERO / BIENVENIDA -->
+    <header class="hero-user">
+      <h1>Bienvenido/a{{ user ? (', ' + user.fullName) : '' }}</h1>
+      
+      @if (user.role === 'ADMIN') {
+        <p class="subtitle">
+        Conecta a los animales de tu protectora con sus nuevos hogares y ayuda a cambiar vidas.
+      </p>
+      } @else {
+        <p class="subtitle">
+        Conecta con animales que buscan un hogar y ayuda a cambiar vidas.
+      </p>
+      }
+    </header>
+
+    <!-- TARJETAS PRINCIPALES -->
+    @if (user) {
+      <section class="cards-grid">
+        @if (user.role === 'ADMIN') {
+          <a class="card" routerLink="/admin/animals">
+            <div class="icon">🐾</div>
+            <h3>Ver animales</h3>
+            <p>Explora todos los animales disponibles en tu protectora.</p>
+          </a>
+        } @else {
+          <a class="card" routerLink="/animals">
+            <div class="icon">🐾</div>
+            <h3>Ver animales</h3>
+            <p>Explora todos los animales disponibles para adopción.</p>
+          </a>
+        }
+
+        <!-- MIS SOLICITUDES (solo USER) -->
+        @if (user.role === 'USER' && user.firstLoginCompleted) {
+          <a class="card" routerLink="/adoptions/me">
+            <div class="icon">📄</div>
+            <h3>Mis solicitudes</h3>
+            <p>Consulta el estado de tus solicitudes de adopción.</p>
+          </a>
+        }
+
+        <!-- PANEL ADMIN (solo ADMIN) -->
+        @if (user.role === 'ADMIN') {
+          <a class="card" routerLink="/admin">
+            <div class="icon">🛠️</div>
+            <h3>Panel de administración</h3>
+            <p>Gestiona animales, solicitudes y tu protectora.</p>
+          </a>
+        }
+
+        <!-- PERFIL -->
+        <a class="card" routerLink="/profile">
+          <div class="icon">👤</div>
+          <h3>Mi perfil</h3>
+          <p>Actualiza tu información personal y preferencias.</p>
+        </a>
+
+      </section>
+    }
+  } @else {
+    <!-- HERO PRINCIPAL -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Encuentra a tu nuevo compañero de vida</h1>
+        <p>
+          Miles de animales esperan un hogar lleno de amor.
+          Ayúdales a empezar de nuevo, y deja que cambien tu vida.
+        </p>
+
+        <div class="hero-actions">
+          <button type="button" (click)="onSeeAnimals()">
+            Ver animales en adopción
+          </button>
+
+          @if (!user) {
+            <button
+              type="button"
+              class="btn-secondary"
+              (click)="onGoToRegister()"
+            >
+              Crear cuenta
+            </button>
+          }
+        </div>
+      </div>
+
+      <!-- Carrusel -->
+      <section class="hero-carousel">
+
+        <!-- RADIO BUTTONS (controladores invisibles) -->
+        <input type="radio" name="hero-slider" id="hero-slide-1" checked />
+        <input type="radio" name="hero-slider" id="hero-slide-2" />
+        <input type="radio" name="hero-slider" id="hero-slide-3" />
+        <input type="radio" name="hero-slider" id="hero-slide-4" />
+
+        <!-- SLIDES -->
+        <div class="hero-slides">
+          <div class="hero-slide">
+            <img src="assets/images/animal/carousel/gato1.jpg" alt="Slide 1" />
+          </div>
+          <div class="hero-slide">
+            <img src="assets/images/animal/carousel/perro1.webp" alt="Slide 2" />
+          </div>
+          <div class="hero-slide">
+            <img src="assets/images/animal/carousel/gato2.jpg" alt="Slide 3" />
+          </div>
+          <div class="hero-slide">
+            <img src="assets/images/animal/carousel/perro2.webp" alt="Slide 4" />
+          </div>
+        </div>
+
+      </section>
+
+    </section>
+
+    <!-- CÓMO FUNCIONA -->
+    <section class="steps">
+      <h2>¿Cómo funciona?</h2>
+
+      <div class="steps-grid">
+        <article class="step-card">
+          <div class="icon-circle">1</div>
+          <h3>Busca</h3>
+          <p>
+            Explora los animales disponibles en adopción
+            y encuentra a quien encaje contigo.
+          </p>
+        </article>
+
+        <article class="step-card">
+          <div class="icon-circle">2</div>
+          <h3>Conecta</h3>
+          <p>
+            Envía una solicitud contando un poco sobre ti
+            y por qué quieres adoptar.
+          </p>
+        </article>
+
+        <article class="step-card">
+          <div class="icon-circle">3</div>
+          <h3>Adopta</h3>
+          <p>
+            La protectora revisará tu solicitud y se pondrá en contacto
+            contigo para seguir el proceso.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- NUESTRA MISIÓN -->
+    <section class="mission">
+      <div class="mission-card">
+        <div class="mission-text">
+          <h2>Nuestra misión</h2>
+          <p>
+            En <strong>Little Refugees</strong> trabajamos para dar visibilidad
+            a animales que buscan una segunda oportunidad.
+          </p>
+          <p>
+            Creemos que la adopción transforma vidas: la del animal…
+            y también la tuya. Cada solicitud, cada adopción, es un pequeño
+            milagro construido entre protectoras y personas como tú.
+          </p>
+        </div>
+
+        <div class="mission-image">
+          <img
+            src="assets/images/animal/acariciar-perro.jpg"
+            alt="Persona acariciando a un perro adoptado"
+          />
+        </div>
+      </div>
+    </section>    
+  }
+
+  <!-- POPUP DE PRIMER LOGIN -->
+    @if (showFirstLoginDialog) {
+      <div class="first-login-backdrop">
+        <div class="first-login-dialog">
+          <h2>¿Qué quieres hacer?</h2>
+          <p>Elige cómo quieres usar la plataforma.</p>
+
+          <div class="buttons">
+            <button type="button" (click)="onChooseManageShelter()">
+              Gestionar una protectora
+            </button>
+
+            <button type="button" (click)="onChooseAdopt()">
+              Adoptar
+            </button>
+          </div>
+
+          <button type="button" class="link-button" (click)="onCloseFirstLoginDialog()">
+            Cerrar
+          </button>
+        </div>
+      </div>
+    }
+
+</section>

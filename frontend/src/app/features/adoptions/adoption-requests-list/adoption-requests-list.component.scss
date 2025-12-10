@@ -1,0 +1,527 @@
+/* =========================================
+   FUENTE GLOBAL DEL COMPONENTE
+========================================= */
+.requests-page,
+.requests-page * {
+  font-family: "Inter", sans-serif;
+}
+
+/* =========================================
+   PALETA
+========================================= */
+$blue-main:  #4A90E2;
+$green-main: #6DBF73;
+$yellow-cta: #F9CC41;
+$beige-bg:   #F5F0E6;
+$text-dark:  #333;
+$text-muted: #555;
+
+/* =========================================
+   LAYOUT PRINCIPAL
+========================================= */
+.requests-page {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 24px;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 24px auto;
+  padding: 0 24px;
+  background: $beige-bg;
+  min-height: calc(100vh - 80px);
+}
+
+/* =========================================
+   SIDEBAR - FILTERS
+========================================= */
+.filters {
+  background: #ffffff;
+  padding: 22px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: $blue-main;
+  }
+
+  .filters-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .filter-block {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    label {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: $text-dark;
+    }
+
+    select,
+    input[type='text'] {
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.18);
+      font-size: 0.95rem;
+      background: $beige-bg;
+      color: $text-dark;
+      transition: .18s ease;
+
+      &:focus {
+        border-color: $blue-main;
+        box-shadow: 0 0 0 3px rgba(74,144,226,0.25);
+        outline: none;
+      }
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: $text-muted;
+    }
+  }
+
+  .filters-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 4px;
+
+    button {
+      flex: 1;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: background .18s, transform .18s;
+
+      &:hover {
+        transform: translateY(-2px);
+      }
+    }
+
+    button[type='submit'] {
+      background: $green-main;
+      color: #fff;
+
+      &:hover {
+        background: darken($green-main, 10%);
+      }
+    }
+
+    button[type='button'] {
+      background: #f0f0f0;
+      color: $text-dark;
+
+      &:hover {
+        background: #d6d6d6;
+      }
+    }
+  }
+}
+
+/* =========================================
+   LISTA DE SOLICITUDES
+========================================= */
+.requests-list {
+  .list-header {
+    margin-bottom: 18px;
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 700;
+      color: $blue-main;
+    }
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 22px;
+  }
+
+  .request-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .image-wrapper {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  .card-content {
+    padding: 16px 18px;
+  }
+
+  .card-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+
+    .card-status {
+      width: 30%;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+
+    h3 {
+      width: 50%;
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: $green-main;
+    }
+  }
+
+  .meta {
+    margin: 6px 0;
+    font-size: 0.9rem;
+    color: $text-muted;
+  }
+
+  .shelter-info {
+    margin: 4px 0 8px;
+    font-size: 0.9rem;
+    color: $text-muted;
+  }
+
+  .message {
+    margin: 6px 0;
+    font-size: 0.9rem;
+    color: $text-dark;
+  }
+
+  .date {
+    margin: 4px 0 10px;
+    font-size: 0.85rem;
+    color: #777;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      border: none;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: $green-main;
+      color: #fff;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: background .18s, transform .18s;
+
+      &:hover {
+        background: darken($green-main, 10%);
+        transform: translateY(-2px);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+
+  .status-pill {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .status-pending {
+    background: $yellow-cta;
+    color: #856404;
+  }
+
+  .status-approved {
+    background: $green-main;
+    color: #fff;
+  }
+
+  .status-rejected {
+    background: #b73232;
+    color: #fff;
+  }
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+@media (max-width: 900px) {
+  .requests-page {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 540px) {
+  .requests-page {
+    padding: 0 14px;
+  }
+
+  .filters {
+    padding: 18px;
+  }
+
+  .card-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+
+    h3,
+    .card-status {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+}
+
+@media (max-width: 360px) {
+  .requests-page {
+    padding: 0 10px;
+  }
+
+  .requests-list .list-header h1 {
+    font-size: 1.6rem;
+  }
+}
+
+
+
+// .requests-page {
+//   display: grid;
+//   grid-template-columns: 280px 1fr;
+//   gap: 24px;
+//   align-items: flex-start;
+// }
+
+// /* SIDEBAR */
+// .filters {
+//   background: #ffffff;
+//   padding: 20px;
+//   border-radius: 12px;
+//   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+
+//   h2 {
+//     margin-top: 0;
+//     margin-bottom: 16px;
+//     font-size: 1.2rem;
+//     color: #1c7c54;
+//   }
+
+//   .filters-form {
+//     display: flex;
+//     flex-direction: column;
+//     gap: 16px;
+//   }
+
+//   .filter-block {
+//     display: flex;
+//     flex-direction: column;
+//     gap: 6px;
+
+//     label {
+//       font-weight: 500;
+//       font-size: 0.95rem;
+//     }
+
+//     select,
+//     input[type='text'] {
+//       padding: 6px 8px;
+//       border-radius: 6px;
+//       border: 1px solid #ddd;
+//       font-size: 0.95rem;
+//     }
+
+//     .checkbox-row {
+//       display: flex;
+//       align-items: center;
+//       gap: 8px;
+//       font-size: 0.9rem;
+//     }
+//   }
+
+//   .filters-actions {
+//     display: flex;
+//     gap: 8px;
+
+//     button {
+//       flex: 1;
+//       border: none;
+//       padding: 8px 10px;
+//       border-radius: 6px;
+//       cursor: pointer;
+//       font-size: 0.95rem;
+//     }
+
+//     button[type='submit'] {
+//       background: #1c7c54;
+//       color: #fff;
+//     }
+
+//     button[type='button'] {
+//       background: #f0f0f0;
+//     }
+//   }
+// }
+
+// /* LISTA DE SOLICITUDES */
+// .requests-list {
+//   .list-header {
+//     margin-bottom: 16px;
+
+//     h1 {
+//       margin: 0;
+//       font-size: 1.6rem;
+//       color: #333;
+//     }
+//   }
+
+//   .cards-grid {
+//     display: grid;
+//     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+//     gap: 20px;
+//   }
+
+//   .request-card {
+//     background: #fff;
+//     border-radius: 12px;
+//     overflow: hidden;
+//     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+//     display: flex;
+//     flex-direction: column;
+//   }
+
+//   .image-wrapper {
+//     width: 100%;
+//     height: 180px;
+//     overflow: hidden;
+
+//     img {
+//       width: 100%;
+//       height: 100%;
+//       object-fit: cover;
+//       display: block;
+//     }
+//   }
+
+//   .card-content {
+//     padding: 14px 16px;
+//   }
+
+//   .card-header-row {
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     gap: 8px;
+
+//     .card-status {
+//       width: 30%;
+//       display: flex;
+//       align-items: center;
+//       justify-content: space-around;
+//     }
+
+//     h3 {
+//       width: 50%;
+//       margin: 0;
+//       font-size: 1.2rem;
+//       color: #1c7c54;
+//     }
+//   }
+
+//   .meta {
+//     margin: 6px 0;
+//     font-size: 0.9rem;
+//     color: #555;
+//   }
+
+//   .shelter-info {
+//     margin: 4px 0 8px;
+//     font-size: 0.9rem;
+//     color: #555;
+//   }
+
+//   .message {
+//     margin: 6px 0;
+//     font-size: 0.9rem;
+//     color: #444;
+//   }
+
+//   .date {
+//     margin: 4px 0 10px;
+//     font-size: 0.85rem;
+//     color: #777;
+//   }
+
+//   .actions {
+//     display: flex;
+//     justify-content: flex-end;
+
+//     button {
+//       border: none;
+//       padding: 6px 12px;
+//       border-radius: 6px;
+//       background: #1c7c54;
+//       color: #fff;
+//       cursor: pointer;
+//       font-size: 0.9rem;
+//     }
+//   }
+
+//   .status-pill {
+//     padding: 3px 10px;
+//     border-radius: 10px;
+//     font-size: 1rem;
+//   }
+
+//   .status-pending {
+//     background: #fff4ce;
+//     color: #856404;
+//   }
+
+//   .status-approved {
+//     background: #d4edda;
+//     color: #155724;
+//   }
+
+//   .status-rejected {
+//     background: #f8d7da;
+//     color: #721c24;
+//   }
+// }
+
+// /* RESPONSIVE */
+// @media (max-width: 900px) {
+//   .requests-page {
+//     grid-template-columns: 1fr;
+//   }
+// }

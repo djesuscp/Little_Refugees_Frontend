@@ -1,0 +1,508 @@
+/* =========================================
+   FUENTE GLOBAL
+========================================= */
+.animal-detail-root,
+.animal-detail-root * {
+  font-family: "Inter", sans-serif;
+}
+
+/* =========================================
+   PALETA
+========================================= */
+$blue-main:  #4A90E2;
+$green-main: #6DBF73;
+$beige-bg:   #F5F0E6;
+$text-dark:  #333;
+$text-muted: #555;
+
+/* =========================================
+   ROOT WRAPPER
+========================================= */
+.animal-detail-root {
+  max-width: 1100px;
+  margin: 32px auto;
+  padding: 0 24px;
+  background: $beige-bg;
+  min-height: calc(100vh - 80px);
+}
+
+/* =========================================
+   HEADER
+========================================= */
+.header {
+  text-align: center;
+  margin-bottom: 36px;
+
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: $blue-main;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    color: $text-muted;
+    max-width: 650px;
+    margin: 0 auto;
+    line-height: 1.4;
+  }
+}
+
+/* =========================================
+   CAROUSEL
+========================================= */
+.carousel {
+  margin-bottom: 32px;
+}
+
+.carousel-frame {
+  position: relative;
+  max-width: 1000px;
+  height: 500px;
+  margin: 0 auto;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+}
+
+/* Botones laterales */
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  font-size: 1.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: .2s ease;
+
+  &.prev { left: 16px; }
+  &.next { right: 16px; }
+
+  &:hover {
+    background: rgba(0,0,0,0.7);
+    transform: translateY(-50%) scale(1.05);
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+}
+
+/* Dots */
+.carousel-dots {
+  margin-top: 14px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    border: none;
+    background: #d0d7d3;
+    cursor: pointer;
+    transition: .2s;
+
+    &.active {
+      background: $green-main;
+      transform: scale(1.2);
+    }
+  }
+}
+
+/* =========================================
+   INFO CARDS
+========================================= */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.info-card {
+  background: #fff;
+  padding: 24px 26px;
+  border-radius: 18px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+
+  h2 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: $green-main;
+  }
+
+  .info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 12px 0;
+
+    li {
+      margin-bottom: 6px;
+      color: $text-dark;
+
+      strong {
+        font-weight: 600;
+      }
+    }
+  }
+
+  .description {
+    margin-top: 10px;
+    color: $text-muted;
+    line-height: 1.4;
+  }
+}
+
+/* =========================================
+   ADOPTION FORM SECTION
+========================================= */
+.adoption-section {
+  margin-top: 32px;
+  padding: 26px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+
+  h2 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: $green-main;
+  }
+
+  p {
+    margin-bottom: 18px;
+    color: $text-muted;
+    line-height: 1.4;
+  }
+}
+
+/* Form */
+.adoption-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  label {
+    font-weight: 600;
+    color: $text-dark;
+  }
+
+  textarea {
+    resize: vertical;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.18);
+    padding: 12px 14px;
+    background: $beige-bg;
+    transition: .18s;
+
+    &:focus {
+      border-color: $blue-main;
+      box-shadow: 0 0 0 3px rgba(74,144,226,0.25);
+      outline: none;
+    }
+  }
+
+  .error small {
+    color: #b00020;
+    font-weight: 600;
+  }
+
+  /* Botón principal estilo global */
+  button {
+    align-self: flex-start;
+    padding: 10px 20px;
+    margin-top: 6px;
+    border-radius: 999px;
+    background: $green-main;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: .22s ease;
+
+    &:hover {
+      background: darken($green-main, 10%);
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+@media (max-width: 600px) {
+  .header h1 {
+    font-size: 1.7rem;
+  }
+
+  .carousel-frame {
+    height: 260px;
+  }
+
+  .info-card {
+    padding: 20px;
+  }
+
+  .adoption-section {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 360px) {
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .carousel-frame {
+    height: 220px;
+  }
+}
+
+
+
+// .animal-detail-root {
+//   max-width: 1100px;
+//   margin: 32px auto;
+//   padding: 0 24px;
+// }
+
+// .header {
+//   text-align: center;
+//   margin-bottom: 32px;
+
+//   h1 {
+//     font-size: 2rem;
+//     font-weight: 600;
+//     color: #1c7c54;
+//     margin-bottom: 8px;
+//   }
+
+//   .subtitle {
+//     font-size: 1.1rem;
+//     color: #555;
+//   }
+// }
+
+// /* CAROUSEL */
+// .carousel {
+//   margin-bottom: 32px;
+// }
+
+// .carousel-frame {
+//   position: relative;
+//   max-width: 1000px;
+//   height: 500px;
+//   margin: 0 auto;
+//   border-radius: 16px;
+//   overflow: hidden;
+//   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+//   background: #000;
+
+//   img {
+//     width: 100%;
+//     height: 100%;
+//     display: block;
+//     object-fit: contain;
+//   }
+// }
+
+// .carousel-nav {
+//   position: absolute;
+//   top: 50%;
+//   transform: translateY(-50%);
+//   width: 42px;
+//   height: 42px;
+//   border-radius: 50%;
+//   border: none;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   background: rgba(0, 0, 0, 0.45);
+//   color: #fff;
+//   font-size: 1.8rem;
+//   cursor: pointer;
+//   transition: background 0.2s, transform 0.1s;
+
+//   &.prev {
+//     left: 16px;
+//   }
+
+//   &.next {
+//     right: 16px;
+//   }
+
+//   &:hover {
+//     background: rgba(0, 0, 0, 0.7);
+//     transform: translateY(-50%) scale(1.03);
+//   }
+
+//   &:active {
+//     transform: translateY(-50%) scale(0.97);
+//   }
+// }
+
+// /* NUEVO: puntos de navegación */
+// .carousel-dots {
+//   margin-top: 12px;
+//   display: flex;
+//   justify-content: center;
+//   gap: 8px;
+// }
+
+// .carousel-dots .dot {
+//   width: 10px;
+//   height: 10px;
+//   border-radius: 999px;
+//   border: none;
+//   background: #d0d7d3;
+//   cursor: pointer;
+//   transition: background 0.2s, transform 0.1s;
+
+//   &.active {
+//     background: #1c7c54;
+//     transform: scale(1.15);
+//   }
+// }
+
+// /* INFO GRID */
+// .info-grid {
+//   display: grid;
+//   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+//   gap: 24px;
+//   margin-bottom: 32px;
+// }
+
+// .info-card {
+//   background: #fff;
+//   border-radius: 12px;
+//   padding: 20px 22px;
+//   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+
+//   h2 {
+//     font-size: 1.3rem;
+//     margin-bottom: 10px;
+//     color: #1c7c54;
+//   }
+
+//   .info-list {
+//     list-style: none;
+//     padding: 0;
+//     margin: 0 0 10px 0;
+
+//     li {
+//       margin-bottom: 4px;
+//       color: #444;
+
+//       strong {
+//         font-weight: 600;
+//       }
+//     }
+//   }
+
+//   .description {
+//     margin-top: 8px;
+//     color: #555;
+//   }
+// }
+
+// /* ADOPTION FORM */
+// .adoption-section {
+//   margin-top: 32px;
+//   padding: 22px;
+//   background: #f7faf9;
+//   border-radius: 12px;
+//   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+
+//   h2 {
+//     font-size: 1.4rem;
+//     margin-bottom: 8px;
+//     color: #1c7c54;
+//   }
+
+//   p {
+//     margin-bottom: 16px;
+//     color: #555;
+//   }
+// }
+
+// .adoption-form {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 10px;
+
+//   label {
+//     font-weight: 500;
+//     color: #333;
+//   }
+
+//   textarea {
+//     resize: vertical;
+//     border-radius: 8px;
+//     border: 1px solid #d0d7d3;
+//     padding: 8px 10px;
+//     font: inherit;
+
+//     &:focus {
+//       outline: none;
+//       border-color: #1c7c54;
+//       box-shadow: 0 0 0 1px rgba(28, 124, 84, 0.2);
+//     }
+//   }
+
+//   .error {
+//     small {
+//       color: #b00020;
+//     }
+//   }
+
+//   button {
+//     align-self: flex-start;
+//     margin-top: 4px;
+//     border: none;
+//     padding: 8px 18px;
+//     border-radius: 8px;
+//     background: #1c7c54;
+//     color: #fff;
+//     font-weight: 500;
+//     cursor: pointer;
+//     transition: background 0.2s;
+
+//     &:hover {
+//       background: #145c3e;
+//     }
+//   }
+// }
+
+// @media (max-width: 600px) {
+//   .header h1 {
+//     font-size: 1.6rem;
+//   }
+//   .carousel-frame {
+//     height: 260px;
+//   }
+// }

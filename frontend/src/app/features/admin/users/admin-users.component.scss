@@ -1,0 +1,459 @@
+/* =========================================
+   FUENTE GLOBAL DEL COMPONENTE
+========================================= */
+.admin-users-root,
+.admin-users-root * {
+  font-family: "Inter", sans-serif;
+}
+
+/* =========================================
+   PALETA GLOBAL
+========================================= */
+$blue-main:  #4A90E2;
+$green-main: #6DBF73;
+$yellow-cta: #F9CC41;
+$orange-cta: #F7A26A;
+$beige-bg:   #F5F0E6;
+$text-dark:  #333;
+$text-muted: #555;
+
+/* =========================================
+   ROOT WRAPPER
+========================================= */
+.admin-users-root {
+  max-width: 900px;
+  margin: 32px auto;
+  padding: 0 24px;
+  background: $beige-bg;
+  min-height: calc(100vh - 80px);
+}
+
+/* =========================================
+   HEADER
+========================================= */
+.header {
+  text-align: center;
+  margin-bottom: 36px;
+
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: $blue-main;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    color: $text-muted;
+    font-size: 1.05rem;
+  }
+}
+
+/* =========================================
+   ADD ADMIN CARD
+========================================= */
+.add-admin {
+  margin-bottom: 32px;
+  padding: 24px 26px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    input {
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.18);
+      background: #fff;
+      font-size: 1rem;
+      transition: .18s;
+
+      &:focus {
+        border-color: $blue-main;
+        box-shadow: 0 0 0 3px rgba(74,144,226,0.25);
+        outline: none;
+      }
+    }
+
+    button {
+      align-self: flex-start;
+      margin-top: 4px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: none;
+      background: $green-main;
+      color: #fff;
+      cursor: pointer;
+      font-weight: 600;
+      transition: .18s;
+
+      &:hover {
+        background: darken($green-main, 10%);
+        transform: translateY(-2px);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+
+  .error small {
+    color: red;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+}
+
+/* =========================================
+   ADMIN LIST TABLE
+========================================= */
+.admins-list {
+  padding: 26px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+
+    th,
+    td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+      font-size: 0.95rem;
+    }
+
+    th {
+      font-weight: 700;
+      color: $text-dark;
+    }
+
+    /* Action button */
+    button {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: none;
+      background: $orange-cta;
+      color: #fff;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: .18s;
+
+      &:hover {
+        background: darken($orange-cta, 10%);
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+/* =========================================
+   POPUP (MODAL)
+========================================= */
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.dialog {
+  background: #fff;
+  padding: 28px;
+  border-radius: 18px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.20);
+  animation: fadeIn .25s ease-out;
+
+  h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: $blue-main;
+  }
+
+  p {
+    margin-bottom: 18px;
+    color: $text-muted;
+    line-height: 1.35;
+  }
+
+  select {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.18);
+    background: $beige-bg;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    transition: .18s;
+
+    &:focus {
+      border-color: $blue-main;
+      box-shadow: 0 0 0 3px rgba(74,144,226,0.25);
+      outline: none;
+    }
+  }
+
+  .dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    button {
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: .18s;
+    }
+
+    /* Secondary */
+    .btn-secondary {
+      background: #e6e6e6;
+      color: $text-dark;
+
+      &:hover {
+        background: #d0d0d0;
+        transform: translateY(-2px);
+      }
+    }
+
+    /* Confirm */
+    button:not(.btn-secondary) {
+      background: $green-main;
+      color: #fff;
+
+      &:hover {
+        background: darken($green-main, 10%);
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+/* Modal animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 540px) {
+  .admin-users-root {
+    padding: 0 14px;
+  }
+
+  .admins-list,
+  .add-admin {
+    padding: 20px;
+  }
+
+  table th,
+  table td {
+    padding: 8px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  h1 {
+    font-size: 1.7rem !important;
+  }
+
+  .dialog {
+    padding: 20px;
+  }
+}
+
+
+
+// .admin-users-root {
+//   max-width: 900px;
+//   margin: 32px auto;
+//   padding: 0 24px;
+// }
+
+// .header {
+//   text-align: center;
+//   margin-bottom: 32px;
+
+//   h1 {
+//     font-size: 2rem;
+//     color: #1c7c54;
+//     margin-bottom: 8px;
+//   }
+
+//   .subtitle {
+//     color: #555;
+//   }
+// }
+
+// .add-admin {
+//   margin-bottom: 32px;
+//   padding: 20px;
+//   background: #fff;
+//   border-radius: 12px;
+//   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+
+//   form {
+//     display: flex;
+//     flex-direction: column;
+//     gap: 8px;
+
+//     input {
+//       padding: 8px;
+//       border-radius: 6px;
+//       border: 1px solid #ccc;
+//     }
+
+//     button {
+//       align-self: flex-start;
+//       margin-top: 8px;
+//       padding: 8px 14px;
+//       border-radius: 6px;
+//       border: none;
+//       background: #1c7c54;
+//       color: #fff;
+//       cursor: pointer;
+//       transition: background .2s;
+
+//       &:hover {
+//         background: #145c3e;
+//       }
+//     }
+//   }
+
+//   .error small {
+//     color: red;
+//     font-size: 0.85rem;
+//   }
+// }
+
+// .admins-list {
+//   padding: 20px;
+//   background: #fff;
+//   border-radius: 12px;
+//   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+
+//   table {
+//     width: 100%;
+//     border-collapse: collapse;
+//     margin-top: 12px;
+
+//     th,
+//     td {
+//       padding: 8px 10px;
+//       text-align: left;
+//       border-bottom: 1px solid #eee;
+//     }
+
+//     th {
+//       font-weight: 600;
+//     }
+
+//     button {
+//       padding: 6px 10px;
+//       border-radius: 6px;
+//       border: none;
+//       background: #e67e22;
+//       color: #fff;
+//       cursor: pointer;
+//       font-size: 0.85rem;
+//       transition: background .2s;
+
+//       &:hover {
+//         background: #cf711f;
+//       }
+//     }
+//   }
+// }
+
+// /* Popup */
+// .dialog-backdrop {
+//   position: fixed;
+//   inset: 0;
+//   background: rgba(0,0,0,0.35);
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   z-index: 50;
+// }
+
+// .dialog {
+//   background: #fff;
+//   padding: 24px;
+//   border-radius: 12px;
+//   max-width: 420px;
+//   width: 100%;
+//   box-shadow: 0 8px 26px rgba(0,0,0,0.18);
+
+//   h3 {
+//     margin-top: 0;
+//     margin-bottom: 8px;
+//     color: #1c7c54;
+//   }
+
+//   p {
+//     margin-bottom: 16px;
+//     color: #555;
+//   }
+
+//   select {
+//     width: 100%;
+//     padding: 8px;
+//     border-radius: 6px;
+//     border: 1px solid #ccc;
+//     margin-bottom: 16px;
+//   }
+
+//   .dialog-actions {
+//     display: flex;
+//     justify-content: flex-end;
+//     gap: 8px;
+
+//     button {
+//       padding: 8px 14px;
+//       border-radius: 6px;
+//       border: none;
+//       cursor: pointer;
+//     }
+
+//     .btn-secondary {
+//       background: #eee;
+//       color: #333;
+//     }
+
+//     button:not(.btn-secondary) {
+//       background: #1c7c54;
+//       color: #fff;
+
+//       &:hover {
+//         background: #145c3e;
+//       }
+//     }
+//   }
+// }

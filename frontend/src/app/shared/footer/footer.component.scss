@@ -1,0 +1,90 @@
+/* =========================================
+   PALETA DE COLORES (coherente con todo tu diseño)
+========================================= */
+$blue-main:     #4A90E2;
+$green-main:    #6DBF73;
+$green-dark:    #2F4A3B;   // Verde profundo para fondo
+$beige-bg:      #F5F0E6;
+$yellow-cta:    #F9CC41;
+$text-light:    #F5F0E6;
+$text-muted:    rgba(255,255,255,0.82);
+
+/* =========================================
+   FOOTER PRINCIPAL
+========================================= */
+.footer-root {
+  background: $green-dark;
+  color: $text-light;
+  padding: 50px 0 30px;
+  margin-top: 60px;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 40px;
+}
+
+.footer-section {
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 14px;
+    color: $yellow-cta;
+  }
+
+  p {
+    line-height: 1.6;
+    color: $text-muted;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin-bottom: 10px;
+      color: $text-muted;
+
+      a {
+        text-decoration: none;
+        color: $text-light;
+        transition: color .2s;
+
+        &:hover {
+          color: $yellow-cta;
+        }
+      }
+    }
+  }
+}
+
+/* =========================================
+   PARTE INFERIOR DEL FOOTER
+========================================= */
+.footer-bottom {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+@media (max-width: 600px) {
+  .footer-root {
+    padding: 40px 0 20px;
+  }
+
+  .footer-section h3 {
+    font-size: 1.1rem;
+  }
+}

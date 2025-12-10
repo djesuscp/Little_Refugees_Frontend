@@ -1,0 +1,44 @@
+<section class="admin-root">
+
+  <header class="header">
+    <h1>Panel de administración</h1>
+    <p class="subtitle">
+      Gestiona animales, solicitudes, protectora y usuarios.
+    </p>
+  </header>
+
+  <section class="cards-grid">
+
+    <!-- Animales -->
+    <a class="card" routerLink="/admin/animals">
+      <div class="icon">🐾</div>
+      <h3>Animales</h3>
+      <p>Crear, editar y administrar animales del refugio.</p>
+    </a>
+
+    <!-- Solicitudes -->
+    <a class="card" routerLink="/admin/adoptions">
+      <div class="icon">📄</div>
+      <h3>Solicitudes de adopción</h3>
+      <p>Revisa y gestiona las solicitudes recibidas.</p>
+    </a>
+
+    <!-- Shelter -->
+    <a class="card" routerLink="/admin/shelter">
+      <div class="icon">🏠</div>
+      <h3>Mi protectora</h3>
+      <p>Actualiza información de tu protectora.</p>
+    </a>
+
+    <!-- Usuarios (solo owner admin) -->
+    @if (user?.isAdminOwner) {
+      <a class="card" routerLink="/admin/users">
+        <div class="icon">👥</div>
+        <h3>Administradores</h3>
+        <p>Gestiona administradores del refugio.</p>
+      </a>
+    }
+
+  </section>
+
+</section>

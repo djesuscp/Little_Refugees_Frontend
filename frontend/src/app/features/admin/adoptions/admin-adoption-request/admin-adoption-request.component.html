@@ -1,0 +1,143 @@
+<section class="adoption-request-root">
+
+  <header class="header">
+    <button type="button" class="back-btn" (click)="onBackToList()">
+      ← Volver a solicitudes
+    </button>
+
+    <h1>Solicitud de adopción</h1>
+
+    @if (request) {
+      <p class="subtitle">
+        Solicitud #{{ request.id }} ·
+        <span [ngClass]="statusClass">{{ statusLabel }}</span>
+      </p>
+    }
+  </header>
+
+  @if (loading) {
+    <p>Cargando solicitud...</p>
+  } @else {
+
+    @if (!request) {
+      <p>No se ha encontrado la solicitud.</p>
+    } @else {
+
+      <!-- Dos columnas: Animal / Usuario -->
+      <section class="columns">
+
+        <!-- Columna Animal -->
+        <article class="card">
+          <h2>Datos del animal</h2>
+
+          <div class="animal-info">
+            <div class="image-wrapper">
+              <img [src]="getAnimalPhotoUrl()" [alt]="request.animal.name" />
+            </div>
+
+            <div class="info">
+              <h3>{{ request.animal.name }}</h3>
+              <p class="meta">
+                {{ request.animal.species }} · {{ request.animal.breed }} · {{ request.animal.gender }}
+                @if (request.animal.age != null) {
+                  · {{ request.animal.age }} años
+                }
+              </p>
+
+              @if (request.animal.description) {
+                <p class="description">
+                  {{ request.animal.description }}
+                </p>
+              }
+
+              <p class="extra">
+                Adoptado: <strong>{{ request.animal.adopted ? 'Sí' : 'No' }}</strong>
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Columna Usuario -->
+        <article class="card">
+          <h2>Datos del solicitante</h2>
+
+          <div class="user-info">
+            <p><strong>Nombre:</strong> {{ request.user.fullName }}</p>
+            <p><strong>Email:</strong> {{ request.user.email }}</p>
+            <p>
+              <strong>Registrado desde:</strong>
+              {{ request.user.createdAt | date:'short' }}
+            </p>
+          </div>
+        </article>
+
+      </section>
+
+      <!-- Mensaje y datos de la solicitud -->
+      <section class="card request-details">
+        <h2>Detalles de la solicitud</h2>
+
+        <p>
+          <strong>Fecha de solicitud:</strong>
+          {{ request.createdAt | date:'short' }}
+        </p>
+
+        <p><strong>Mensaje enviado por el usuario:</strong></p>
+        <p class="message">
+          {{ request.message }}
+        </p>
+      </section>
+
+      <!-- Acciones sobre el estado -->
+      <section class="card actions-card">
+        <h2>Actualizar estado</h2>
+
+        <div class="actions-row">
+          <button type="button" class="btn-pending" (click)="onMarkPending()">
+            Marcar como pendiente
+          </button>
+
+          <button type="button" class="btn-approved" (click)="onMarkApproved()">
+            Marcar como aprobada
+          </button>
+
+          <button type="button" class="btn-rejected" (click)="onMarkRejected()">
+            Marcar como rechazada
+          </button>
+        </div>
+      </section>
+
+      <!-- 🔹 NUEVO: botón eliminar (solo si se puede eliminar) -->
+      @if (canDelete) {
+        <button
+          type="button"
+          class="btn-danger"
+          (click)="onAskDelete()"
+        >
+          Eliminar solicitud
+        </button>
+      }
+
+      <!-- Diálogo de confirmación -->
+      @if (showConfirmDialog && pendingStatusChange) {
+        <app-confirm-action-dialog
+          [message]="confirmMessage"
+          confirmLabel="Confirmar"
+          cancelLabel="Cancelar"
+          (confirm)="onConfirmStatusChange()"
+          (cancel)="onCancelStatusDialog()"
+        />
+      }
+
+      <!-- 🔹 NUEVO: dialog para BORRAR solicitud -->
+      @if (showDeleteDialog) {
+        <app-confirm-action-dialog
+          message="¿Seguro que deseas eliminar esta solicitud? Esta acción no se puede deshacer."
+          (confirm)="onConfirmDelete()"
+          (cancel)="onCancelDelete()"
+        />
+      }
+    }
+  }
+
+</section>

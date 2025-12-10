@@ -1,0 +1,128 @@
+<section class="admin-users-root">
+
+  <header class="header">
+    <h1>Gestión de administradores</h1>
+
+    @if (currentUser?.shelterId) {
+      <p class="subtitle">
+        Estás gestionando los administradores de tu protectora.
+      </p>
+    }
+  </header>
+
+  <!-- FORM AÑADIR ADMIN -->
+  <section class="add-admin">
+    <h2>Añadir administrador</h2>
+
+    <form [formGroup]="addAdminForm" (ngSubmit)="onAddAdmin()">
+      <label>Email del usuario</label>
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="usuario&#64;dominio.com"
+      />
+
+      @if (addAdminForm.get('email')?.touched && addAdminForm.get('email')?.invalid) {
+        <div class="error">
+          @if (addAdminForm.get('email')?.errors?.['required']) {
+            <small>El email es obligatorio.</small>
+          }
+          @if (addAdminForm.get('email')?.errors?.['realEmail']) {
+            <small>Introduce un email válido, por ejemplo: usuario&#64;dominio.com</small>
+          }
+        </div>
+      }
+
+      <button type="submit" [disabled]="addAdminForm.invalid">
+        Añadir administrador
+      </button>
+    </form>
+  </section>
+
+  <!-- LISTA DE ADMINS (SIN OWNER) -->
+  <section class="admins-list">
+    <h2>Administradores de la protectora</h2>
+
+    @if (loading) {
+      <p>Cargando administradores...</p>
+    } @else {
+
+      @if (displayedAdmins.length === 0) {
+        <p>No hay administradores (aparte de ti).</p>
+      } @else {
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre completo</th>
+                <th>Email</th>
+                <th>Creado</th>
+                <th>Actualizado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (admin of displayedAdmins; track admin.id) {
+                <tr>
+                  <td>{{ admin.id }}</td>
+                  <td>{{ admin.fullName }}</td>
+                  <td>{{ admin.email }}</td>
+                  <td>{{ admin.createdAt | date:'short' }}</td>
+                  <td>{{ admin.updatedAt | date:'short' }}</td>
+                  <td>
+                    <button type="button" (click)="onClickRemoveAdmin(admin)">
+                      Quitar como admin
+                    </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    }
+  </section>
+
+  <!-- DIÁLOGO REASIGNACIÓN -->
+  @if (showReassignDialog && adminToReassign) {
+    <div class="dialog-backdrop">
+      <div class="dialog">
+        <h3>Reasignar solicitudes</h3>
+        <p>
+          El administrador <strong>{{ adminToReassign.fullName }}</strong>
+          tiene solicitudes pendientes o aprobadas. Debes reasignarlas a otro administrador antes de quitarlo de la protectora.
+        </p>
+
+        <form [formGroup]="reassignForm" (ngSubmit)="onSubmitReassign()">
+          <label>Nuevo administrador responsable</label>
+          <select formControlName="newAdminId">
+            <option value="" disabled selected>Selecciona un administrador</option>
+            @for (candidate of reassignmentCandidates; track candidate.id) {
+              <option [value]="candidate.id">
+                {{ candidate.fullName }} (ID: {{ candidate.id }})
+              </option>
+            }
+          </select>
+
+          @if (reassignForm.get('newAdminId')?.touched && reassignForm.get('newAdminId')?.invalid) {
+            <div class="error">
+              <small>Debes seleccionar un administrador.</small>
+            </div>
+          }
+
+          <div class="dialog-actions">
+            <button type="button" class="btn-secondary" (click)="closeReassignDialog()">
+              Cancelar
+            </button>
+            <button type="submit" [disabled]="reassignForm.invalid">
+              Reasignar solicitudes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
+</section>
+

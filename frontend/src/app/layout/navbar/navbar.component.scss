@@ -1,0 +1,221 @@
+/* =========================================
+   PALETA DE COLORES (marca recomendada)
+========================================= */
+$blue-main:     #4A90E2;
+$green-main:    #6DBF73;
+$beige-bg:      #F5F0E6;
+$yellow-cta:    #F9CC41;
+$orange-cta:    #F7A26A;
+$text-dark:     #333;
+$text-muted:    #555;
+
+/* =========================================
+   APLICAR FUENTE INTER A TODO EL NAVBAR
+========================================= */
+.nav-root,
+.nav-root * {
+  font-family: "Inter", sans-serif;
+}
+
+/* =========================================
+   NAVBAR GENERAL
+========================================= */
+.nav-root {
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  padding: 0.5em 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  backdrop-filter: blur(6px);
+}
+
+.nav-content {
+  max-width: 70%;
+  margin: 0 auto;
+  padding: 0 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* =========================================
+   BRAND / LOGO
+========================================= */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+
+  img {
+    height: 50px;
+  }
+
+  span {
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: $blue-main;
+    letter-spacing: 0.5px;
+  }
+}
+
+/* =========================================
+   MENÚ PRINCIPAL
+========================================= */
+.menu {
+  display: flex;
+  list-style: none;
+  justify-content: space-around;
+  width: 50%;
+
+  a {
+    text-decoration: none;
+    color: $text-dark;
+    font-weight: 500;
+    transition: color .22s ease, transform .2s ease;
+
+    &:hover {
+      color: $green-main;
+    }
+  }
+}
+
+/* =========================================
+   BOTÓN DE LOGOUT (estilo pill moderno)
+========================================= */
+.btn-logout {
+  border: none;
+  padding: 8px 18px;
+  background: $green-main;
+  color: #fff;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  transition: background .18s, transform .2s;
+
+  &:hover {
+    background: darken($green-main, 10%);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0px);
+  }
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+/* Tablets y móviles (menú oculto) */
+@media (max-width: 768px) {
+  .menu {
+    display: none;
+  }
+
+  .brand span {
+    font-size: 1.35rem;
+  }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+  .nav-content {
+    padding: 0 16px;
+  }
+
+  .brand img {
+    height: 34px;
+  }
+
+  .brand span {
+    font-size: 1.2rem;
+  }
+
+  .btn-logout {
+    padding: 7px 16px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Teléfonos muy compactos (iPhone SE, Android pequeños) */
+@media (max-width: 360px) {
+  .brand {
+    gap: 8px;
+  }
+
+  .brand span {
+    font-size: 1.1rem;
+  }
+}
+
+
+// .nav-root {
+//   width: 100%;
+//   background: #ffffff;
+//   border-bottom: 1px solid #e6e6e6;
+//   padding: 12px 0;
+// }
+
+// .nav-content {
+//   max-width: 1200px;
+//   margin: 0 auto;
+//   padding: 0 24px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+// }
+
+// .brand {
+//   display: flex;
+//   align-items: center;
+//   gap: 10px;
+//   cursor: pointer;
+
+//   img {
+//     height: 36px;
+//   }
+
+//   span {
+//     font-size: 1.4rem;
+//     font-weight: 600;
+//     color: #333;
+//   }
+// }
+
+// .menu {
+//   display: flex;
+//   gap: 20px;
+//   list-style: none;
+
+//   a {
+//     text-decoration: none;
+//     color: #444;
+//     font-weight: 500;
+//     transition: color .2s;
+
+//     &:hover {
+//       color: #1c7c54; // tono verde elegante como Zooasis
+//     }
+//   }
+// }
+
+// .btn-logout {
+//   border: none;
+//   padding: 6px 14px;
+//   background: #1c7c54;
+//   color: #fff;
+//   border-radius: 6px;
+//   cursor: pointer;
+//   transition: background .2s;
+
+//   &:hover {
+//     background: #145c3e;
+//   }
+// }

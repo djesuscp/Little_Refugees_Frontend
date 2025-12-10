@@ -1,0 +1,191 @@
+/* =========================================
+   FUENTE DEL COMPONENTE
+========================================= */
+.dialog-backdrop,
+.dialog-backdrop * {
+  font-family: "Inter", sans-serif;
+}
+
+/* =========================================
+   BACKDROP
+========================================= */
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* =========================================
+   DIALOG CONTAINER
+========================================= */
+.dialog {
+  background: #ffffff;
+  padding: 26px 24px;
+  border-radius: 16px;
+  max-width: 380px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+  animation: fadeIn .2s ease-out;
+}
+
+/* =========================================
+   TEXTO DEL MENSAJE
+========================================= */
+.message {
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #333;
+  line-height: 1.45;
+}
+
+/* =========================================
+   ACCIONES (BOTONES)
+========================================= */
+.actions {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 14px;
+}
+
+/* ---------------- BUTTON: Secondary (gris) ---------------- */
+.btn-secondary {
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+
+  background: #ccc;
+  color: #333;
+  font-weight: 600;
+  transition: background .2s, transform .2s;
+
+  &:hover {
+    background: #a5a5a5;
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/* ---------------- BUTTON: Primary (rojo) ---------------- */
+.btn-primary {
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+
+  background: #c62828;
+  color: white;
+  font-weight: 600;
+  transition: background .2s, transform .2s;
+
+  &:hover {
+    background: #a02121;
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   ANIMACIONES
+========================================= */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+@media (max-width: 420px) {
+  .dialog {
+    padding: 20px 18px;
+    border-radius: 14px;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    padding: 12px;
+  }
+}
+
+
+
+
+// .dialog-backdrop {
+//   position: fixed;
+//   inset: 0;
+//   background: rgba(0,0,0,0.4);
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   z-index: 999;
+// }
+
+// .dialog {
+//   background: #fff;
+//   padding: 24px;
+//   border-radius: 10px;
+//   max-width: 380px;
+//   width: 90%;
+//   text-align: center;
+//   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+// }
+
+// .message {
+//   margin-bottom: 20px;
+//   font-weight: 500;
+//   font-size: 1rem;
+// }
+
+// .actions {
+//   display: flex;
+//   justify-content: space-evenly;
+//   gap: 10px;
+// }
+
+// .btn-secondary,
+// .btn-primary {
+//   padding: 8px 14px;
+//   border-radius: 6px;
+//   border: none;
+//   cursor: pointer;
+// }
+
+// .btn-secondary {
+//   background: #ccc;
+//   &:hover {
+//     background: #a5a5a5;
+//   }
+// }
+
+// .btn-primary {
+//   background: #c62828;
+//   color: #fff;
+//   &:hover {
+//     background: #a02121;
+//   }
+// }

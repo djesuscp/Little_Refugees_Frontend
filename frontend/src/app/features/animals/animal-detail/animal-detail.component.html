@@ -1,0 +1,185 @@
+<section class="animal-detail-root">
+
+  @if (loading) {
+    <p>Cargando información del animal...</p>
+  } @else if (animal) {
+
+    <header class="header">
+      <h1>{{ animal.name }}</h1>
+      <p class="subtitle">
+        {{ animal.species }} · {{ animal.breed }} · {{ animal.gender }}
+        @if (animal.age != null) {
+          · {{ animal.age }} años
+        }
+      </p>
+    </header>
+
+    <!-- CAROUSEL DE FOTOS
+    <section class="carousel">
+      <div class="carousel-image-wrapper">
+        <img [src]="currentPhotoUrl" [alt]="animal.name" />
+      </div>
+
+      @if (photos.length > 1) {
+        <div class="carousel-controls">
+          <button type="button" (click)="onPrevPhoto()">
+            « Anterior
+          </button>
+          <span>{{ currentPhotoIndex + 1 }} / {{ photos.length }}</span>
+          <button type="button" (click)="onNextPhoto()">
+            Siguiente »
+          </button>
+        </div>
+      }
+    </section>-->
+
+        <!-- CAROUSEL DE FOTOS -->
+    <section class="carousel">
+
+      <div class="carousel-frame">
+        <!-- Botón anterior -->
+        @if (photos.length > 1) {
+          <button
+            type="button"
+            class="carousel-nav prev"
+            (click)="onPrevPhoto()"
+          >
+            ‹
+          </button>
+        }
+
+        <!-- Imagen principal -->
+        <img [src]="currentPhotoUrl" [alt]="animal.name" />
+
+        <!-- Botón siguiente -->
+        @if (photos.length > 1) {
+          <button
+            type="button"
+            class="carousel-nav next"
+            (click)="onNextPhoto()"
+          >
+            ›
+          </button>
+        }
+      </div>
+
+      <!-- NUEVO: indicadores (dots) -->
+      @if (photos.length > 1) {
+        <div class="carousel-dots">
+          @for (photo of photos; let i = $index; track i) {
+            <button
+              type="button"
+              class="dot"
+              [class.active]="i === currentPhotoIndex"
+              (click)="goToPhoto(i)"
+            ></button>
+          }
+        </div>
+      }
+
+    </section>
+
+
+    <!-- INFO ANIMAL + PROTECTORA -->
+    <section class="info-grid">
+
+      <!-- Columna izquierda: animal -->
+      <div class="info-card">
+        <h2>Información del animal</h2>
+
+        <ul class="info-list">
+          <li><strong>Nombre:</strong> {{ animal.name }}</li>
+          <li><strong>Especie:</strong> {{ animal.species }}</li>
+          <li><strong>Raza:</strong> {{ animal.breed }}</li>
+          <li><strong>Género:</strong> {{ animal.gender }}</li>
+          @if (animal.age != null) {
+            <li><strong>Edad:</strong> {{ animal.age }} años</li>
+          }
+          <li>
+            <strong>Estado:</strong>
+            @if (animal.adopted) {
+              Adoptado
+            } @else {
+              Disponible para adopción
+            }
+          </li>
+        </ul>
+
+        @if (animal.description) {
+          <h2>Descripción del animal:</h2>
+          <p class="description">
+            {{ animal.description }}
+          </p>
+        }
+      </div>
+
+      <!-- Columna derecha: protectora -->
+      <div class="info-card">
+        <h2>Información de la protectora</h2>
+
+        <ul class="info-list">
+          <li><strong>Nombre:</strong> {{ animal.shelter.name }}</li>
+          <li><strong>Email:</strong> {{ animal.shelter.email }}</li>
+          <li><strong>Dirección:</strong> {{ animal.shelter.address }}</li>
+          @if (animal.shelter.phone) {
+            <li><strong>Teléfono:</strong> {{ animal.shelter.phone }}</li>
+          }
+        </ul>
+
+        @if (animal.shelter.description) {
+          <h2>Descripción de la protectora:</h2>
+          <p class="description">
+            {{ animal.shelter.description }}
+          </p>
+        }
+      </div>
+
+    </section>
+
+    <!-- FORMULARIO SOLICITUD DE ADOPCIÓN -->
+    <section class="adoption-section">
+      @if (!canAdopt) {
+        <h2>¿Quieres adoptar a {{ animal.name }}?</h2>
+        <p>
+          Para poder enviar una solicitud, primero debes completar tu configuración inicial.
+          Puedes hacerlo siguiendo <a routerLink="/home">este enlace</a> y seleccionando la opción <strong>Adoptar</strong>.
+        </p>
+      } @else {
+        <h2>
+        ¿Estás interesado/a en adoptar a {{ animal.name }}?
+        </h2>
+        <p>
+          Envíanos una solicitud explicando un poco sobre ti y por qué quieres adoptar.
+        </p>
+
+        <form
+          [formGroup]="adoptionForm"
+          (ngSubmit)="onSubmitAdoption()"
+          class="adoption-form"
+        >
+          <label>Mensaje *</label>
+          <textarea
+            rows="5"
+            formControlName="message"
+            placeholder="Escribe aquí tu mensaje..."
+          ></textarea>
+
+          @if (adoptionForm.get('message')?.touched && adoptionForm.get('message')?.invalid) {
+            <div class="error">
+              <small>El mensaje es obligatorio.</small>
+            </div>
+          }
+
+          <button type="submit">
+            Enviar solicitud
+          </button>
+        </form>
+      }
+      
+    </section>
+
+  } @else {
+    <p>No se ha encontrado este animal.</p>
+  }
+
+</section>

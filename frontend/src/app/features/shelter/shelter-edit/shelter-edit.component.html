@@ -1,0 +1,54 @@
+<section class="shelter-edit-root">
+
+  <h1>Editar protectora</h1>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <label>Nombre</label>
+    <input formControlName="name" />
+
+    @if (form.get('fullName')?.touched && form.get('fullName')?.invalid) {
+        <div class="error">
+        @if (form.get('fullName')?.errors?.['minlength']) {
+            <small>Debe tener al menos 3 caracteres.</small>
+        }
+        </div>
+    }
+
+    <label>Email</label>
+    <input formControlName="email" />
+
+    @if (form.get('email')?.touched && form.get('email')?.invalid) {
+        <div class="error">
+        @if (form.get('email')?.errors?.['realEmail']) {
+            <small>Introduce un email válido, por ejemplo: usuario&#64;dominio.com</small>
+        }
+        </div>
+    }
+
+    <label>Dirección</label>
+    <input formControlName="address" />
+
+    <label>Teléfono</label>
+    <input formControlName="phone" />
+
+    <div class="error">
+      @if (form.get('phone')?.errors?.['minlength']) {
+        <small>Debe ser un número de teléfono real.</small>
+      }
+    </div>
+
+    <label>Descripción</label>
+    <textarea formControlName="description" rows="4"></textarea>
+
+    <button type="submit">Guardar cambios</button>
+  </form>
+
+  @if (showPasswordDialog) {
+    <app-confirm-password-dialog
+      message="Se necesita tu contraseña para continuar:"
+      (confirm)="onPasswordConfirmed($event)"
+      (cancel)="onPasswordDialogCancelled()"
+    />
+  }
+</section>

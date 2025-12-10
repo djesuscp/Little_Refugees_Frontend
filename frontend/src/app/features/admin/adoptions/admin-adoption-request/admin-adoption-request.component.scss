@@ -1,0 +1,484 @@
+/* =========================================
+   FUENTE GLOBAL DEL COMPONENTE
+========================================= */
+.adoption-request-root,
+.adoption-request-root * {
+  font-family: "Inter", sans-serif;
+  button {
+    border: none;
+    padding: 10px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background .2s, transform .2s;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+/* =========================================
+   PALETA
+========================================= */
+$blue-main:  #4A90E2;
+$green-main: #6DBF73;
+$yellow-cta: #F9CC41;
+$orange-cta: #F7A26A;
+$beige-bg:   #F5F0E6;
+$text-dark:  #333;
+$text-muted: #555;
+
+/* =========================================
+   ROOT
+========================================= */
+.adoption-request-root {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 24px;
+  background: $beige-bg;
+  min-height: calc(100vh - 80px);
+}
+
+/* =========================================
+   HEADER
+========================================= */
+.header {
+  margin-bottom: 32px;
+
+  .back-btn {
+    background: #ffffff;
+    color: #4A90E2;
+    border: 1px solid #d7e7f8;
+    &:hover {
+      background: #f4f9ff;
+    }
+    cursor: pointer;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    color: $blue-main;
+    &:hover {
+      color: darken($blue-main, 12%);
+    }
+  }
+
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: $blue-main;
+    margin-bottom: 6px;
+  }
+
+  .subtitle {
+    color: $text-muted;
+    font-size: 1rem;
+  }
+}
+
+/* =========================================
+   STATUS PILLS
+========================================= */
+.status-pill {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Pendiente */
+.status-pill.pending {
+  background: #fff4d6;
+  color: #8a6d1f;
+}
+
+/* Aprobada */
+.status-pill.approved {
+  background: #e5f9e7;
+  color: $green-main;
+}
+
+/* Rechazada */
+.status-pill.rejected {
+  background: #fde0e0;
+  color: #b73232;
+}
+
+/* =========================================
+   LAYOUT DE COLUMNAS
+========================================= */
+.columns {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 26px;
+  margin-bottom: 32px;
+}
+
+/* =========================================
+   CARDS (estética global unificada)
+========================================= */
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 22px 24px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+
+  h2 {
+    margin-bottom: 14px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: $green-main;
+  }
+}
+
+/* =========================================
+   ANIMAL INFO
+========================================= */
+.animal-info {
+  display: flex;
+  gap: 16px;
+}
+
+.image-wrapper {
+  flex-shrink: 0;
+  width: 140px;
+  height: 140px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f1f1f1;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.info {
+  flex: 1;
+
+  h3 {
+    margin-bottom: 4px;
+    font-size: 1.15rem;
+    font-weight: 600;
+  }
+
+  .meta {
+    font-size: 0.95rem;
+    color: $text-muted;
+    margin-bottom: 6px;
+  }
+
+  .description {
+    margin-bottom: 10px;
+    line-height: 1.45;
+  }
+
+  .extra {
+    font-size: 0.9rem;
+    color: $text-dark;
+  }
+}
+
+/* =========================================
+   USER INFO
+========================================= */
+.user-info p {
+  margin-bottom: 6px;
+  color: $text-dark;
+}
+
+/* =========================================
+   REQUEST DETAILS
+========================================= */
+.request-details {
+  margin-bottom: 20px;
+
+  .message {
+    margin-top: 8px;
+    white-space: pre-line;
+    color: $text-dark;
+  }
+}
+
+/* =========================================
+   ACTION BUTTONS
+========================================= */
+.actions-card {
+  .actions-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    /* Aprobado */
+    .btn-approved {
+      background: $green-main;
+      color: #fff;
+
+      &:hover {
+        background: darken($green-main, 10%);
+      }
+    }
+
+    /* Pendiente */
+    .btn-pending {
+      background: #fff4d6;
+      color: #8a6d1f;
+
+      &:hover {
+        background: #e8dab7;
+      }
+    }
+
+    /* Rechazado */
+    .btn-rejected {
+      background: #b73232;
+      color: #fff;
+
+      &:hover {
+        background: #862626;
+      }
+    }
+  }
+}
+
+.btn-danger {
+  background: #b73232;
+  color: #fff;
+  margin-top: 1em;
+  &:hover {
+    background: #862626;
+  }
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Móviles estándar */
+@media (max-width: 540px) {
+  .adoption-request-root {
+    padding: 20px 14px;
+  }
+
+  .animal-info {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .image-wrapper {
+    margin-bottom: 12px;
+  }
+}
+
+/* Móviles pequeños */
+@media (max-width: 360px) {
+  .card {
+    padding: 18px;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+}
+
+
+
+// .adoption-request-root {
+//   max-width: 1100px;
+//   margin: 0 auto;
+//   padding: 24px;
+// }
+
+// .header {
+//   margin-bottom: 24px;
+
+//   .back-btn {
+//     border: none;
+//     background: transparent;
+//     cursor: pointer;
+//     margin-bottom: 8px;
+//     font-size: 0.95rem;
+//     text-decoration: underline;
+//   }
+
+//   h1 {
+//     font-size: 1.8rem;
+//     margin-bottom: 4px;
+//   }
+
+//   .subtitle {
+//     color: #555;
+//     font-size: 0.95rem;
+//   }
+// }
+
+// .status-pill {
+//   display: inline-block;
+//   padding: 2px 10px;
+//   border-radius: 999px;
+//   font-size: 0.85rem;
+//   font-weight: 500;
+// }
+
+// .status-pill.pending {
+//   background: #fff4d6;
+//   color: #8a6d1f;
+// }
+
+// .status-pill.approved {
+//   background: #e5f9e7;
+//   color: #1c7c54;
+// }
+
+// .status-pill.rejected {
+//   background: #fde0e0;
+//   color: #b73232;
+// }
+
+// .columns {
+//   display: grid;
+//   grid-template-columns: 1.4fr 1fr;
+//   gap: 20px;
+//   margin-bottom: 24px;
+// }
+
+// .card {
+//   background: #fff;
+//   border-radius: 12px;
+//   padding: 18px 20px;
+//   box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+
+//   h2 {
+//     margin-bottom: 12px;
+//     font-size: 1.2rem;
+//   }
+// }
+
+// .animal-info {
+//   display: flex;
+//   gap: 16px;
+// }
+
+// .image-wrapper {
+//   flex-shrink: 0;
+//   width: 140px;
+//   height: 140px;
+//   border-radius: 12px;
+//   overflow: hidden;
+//   background: #f1f1f1;
+
+//   img {
+//     width: 100%;
+//     height: 100%;
+//     object-fit: cover;
+//   }
+// }
+
+// .info {
+//   flex: 1;
+
+//   h3 {
+//     margin-bottom: 4px;
+//   }
+
+//   .meta {
+//     font-size: 0.95rem;
+//     color: #666;
+//     margin-bottom: 8px;
+//   }
+
+//   .description {
+//     margin-bottom: 8px;
+//   }
+
+//   .extra {
+//     font-size: 0.9rem;
+//     color: #555;
+//   }
+// }
+
+// .user-info p {
+//   margin-bottom: 6px;
+// }
+
+// .request-details {
+//   margin-bottom: 20px;
+
+//   .message {
+//     margin-top: 8px;
+//     white-space: pre-line;
+//   }
+// }
+
+// .actions-card {
+//   .actions-row {
+//     display: flex;
+//     flex-wrap: wrap;
+//     gap: 10px;
+
+//     .btn-approved {
+//       border: none;
+//       padding: 8px 14px;
+//       border-radius: 6px;
+//       cursor: pointer;
+//       background: #1c7c54;
+//       color: #fff;
+//       font-size: 0.95rem;
+//       transition: background 0.2s;
+
+//       &:hover {
+//         background: #145c3e;
+//       }
+//     }
+
+//     .btn-pending {
+//       border: none;
+//       padding: 8px 14px;
+//       border-radius: 6px;
+//       cursor: pointer;
+//       background: #fff4d6;
+//       color: black;
+//       font-size: 0.95rem;
+//       transition: background 0.2s;
+
+//       &:hover {
+//         background: #cec5ac;
+//       }
+//     }
+
+//     .btn-rejected {
+//       border: none;
+//       padding: 8px 14px;
+//       border-radius: 6px;
+//       cursor: pointer;
+//       background: #b73232;
+//       color: #fff;
+//       font-size: 0.95rem;
+//       transition: background 0.2s;
+
+//       &:hover {
+//         background: #862626;
+//       }
+//     }
+//   }
+// }
+
+// @media (max-width: 768px) {
+//   .columns {
+//     grid-template-columns: 1fr;
+//   }
+// }

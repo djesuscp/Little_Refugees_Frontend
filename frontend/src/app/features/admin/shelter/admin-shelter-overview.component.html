@@ -1,0 +1,104 @@
+<section class="shelter-root">
+
+  @if (loading) {
+    <p>Cargando datos de la protectora...</p>
+  } @else {
+
+    @if (shelter) {
+
+      <!-- CABECERA -->
+      <header class="header">
+        <h1>Mi protectora</h1>
+        <p class="subtitle">
+          Estás gestionando la protectora <strong>{{ shelter.name }}</strong>.
+        </p>
+      </header>
+
+      <!-- INFO PRINCIPAL -->
+      <section class="info-card">
+        <h2>Información general</h2>
+
+        <div class="info-grid">
+          <div>
+            <h4>Nombre</h4>
+            <p>{{ shelter.name }}</p>
+          </div>
+
+          <div>
+            <h4>Email</h4>
+            <p>{{ shelter.email }}</p>
+          </div>
+
+          <div>
+            <h4>Dirección</h4>
+            <p>{{ shelter.address }}</p>
+          </div>
+
+          <div>
+            <h4>Teléfono</h4>
+            <p>{{ shelter.phone || 'No especificado' }}</p>
+          </div>
+
+          <div>
+            <h4>Animales activos</h4>
+            <p>{{ shelter.animalsCount }}</p>
+          </div>
+
+          <div>
+            <h4>Administradores</h4>
+            <p>{{ shelter.adminsCount }}</p>
+          </div>
+        </div>
+
+        @if (shelter.description) {
+          <div class="description">
+            <h4>Descripción</h4>
+            <p>{{ shelter.description }}</p>
+          </div>
+        }
+      </section>
+
+      <!-- CARDS DE ACCIÓN -->
+      <section class="actions">
+        <h2>Gestión de la protectora</h2>
+
+        <div class="cards-grid">
+          <!-- Animales -->
+          <a class="card" routerLink="/admin/animals">
+            <div class="icon">🐾</div>
+            <h3>Gestionar animales</h3>
+            <p>Crea, edita y organiza los animales de tu protectora.</p>
+          </a>
+
+          <!-- Solicitudes -->
+          <a class="card" routerLink="/admin/adoptions">
+            <div class="icon">📄</div>
+            <h3>Gestionar solicitudes</h3>
+            <p>Revisa y gestiona las solicitudes de adopción recibidas.</p>
+          </a>
+
+          <!-- SOLO OWNER: Gestionar administradores -->
+          @if (isOwner) {
+            <a class="card" routerLink="/admin/users">
+              <div class="icon">👥</div>
+              <h3>Gestionar administradores</h3>
+              <p>Añade o quita administradores de tu protectora.</p>
+            </a>
+
+            <!-- SOLO OWNER: Editar datos de la protectora -->
+            <a class="card" routerLink="/admin/shelter/edit">
+              <div class="icon">⚙️</div>
+              <h3>Editar datos de la protectora</h3>
+              <p>Actualiza información de contacto y descripción.</p>
+            </a>
+          }
+        </div>
+      </section>
+
+    } @else {
+      <p>No se encontró información de la protectora.</p>
+    }
+
+  }
+
+</section>

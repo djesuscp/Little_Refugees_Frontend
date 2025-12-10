@@ -1,0 +1,42 @@
+<nav class="nav-root">
+  <div class="nav-content">
+
+    <!-- LOGO + nombre -->
+    <div class="brand" routerLink="/">
+      <img src="assets/images/logo/logoLittleRefugeesNoBottom.png" alt="Logo" />
+      <span>Little Refugees</span>
+    </div>
+
+    <!-- MENÚ -->
+    <ul class="menu">
+
+      <!-- Opciones para USER -->
+      @if (user?.role === 'USER') {
+        <li><a routerLink="/">Inicio</a></li>
+        <li><a routerLink="/animals">Animales</a></li>
+        @if (user?.firstLoginCompleted) {
+          <li><a routerLink="/adoptions/me">Mis solicitudes</a></li>
+        }
+        <li><a routerLink="/profile">Mi perfil</a></li>
+      }
+
+      <!-- Opciones para ADMIN -->
+      @if (user?.role === 'ADMIN') {
+        <li><a routerLink="/admin/animals">Animales</a></li>
+        <li><a routerLink="/admin/adoptions">Solicitudes</a></li>
+        <li><a routerLink="/admin/shelter">Mi protectora</a></li>
+        <li><a routerLink="/admin/users">Administradores</a></li>
+      }
+    </ul>
+
+    <!-- Opciones para ADMIN -->
+    @if (!user?.role) {
+      <!-- BOTÓN LOGIN -->
+      <button class="btn-logout" (click)="login()">Iniciar sesión</button>
+    } @else {
+      <!-- BOTÓN LOGOUT -->
+      <button class="btn-logout" (click)="logout()">Salir</button>
+    }
+  </div>
+</nav>
+

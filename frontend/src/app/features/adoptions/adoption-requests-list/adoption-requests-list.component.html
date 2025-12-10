@@ -1,0 +1,116 @@
+<section class="requests-page">
+
+  <!-- SIDEBAR DE FILTROS -->
+  <aside class="filters">
+    <h2>Mis solicitudes</h2>
+
+    <form [formGroup]="filtersForm" (ngSubmit)="onApplyFilters()" class="filters-form">
+
+      <!-- Orden por fecha -->
+      <div class="filter-block">
+        <label>Ordenar por fecha</label>
+        <select formControlName="orderDirection">
+          <option value="desc">De más reciente a más antiguo</option>
+          <option value="asc">De más antiguo a más reciente</option>
+        </select>
+      </div>
+
+      <!-- Estados -->
+      <div class="filter-block">
+        <label>Estado</label>
+
+        <label class="checkbox-row">
+          <input type="checkbox" formControlName="statusPending" />
+          <span>Pendiente</span>
+        </label>
+
+        <label class="checkbox-row">
+          <input type="checkbox" formControlName="statusApproved" />
+          <span>Aprobada</span>
+        </label>
+
+        <label class="checkbox-row">
+          <input type="checkbox" formControlName="statusRejected" />
+          <span>Rechazada</span>
+        </label>
+      </div>
+
+      <!-- Botones -->
+      <div class="filters-actions">
+        <button type="submit">Aplicar filtros</button>
+        <button type="button" (click)="onResetFilters()">Limpiar filtros</button>
+      </div>
+    </form>
+  </aside>
+
+  <!-- LISTA DE SOLICITUDES -->
+  <section class="requests-list">
+    <header class="list-header">
+      <h1>Solicitudes de adopción enviadas</h1>
+    </header>
+
+    @if (loading) {
+      <p>Cargando solicitudes...</p>
+    } @else {
+
+      @if (requests.length === 0) {
+        <p>No has enviado ninguna solicitud con los filtros actuales.</p>
+      } @else {
+
+        <div class="cards-grid">
+          @for (req of requests; track req.id) {
+            <article class="request-card">
+
+              <div class="image-wrapper">
+                <img [src]="getPhotoUrl(req)" [alt]="req.animal.name" />
+              </div>
+
+              <div class="card-content">
+
+                <div class="card-header-row">
+                  <h3>{{ req.animal.name }}</h3>
+                  <div class="card-status">
+                    <p>Estado de tu solicitud: </p>
+                    <span class="status-pill" [ngClass]="getStatusClass(req.status)">
+                      {{ getStatusLabel(req.status) }}
+                    </span>
+                  </div>
+                </div>
+
+                <p class="meta">
+                  {{ req.animal.species }} · {{ req.animal.breed }}
+                  @if (req.animal.age != null) {
+                    · {{ req.animal.age }} años
+                  }
+                </p>
+
+                <p class="shelter-info">
+                  Protectora: <strong>{{ req.animal.shelter.name }}</strong><br />
+                  <!-- {{ req.animal.shelter.address }} -->
+                </p>
+
+                <p class="message">
+                  <strong>Mensaje enviado:</strong><br />
+                  {{ req.message }}
+                </p>
+
+                <p class="date">
+                  Enviada el {{ req.createdAt | date: 'short' }}
+                </p>
+
+                <div class="actions">
+                  <button type="button" (click)="onMoreInfo(req)">
+                    + Más info
+                  </button>
+                </div>
+
+              </div>
+            </article>
+          }
+        </div>
+
+      }
+    }
+  </section>
+
+</section>

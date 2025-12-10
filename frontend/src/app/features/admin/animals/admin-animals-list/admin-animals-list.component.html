@@ -1,0 +1,185 @@
+<section class="animals-page">
+
+  <section class="sidebar">
+    <aside class="create-animal-aside">
+      <h2>¿Han llegado nuevos amigos?</h2>
+
+      <!-- Botón crear animal -->
+      <div class="create-animal-block">
+        <button class="create-button" type="button" (click)="onCreateAnimal()">
+          Crear animal
+        </button>
+      </div>
+    </aside>
+
+    <!-- SIDEBAR DE FILTROS -->
+    <aside class="filters">
+      <h2>Filtrar animales</h2>
+
+      <form [formGroup]="filtersForm" (ngSubmit)="onSearchSubmit()" class="filters-form">
+
+        <!-- Búsqueda por nombre 
+        <div class="filter-block">
+          <label>Nombre</label>
+          <input formControlName="search" placeholder="Busca por nombre..." />
+        </div> -->
+
+        <!-- Species -->
+        <div class="filter-block">
+          <label>Especie</label>
+          <input
+            formControlName="species"
+            placeholder="Ej: perro,gato"
+          />
+          <small>Separa múltiples valores con comas.</small>
+        </div>
+
+        <!-- Breed -->
+        <div class="filter-block">
+          <label>Raza</label>
+          <input
+            formControlName="breeds"
+            placeholder="Ej: siames,boxer"
+          />
+          <small>Separa múltiples valores con comas.</small>
+        </div>
+
+        <!-- Gender -->
+        <div class="filter-block">
+          <label>Género</label>
+          <input
+            formControlName="gender"
+            placeholder="Ej: macho,hembra"
+          />
+          <small>Separa múltiples valores con comas.</small>
+        </div>
+
+        <!-- Rango de edad -->
+        <div class="filter-block">
+          <label>Edad (años)</label>
+          <div class="age-range">
+            <input type="number" min="0" formControlName="ageMin" placeholder="Mín" />
+            <span>-</span>
+            <input type="number" min="0" formControlName="ageMax" placeholder="Máx" />
+          </div>
+        </div>
+
+        <!-- Protectora
+        <div class="filter-block">
+          <label>Protectora</label>
+          <input
+            formControlName="shelterName"
+            placeholder="Nombre de la protectora"
+          />
+        </div>-->
+
+        <!-- Orden: mayor a menor -->
+        <div class="filter-block">
+          <label class="checkbox-row">
+            <input type="checkbox" formControlName="orderByAgeDesc" />
+            <span>Ordenar por edad (mayor a menor)</span>
+          </label>
+        </div>
+
+        <!-- 🆕 Orden: menor a mayor -->
+        <div class="filter-block">
+          <label class="checkbox-row">
+            <input type="checkbox" formControlName="orderByAgeAsc" />
+            <span>Ordenar por edad (menor a mayor)</span>
+          </label>
+        </div>
+
+        <!-- 🆕 Filtro adoptados / no adoptados -->
+        <div class="filter-block">
+          <label class="checkbox-row">
+            <input type="checkbox" formControlName="showAdopted" />
+            <span>Ver adoptados</span>
+          </label>
+          <label class="checkbox-row">
+            <input type="checkbox" formControlName="showNotAdopted" />
+            <span>Ver no adoptados</span>
+          </label>
+          <small>
+            Si marcas ambos, se mostrarán adoptados y no adoptados.
+          </small>
+        </div>
+
+        <!-- Botones -->
+        <div class="filters-actions">
+          <button type="submit">Aplicar filtros</button>
+          <button type="button" (click)="onResetFilters()">Limpiar filtros</button>
+        </div>
+      </form>
+    </aside>
+  </section>
+
+  <!-- LISTA DE ANIMALES -->
+  <section class="animals-list">
+    <header class="list-header">
+      <h1>Animales de tu protectora</h1>
+    </header>
+
+    @if (loading) {
+      <p>Cargando animales...</p>
+    } @else {
+
+      @if (animals.length === 0) {
+        <p>No se han encontrado animales con los filtros seleccionados.</p>
+      } @else {
+        <div class="cards-grid">
+          @for (animal of animals; track animal.name) {
+            <article class="animal-card">
+              <div class="image-wrapper">
+                <img [src]="getPhotoUrl(animal)" [alt]="animal.name" />
+              </div>
+
+              <div class="card-content">
+                <h3>{{ animal.name }}</h3>
+                <p class="meta">
+                  {{ animal.species }} · {{ animal.breed }} · {{ animal.gender }}
+                  @if (animal.age != null) {
+                    · {{ animal.age }} años
+                  }
+                  @if (animal.adopted === true) {
+                    · <p>Estado actual: <strong>Adoptado</strong></p>
+                  } @else {
+                    · <p>Estado actual: <strong>No adoptado</strong></p>
+                  }
+                  <!-- @if (animal.adopted) {
+                    · <strong>(Adoptado)</strong>
+                  } -->
+                </p>
+
+                <!-- @if (animal.description) {
+                  <p class="description">
+                    {{ animal.description }}
+                  </p>
+                } -->
+
+                <!-- 🔁 Ya no mostramos la protectora aquí para admin -->
+
+                <button type="button" (click)="onEdit(animal)">
+                  Editar
+                </button>
+              </div>
+            </article>
+          }
+        </div>
+
+        <!-- Paginación -->
+        <div class="pagination">
+          <button type="button" (click)="onPrevPage()" [disabled]="currentPage === 1">
+            « Anterior
+          </button>
+
+          <span>Página {{ currentPage }}</span>
+
+          <button type="button" (click)="onNextPage()" [disabled]="!hasMore">
+            Siguiente »
+          </button>
+        </div>
+      }
+    }
+  </section>
+
+</section>

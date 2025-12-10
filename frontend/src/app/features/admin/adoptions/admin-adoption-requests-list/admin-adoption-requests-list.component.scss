@@ -1,0 +1,541 @@
+/* =========================================
+   FUENTE GLOBAL DEL COMPONENTE
+========================================= */
+.adoptions-page,
+.adoptions-page * {
+  font-family: "Inter", sans-serif;
+}
+
+/* =========================================
+   PALETA
+========================================= */
+$blue-main:  #4A90E2;
+$green-main: #6DBF73;
+$yellow-cta: #F9CC41;
+$orange-cta: #F7A26A;
+$beige-bg:   #F5F0E6;
+$text-dark:  #333;
+$text-muted: #555;
+
+/* =========================================
+   LAYOUT: PAGE GRID
+========================================= */
+.adoptions-page {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 24px;
+  background: $beige-bg;
+  padding: 24px;
+  min-height: calc(100vh - 80px);
+}
+
+/* =========================================
+   SIDEBAR - FILTERS
+========================================= */
+.filters {
+  background: #fff;
+  padding: 22px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+
+  h2 {
+    font-size: 1.4rem;
+    color: $blue-main;
+    margin-bottom: 18px;
+  }
+}
+
+.filters-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.filter-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  label {
+    font-weight: 600;
+    color: $text-dark;
+  }
+
+  input,
+  select {
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.18);
+    padding: 10px 12px;
+    font-size: 0.95rem;
+    background: $beige-bg;
+    color: $text-dark;
+    transition: .18s ease;
+
+    &:focus {
+      border-color: $blue-main;
+      box-shadow: 0 0 0 3px rgba(74,144,226,0.25);
+      outline: none;
+    }
+  }
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  input {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Buttons in the filters */
+.filters-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+
+  button {
+    padding: 10px 16px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: background .18s, transform .18s;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+
+  button[type="submit"] {
+    background: $green-main;
+    color: #fff;
+
+    &:hover {
+      background: darken($green-main, 10%);
+    }
+  }
+
+  button[type="button"] {
+    background: #f0f0f0;
+    color: $text-dark;
+
+    &:hover {
+      background: #d6d6d6;
+    }
+  }
+}
+
+/* =========================================
+   LISTA GENERAL
+========================================= */
+.adoptions-list {
+  .list-header {
+    margin-bottom: 18px;
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: $blue-main;
+    }
+  }
+}
+
+/* =========================================
+   CARDS GRID
+========================================= */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+/* =========================================
+   ADOPTION CARD
+========================================= */
+.adoption-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+  overflow: hidden;
+
+  .image-wrapper {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .card-content {
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .card-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h3 {
+      font-size: 1.25rem;
+      margin: 0;
+      color: $text-dark;
+      font-weight: 600;
+    }
+  }
+
+  .meta,
+  .user-info,
+  .message,
+  .date {
+    font-size: 0.9rem;
+    color: $text-muted;
+  }
+
+  button {
+    align-self: flex-start;
+    margin-top: 8px;
+    border-radius: 999px;
+    padding: 8px 14px;
+    background: $green-main;
+    color: white;
+    border: none;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background .18s, transform .18s;
+
+    &:hover {
+      background: darken($green-main, 10%);
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+/* =========================================
+   BADGES DE ESTADO
+========================================= */
+.badge {
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.badge-pending {
+  background: $yellow-cta;
+}
+
+.badge-approved {
+  background: $green-main;
+}
+
+.badge-rejected {
+  background: #b73232;
+}
+
+/* =========================================
+   PAGINACIÓN
+========================================= */
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+
+  button {
+    border-radius: 999px;
+    padding: 6px 12px;
+    background: #fff;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    transition: background .18s, transform .18s;
+
+    &:hover {
+      background: #f0f0f0;
+      transform: translateY(-2px);
+    }
+  }
+
+  span {
+    font-size: 0.95rem;
+    color: $text-dark;
+  }
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+/* Tablets */
+@media (max-width: 900px) {
+  .adoptions-page {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Móviles estándar */
+@media (max-width: 540px) {
+  .adoptions-page {
+    padding: 18px 12px;
+  }
+
+  .filters {
+    padding: 18px;
+  }
+
+  .adoption-card .image-wrapper {
+    height: 160px;
+  }
+}
+
+/* Móviles pequeños */
+@media (max-width: 360px) {
+  .adoptions-page {
+    padding: 14px 10px;
+  }
+
+  h1 {
+    font-size: 1.6rem !important;
+  }
+}
+
+
+
+// .adoptions-page {
+//   display: grid;
+//   grid-template-columns: 280px 1fr;
+//   gap: 24px;
+// }
+
+// /* SIDEBAR */
+// .filters {
+//   background: #ffffff;
+//   padding: 20px;
+//   border-radius: 12px;
+//   box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+
+//   h2 {
+//     font-size: 1.3rem;
+//     margin-bottom: 16px;
+//     color: #1c7c54;
+//   }
+// }
+
+// .filters-form {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 16px;
+// }
+
+// .filter-block {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 6px;
+
+//   label {
+//     font-weight: 500;
+//     color: #444;
+//   }
+
+//   input,
+//   select {
+//     border-radius: 8px;
+//     border: 1px solid #ddd;
+//     padding: 6px 10px;
+//     font-size: 0.95rem;
+//   }
+// }
+
+// .checkbox-row {
+//   display: flex;
+//   align-items: center;
+//   gap: 8px;
+
+//   input {
+//     width: 16px;
+//     height: 16px;
+//   }
+// }
+
+// .filters-actions {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 8px;
+//   margin-top: 8px;
+
+//   button {
+//     border: none;
+//     border-radius: 8px;
+//     padding: 8px 12px;
+//     cursor: pointer;
+//     font-size: 0.95rem;
+//   }
+
+//   button[type='submit'] {
+//     background: #1c7c54;
+//     color: #fff;
+//   }
+
+//   button[type='button'] {
+//     background: #f0f0f0;
+//   }
+// }
+
+// /* LISTA */
+// .adoptions-list {
+//   .list-header {
+//     margin-bottom: 16px;
+
+//     h1 {
+//       font-size: 1.6rem;
+//       color: #1c7c54;
+//     }
+//   }
+// }
+
+// .cards-grid {
+//   display: grid;
+//   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+//   gap: 20px;
+// }
+
+// .adoption-card {
+//   display: flex;
+//   flex-direction: column;
+//   background: #fff;
+//   border-radius: 12px;
+//   box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+//   overflow: hidden;
+
+//   .image-wrapper {
+//     width: 100%;
+//     height: 180px;
+//     overflow: hidden;
+
+//     img {
+//       width: 100%;
+//       height: 100%;
+//       object-fit: cover;
+//     }
+//   }
+
+//   .card-content {
+//     padding: 14px 16px;
+//     display: flex;
+//     flex-direction: column;
+//     gap: 6px;
+//   }
+
+//   .card-header-row {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+
+//     h3 {
+//       font-size: 1.2rem;
+//       margin: 0;
+//       color: #333;
+//     }
+//   }
+
+//   .meta {
+//     font-size: 0.9rem;
+//     color: #666;
+//   }
+
+//   .user-info {
+//     font-size: 0.9rem;
+//     color: #444;
+//   }
+
+//   .message {
+//     font-size: 0.9rem;
+//     color: #555;
+//   }
+
+//   .date {
+//     font-size: 0.85rem;
+//     color: #777;
+//   }
+
+//   button {
+//     align-self: flex-start;
+//     margin-top: 6px;
+//     border: none;
+//     border-radius: 8px;
+//     padding: 6px 12px;
+//     background: #1c7c54;
+//     color: #fff;
+//     cursor: pointer;
+//     font-size: 0.95rem;
+//   }
+// }
+
+// /* Badges de estado */
+// .badge {
+//   padding: 4px 8px;
+//   border-radius: 999px;
+//   font-size: 0.75rem;
+//   font-weight: 600;
+//   color: #fff;
+// }
+
+// .badge-pending {
+//   background: #f0ad4e;
+// }
+
+// .badge-approved {
+//   background: #5cb85c;
+// }
+
+// .badge-rejected {
+//   background: #d9534f;
+// }
+
+// /* Paginación */
+// .pagination {
+//   margin-top: 20px;
+//   display: flex;
+//   align-items: center;
+//   gap: 12px;
+//   justify-content: center;
+
+//   button {
+//     border-radius: 8px;
+//     border: 1px solid #ccc;
+//     padding: 6px 10px;
+//     background: #fff;
+//     cursor: pointer;
+//   }
+
+//   span {
+//     font-size: 0.95rem;
+//     color: #444;
+//   }
+// }
+
+// /* Responsive */
+// @media (max-width: 900px) {
+//   .adoptions-page {
+//     grid-template-columns: 1fr;
+//   }
+// }

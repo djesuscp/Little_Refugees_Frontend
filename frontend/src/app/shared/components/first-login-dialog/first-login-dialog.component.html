@@ -1,0 +1,18 @@
+<div class="overlay">
+  <div class="dialog">
+    <h2>¿Qué quieres hacer?</h2>
+    <p>Elige cómo deseas empezar en MiRefugio.</p>
+
+    <div class="buttons">
+      <button class="manage" (click)="chooseManage.emit()">
+        Gestionar una protectora
+      </button>
+
+      <button class="adopt" (click)="chooseAdopt.emit()">
+        Adoptar
+      </button>
+    </div>
+
+    <button class="close" (click)="close.emit()">Cerrar</button>
+  </div>
+</div>
