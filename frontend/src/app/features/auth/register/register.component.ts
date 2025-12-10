@@ -41,7 +41,7 @@ export class RegisterComponent {
       },
       error: (err) => {
         const msg = err.error?.message ?? 'Error al registrarse.';
-        this.toastr.error(msg);
+        this.toastr.error(err.error);
         this.loading = false;
       }
     });
