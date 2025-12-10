@@ -25,7 +25,9 @@
         <li><a routerLink="/admin/animals">Animales</a></li>
         <li><a routerLink="/admin/adoptions">Solicitudes</a></li>
         <li><a routerLink="/admin/shelter">Mi protectora</a></li>
-        <li><a routerLink="/admin/users">Administradores</a></li>
+        @if (user.isAdminOwner) {
+          <li><a routerLink="/admin/users">Administradores</a></li>
+        }
       }
     </ul>
 
