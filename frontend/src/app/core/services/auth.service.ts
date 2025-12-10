@@ -7,7 +7,7 @@ import { User } from '../models/user.model';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-  private MAIN_URL = 'https://little-refugees-backend-latest.onrender.com'
+  private MAIN_URL = 'https://little-refugees-backend.onrender.com'
   private API_URL = `${this.MAIN_URL}/api/auth`;
 
   private currentUserSignal = signal<User | null>(null);

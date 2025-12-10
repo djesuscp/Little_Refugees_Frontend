@@ -44,7 +44,7 @@ export interface AdoptionRequestsQuery {
 @Injectable({ providedIn: 'root' })
 export class AdoptionRequestService {
   private http = inject(HttpClient);
-  private MAIN_URL = 'https://little-refugees-backend-latest.onrender.com'
+  private MAIN_URL = 'https://little-refugees-backend.onrender.com'
   private API_URL = `${this.MAIN_URL}/api/adoptions/my-requests`;
 
   getMyRequests(query: AdoptionRequestsQuery): Observable<AdoptionRequest[]> {

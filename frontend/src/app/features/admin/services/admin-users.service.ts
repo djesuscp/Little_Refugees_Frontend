@@ -16,7 +16,7 @@ export class AdminUsersService {
   private http = inject(HttpClient);
   private auth = inject(AuthService);
 
-  private MAIN_URL = 'https://little-refugees-backend-latest.onrender.com'
+  private MAIN_URL = 'https://little-refugees-backend.onrender.com'
   private SHELTERS_API = `${this.MAIN_URL}/api/shelters`;
   private ADOPTIONS_API = `${this.MAIN_URL}/api/adoptions`;
 

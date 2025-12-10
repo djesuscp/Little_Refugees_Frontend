@@ -20,7 +20,7 @@ export interface AnimalsQuery {
 @Injectable({ providedIn: 'root' })
 export class AnimalService {
   private http = inject(HttpClient);
-  private MAIN_URL = 'https://little-refugees-backend-latest.onrender.com'
+  private MAIN_URL = 'https://little-refugees-backend.onrender.com'
   private API_URL = `${this.MAIN_URL}/api/animals`;
   private ADOPTIONS_API = `${this.MAIN_URL}/api/adoptions`;
 

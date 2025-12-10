@@ -71,7 +71,7 @@ export interface AdminAdoptionRequestsQuery {
 @Injectable({ providedIn: 'root' })
 export class AdminAdoptionRequestsService {
   private http = inject(HttpClient);
-  private MAIN_URL = 'https://little-refugees-backend-latest.onrender.com'
+  private MAIN_URL = 'https://little-refugees-backend.onrender.com'
   private API_URL = `${this.MAIN_URL}/api/adoptions`;
 
   getAdminAdoptionRequests(

@@ -37,7 +37,7 @@ export interface AdminAnimalsQuery {
 @Injectable({ providedIn: 'root' })
 export class AdminAnimalService {
   private http = inject(HttpClient);
-  private MAIN_URL = 'https://little-refugees-backend-latest.onrender.com'
+  private MAIN_URL = 'https://little-refugees-backend.onrender.com'
   private API_URL = `${this.MAIN_URL}/api/animals/admin`;
 
   getAdminAnimals(query: AdminAnimalsQuery): Observable<AdminAnimal[]> {
