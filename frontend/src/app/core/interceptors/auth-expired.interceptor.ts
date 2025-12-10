@@ -38,21 +38,20 @@ export class AuthExpiredInterceptor implements HttpInterceptor {
               (lower.includes('inválido') || lower.includes('invalido') || lower.includes('expirado')));
 
           if (isTokenError) {
-            // 🔹 Limpiar sesión (ajusta al método real de tu AuthService)
+            // Limpiar sesión.
             this.auth.logout?.();
 
-            // 🔹 Avisar al usuario
+            // Avisar al usuario.
             this.toastr.error('Tu sesión ha expirado. Vuelve a iniciar sesión.', 'Sesión caducada');
 
-            // 🔹 Redirigir (ajusta la ruta si tu login es otra, por ejemplo '/auth/login')
+            // Redirigir al login.
             this.router.navigate(['/login']);
 
-            // 🔹 IMPORTANTE: no propagamos el error para evitar toasts duplicados en los componentes
+            // IMPORTANTE: evita toastr duplicados.
             return EMPTY;
           }
         }
 
-        // Para otros errores, seguimos como siempre
         return throwError(() => error);
       })
     );

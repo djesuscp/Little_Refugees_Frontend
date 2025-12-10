@@ -33,7 +33,7 @@ export class ProfileEditComponent implements OnInit {
     OWNER: 'owner'
   };
 
-  // Popups
+  // Popups.
   showPasswordDialogForUpdate = false;
   showPasswordDialogForDelete = false;
   showConfirmDeleteDialog = false;
@@ -61,7 +61,6 @@ export class ProfileEditComponent implements OnInit {
     });
   }
 
-  /** Guardar cambios → paso 1: abrir popup de contraseña */
   onSubmit() {
     if (this.form.invalid || !this.user) {
       this.toastr.error('Revisa los datos del formulario.');
@@ -71,7 +70,7 @@ export class ProfileEditComponent implements OnInit {
     this.showPasswordDialogForUpdate = true;
   }
 
-  /** Confirmación de contraseña para ACTUALIZAR perfil */
+  // Confirmación de contraseña para ACTUALIZAR perfil.
   onPasswordConfirmedForUpdate(password: string) {
     this.showPasswordDialogForUpdate = false;
 
@@ -79,7 +78,7 @@ export class ProfileEditComponent implements OnInit {
 
     const { fullName, email } = this.form.value;
 
-    // Construimos payload parcial para no enviar campos innecesarios
+    // Construir payload parcial para no enviar campos innecesarios.
     const payload: {
       fullName?: string;
       email?: string;
@@ -96,7 +95,7 @@ export class ProfileEditComponent implements OnInit {
       payload.email = email;
     }
 
-    // Si no hay cambios reales, avisamos
+    // Si no hay cambios, se notifica.
     if (!payload.fullName && !payload.email) {
       this.toastr.info('No hay cambios que guardar.');
       return;
@@ -105,7 +104,6 @@ export class ProfileEditComponent implements OnInit {
     this.userService.updateMyProfile(payload).subscribe({
       next: (updatedUser) => {
         this.toastr.success('Perfil actualizado correctamente.');
-        // Actualizar usuario en AuthService y en memoria
         this.auth.updateCurrentUser(updatedUser);
         this.user = updatedUser;
         this.auth.logout();
@@ -127,18 +125,18 @@ export class ProfileEditComponent implements OnInit {
     this.router.navigate(['/profile/change-password']);
   }
 
-  /** Botón "Eliminar cuenta" → abre popup de contraseña */
+  // Botón para eliminar la cuenta.
   onClickDeleteAccount() {
     this.showPasswordDialogForDelete = true;
   }
 
-  /** Confirmación de contraseña para ELIMINAR cuenta */
+  // Confirmación de contraseña para ELIMINAR cuenta.
   onPasswordConfirmedForDelete(password: string) {
     this.showPasswordDialogForDelete = false;
 
     this.pendingDeletePassword = password;
 
-    // Ahora mostramos el diálogo de confirmación final
+    // Diálogo de confirmación.
     this.showConfirmDeleteDialog = true;
   }
 

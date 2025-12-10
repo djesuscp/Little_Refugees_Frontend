@@ -50,14 +50,6 @@ export const ADMIN_ROUTES: Routes = [
       }
     ]
   },
-  // {
-  //   path: 'animals/create',
-  //   // más adelante: loadComponent del formulario
-  // },
-  // {
-  //   path: 'animals/:id/edit',
-  //   // más adelante: loadComponent del formulario de edición
-  // },
   {
     path: 'shelter',
     children: [

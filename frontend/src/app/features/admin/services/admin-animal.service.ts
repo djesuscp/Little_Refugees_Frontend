@@ -27,7 +27,7 @@ export interface AdminAnimalsQuery {
   gender?: string[];
   ageMin?: number | null;
   ageMax?: number | null;
-  adopted?: boolean;          // esto se ha generado como boolean | null, pero le he quitado el null.
+  adopted?: boolean;          
   orderBy?: 'age';
   direction?: 'asc' | 'desc';
   page?: number;
@@ -43,6 +43,7 @@ export class AdminAnimalService {
   getAdminAnimals(query: AdminAnimalsQuery): Observable<AdminAnimal[]> {
     let params = new HttpParams();
 
+    // Filtros.
     if (query.name) {
       params = params.set('name', query.name);
     }
@@ -83,19 +84,15 @@ export class AdminAnimalService {
       params = params.set('limit', String(query.limit));
     }
 
-    // Filtro adoptados / no adoptados
-    // if (query.adopted !== undefined) {
-    //   params = params.set('adopted', String(query.adopted));
-    // }
+    // Filtro adoptados / no adoptados.
     if (query.adopted === true) {
       params = params.set('adopted', 'true');
     } else if (query.adopted === false) {
       params = params.set('adopted', 'false');
     }
 
-    return this.http.get<any>(this.API_URL, { params }).pipe(                     // LUEGO CUIDADO CON ESTO.
+    return this.http.get<any>(this.API_URL, { params }).pipe(
       map((res) => {
-        // backend: { message, page, limit, total, totalPages, animals }
         if (Array.isArray(res?.animals)) {
           return res.animals as AdminAnimal[];
         }
@@ -104,18 +101,13 @@ export class AdminAnimalService {
     );
   }
 
-  /** Obtener un animal concreto para editar (GET /api/animals/admin/:id) */
+  // Obtener un animal concreto para editar (GET /api/animals/admin/:id).
   getAnimalById(id: number): Observable<any> {
     return this.http.get(`${this.API_URL}/${id}`);
   }
 
-  // getAnimalById(id: number): Observable<AdminAnimal> {
-  //   return this.http.get<AdminAnimal>(`${this.API_URL}/${id}`);
-  // }
-
-  /** Payload para crear/editar animal */
+  // Payload para crear/editar animal.
   private buildPayloadFromForm(formValue: any, photoUrls: string[]) {
-    // Aquí asumimos que el backend acepta `photos: string[]` para crear/actualizar
     return {
       name: formValue.name,
       species: formValue.species,
@@ -124,32 +116,29 @@ export class AdminAnimalService {
       age: formValue.age !== null && formValue.age !== '' ? Number(formValue.age) : null,
       description: formValue.description || null,
       adopted: !!formValue.adopted,
-      //photos: photoUrls,
     };
   }
 
-  /** Crear animal (POST /api/animals) */
+  // Crear animal (POST /api/animals).
   createAnimal(formValue: any, photoUrls: string[]): Observable<AdminAnimal> {
     const payload = this.buildPayloadFromForm(formValue, photoUrls);
     return this.http.post<AdminAnimal>(this.API_URL, payload);
   }
 
-  /** Actualizar animal (PUT /api/animals/:id) */
+  // Actualizar animal (PUT /api/animals/:id).
   updateAnimal(id: number, formValue: any, photoUrls: string[]): Observable<AdminAnimal> {
     const payload = this.buildPayloadFromForm(formValue, photoUrls);
     return this.http.put<AdminAnimal>(`${this.API_URL}/${id}`, payload);
   }
 
-    /** Eliminar animal (DELETE /api/animals/admin/:id) */
+    // Eliminar animal (DELETE /api/animals/admin/:id).
   deleteAnimal(id: number): Observable<void> {
     return this.http.delete<void>(`${this.API_URL}/${id}`);
   }
 
-  // ---------------------------------------------------------------------------
-  // *** CLOUDINARY: NUEVOS MÉTODOS PARA FOTOS
-  // ---------------------------------------------------------------------------
+  // CLOUDINARY: NUEVOS MÉTODOS PARA FOTOS.
 
-  /** Obtener solo las fotos de un animal (GET /api/animals/admin/:id/photos) */
+  // Obtener solo las fotos de un animal (GET /api/animals/admin/:id/photos).
   getAnimalPhotos(animalId: number): Observable<AdminAnimalPhoto[]> {
     return this.http
       .get<{ photos: AdminAnimalPhoto[] }>(
@@ -158,10 +147,7 @@ export class AdminAnimalService {
       .pipe(map((res) => res.photos ?? []));
   }
 
-  /**
-   * Subir fotos (POST /api/animals/admin/:id/photos)
-   * Campo multipart/form-data: "photos"
-   */
+  // Subir fotos (POST /api/animals/admin/:id/photos).
   uploadAnimalPhotos(
     animalId: number,
     files: File[]
@@ -181,10 +167,7 @@ export class AdminAnimalService {
       .pipe(map((res) => res.photos ?? []));
   }
 
-  /**
-   * Eliminar una foto concreta
-   * DELETE /api/animals/admin/:animalId/photos/:photoId
-   */
+  // Eliminar una foto concreta.
   deleteAnimalPhoto(animalId: number, photoId: number): Observable<void> {
     return this.http.delete<void>(
       `${this.API_URL}/${animalId}/photos/${photoId}`

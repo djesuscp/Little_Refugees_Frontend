@@ -35,15 +35,12 @@ export class ShelterService {
   private MAIN_URL = 'https://little-refugees-backend.onrender.com'
   private API_URL = `${this.MAIN_URL}/api/shelters`;
 
-  /** Crear nueva protectora (ya lo tenías) */
+  // Crear nueva protectora (ya lo tenías)
   createShelter(payload: CreateShelterDto): Observable<any> {
     return this.http.post(`${this.API_URL}/create-shelter`, payload);
   }
 
-  /**
-   * Obtener datos de "Mi protectora" para el admin actual.
-   * Llama a: GET /api/shelters/:id/admin
-   */
+  // Obtener datos de "Mi protectora" para el admin actual.
   getMyShelterOverview(): Observable<ShelterOverview> {
     const currentUser = this.auth.getCurrentUser();
 
@@ -60,10 +57,12 @@ export class ShelterService {
       .pipe(map(res => res.shelter));
   }
 
+  // Obtener vista para el admin.
   getShelterAdminView(id: number): Observable<any> {
     return this.http.get(`${this.API_URL}/${id}/admin`);
   }
 
+  // Actualiza protectora.
   updateShelter(id: number, payload: any): Observable<any> {
     return this.http.put(`${this.API_URL}/${id}`, payload);
   }

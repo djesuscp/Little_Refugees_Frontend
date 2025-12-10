@@ -5,7 +5,6 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AnimalService } from '../../../core/services/animal.service';
 import { AnimalDetail } from '../../../core/models/animal.model';
-// ⬅️ NUEVO: importar AuthService y User
 import { AuthService } from '../../../core/services/auth.service';
 import { User } from '../../../core/models/user.model';
 
@@ -27,23 +26,22 @@ export class AnimalDetailComponent implements OnInit {
   animal: AnimalDetail | null = null;
   loading = false;
 
-  // Carousel
+  // Carousel.
   currentPhotoIndex = 0;
 
-  // ⬅️ NUEVO
   private auth = inject(AuthService);
 
-  // ⬅️ NUEVO: obtener usuario
+  // Obtener usuario.
   get user(): User | null {
     return this.auth.getCurrentUser();
   }
 
-  // ⬅️ NUEVO: condición para permitir formulario de adopción
+  // Condición para permitir formulario de adopción.
   get canAdopt(): boolean {
     return !!this.user && this.user.firstLoginCompleted === true;
   }
 
-  // Formulario de solicitud
+  // Formulario de solicitud.
   adoptionForm = this.fb.group({
     message: ['', [Validators.required]],
   });
@@ -77,6 +75,7 @@ export class AnimalDetailComponent implements OnInit {
     this.loadAnimal(id);
   }
 
+  // Cargar animal.
   loadAnimal(id: number) {
     this.loading = true;
     this.animalService.getAnimalDetail(id).subscribe({
@@ -96,7 +95,7 @@ export class AnimalDetailComponent implements OnInit {
     });
   }
 
-  // Navegación del carousel
+  // Navegación del carousel.
   onPrevPhoto() {
     if (this.photos.length === 0) return;
     this.currentPhotoIndex =
@@ -109,13 +108,13 @@ export class AnimalDetailComponent implements OnInit {
       (this.currentPhotoIndex + 1) % this.photos.length;
   }
 
-    // NUEVO: ir directamente a una foto concreta al hacer clic en un dot
+    // Ir directamente a una foto concreta al hacer clic en un dot.
   goToPhoto(index: number) {
     if (!this.photos || index < 0 || index >= this.photos.length) return;
     this.currentPhotoIndex = index;
   }
 
-  // Envío de solicitud de adopción
+  // Envío de solicitud de adopción.
   onSubmitAdoption() {
     if (!this.animal) return;
 
@@ -133,9 +132,8 @@ export class AnimalDetailComponent implements OnInit {
           this.toastr.success(
             'Solicitud de adopción enviada correctamente.'
           );
-          // Nos quedamos en la misma página
           this.adoptionForm.reset();
-          // Se desplaza al panel de solicitudes de usuario.
+          // Redirección al panel de solicitudes de usuario.
           this.router.navigate(['/adoptions/me']);
         },
         error: (err) => {

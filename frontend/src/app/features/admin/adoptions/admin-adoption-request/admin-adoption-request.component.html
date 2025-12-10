@@ -107,7 +107,7 @@
         </div>
       </section>
 
-      <!-- 🔹 NUEVO: botón eliminar (solo si se puede eliminar) -->
+      <!-- Botón eliminar (solo si se puede eliminar) -->
       @if (canDelete) {
         <button
           type="button"
@@ -129,7 +129,7 @@
         />
       }
 
-      <!-- 🔹 NUEVO: dialog para BORRAR solicitud -->
+      <!-- Dialog para BORRAR solicitud -->
       @if (showDeleteDialog) {
         <app-confirm-action-dialog
           message="¿Seguro que deseas eliminar esta solicitud? Esta acción no se puede deshacer."

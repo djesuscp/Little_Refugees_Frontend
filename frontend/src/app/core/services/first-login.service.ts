@@ -7,13 +7,13 @@ export class FirstLoginService {
     return `firstChoiceCompleted:${userId}`;
   }
 
-  /** Devuelve true si el usuario ya hizo su elección */
+  // Devuelve true si el usuario ya hizo su elección.
   isFirstChoiceCompleted(userId: number): boolean {
     const value = localStorage.getItem(this.getKey(userId));
     return value === 'true';
   }
 
-  /** Marca que el usuario ya ha elegido (gestionar o adoptar) */
+  // Marca que el usuario ya ha elegido (gestionar o adoptar).
   markFirstChoiceCompleted(userId: number): void {
     localStorage.setItem(this.getKey(userId), 'true');
   }

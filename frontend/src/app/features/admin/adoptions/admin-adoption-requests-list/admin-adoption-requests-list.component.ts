@@ -28,7 +28,7 @@ export class AdminAdoptionRequestsListComponent implements OnInit {
   requests: AdminAdoptionRequest[] = [];
   loading = false;
 
-  // Paginación (igual estilo que lista de animales)
+  // Paginación (igual estilo que lista de animales).
   currentPage = 1;
   readonly pageSize = 10;
   hasMore = false;
@@ -67,6 +67,7 @@ export class AdminAdoptionRequestsListComponent implements OnInit {
     return query;
   }
 
+  // Cargar solicitudes.
   loadRequests() {
     this.loading = true;
     const query = this.buildQuery();
@@ -92,6 +93,7 @@ export class AdminAdoptionRequestsListComponent implements OnInit {
     this.loadRequests();
   }
 
+  // Reiniciar filtros.
   onResetFilters() {
     this.filtersForm.reset({
       animalName: '',
@@ -105,6 +107,7 @@ export class AdminAdoptionRequestsListComponent implements OnInit {
     this.loadRequests();
   }
 
+  // Paginación.
   onPrevPage() {
     if (this.currentPage <= 1) return;
     this.currentPage--;
@@ -121,6 +124,7 @@ export class AdminAdoptionRequestsListComponent implements OnInit {
     this.router.navigate(['/admin/adoptions', req.id]);
   }
 
+  // Obtener estado de solicitud.
   getStatusLabel(status: AdoptionStatus): string {
     switch (status) {
       case 'PENDING':
@@ -147,6 +151,7 @@ export class AdminAdoptionRequestsListComponent implements OnInit {
     }
   }
 
+  // Obtener edad.
   getAnimalAgeLabel(req: AdminAdoptionRequest): string {
     const age = req.animal.age;
     if (age == null) return 'Edad no especificada';
@@ -154,9 +159,9 @@ export class AdminAdoptionRequestsListComponent implements OnInit {
     return `${age} años`;
   }
 
-    // ✅ NUEVO: obtener la URL de la primera foto del animal o placeholder
+  // Obtener la URL de la primera foto del animal o placeholder.
   getAnimalPhotoUrl(req: AdminAdoptionRequest): string {
     const first = (req.animal as any)?.photos?.[0]?.url;
-    return first || 'assets/images/animal/animal-placeholder.jpg'; // usamos tu método existente
+    return first || 'assets/images/animal/animal-placeholder.jpg';
   }
 }

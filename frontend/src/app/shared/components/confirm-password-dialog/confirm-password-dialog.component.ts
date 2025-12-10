@@ -11,7 +11,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 })
 export class ConfirmPasswordDialogComponent {
   loading = false;
-  // 👇 IMPORTANTE: fb va antes que form
+  
   private fb = inject(FormBuilder);
 
   @Input() message = 'Se necesita tu contraseña para continuar:';

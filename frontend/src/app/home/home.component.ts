@@ -13,26 +13,26 @@ import { User } from '../core/models/user.model';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent { // ⬅️ NUEVO: implements OnInit
+export class HomeComponent {
 
   private auth = inject(AuthService);
   private userService = inject(UserService);
   private router = inject(Router);
   private toastr = inject(ToastrService);
 
-  // Para permitir cerrar el popup manualmente
+  // Para permitir cerrar el popup manualmente.
   private dialogDismissed = false;
 
   get user(): User | null {
     return this.auth.getCurrentUser();
   }
 
-  // ⬇️ NUEVO: helper para saber si es ROLE=USER
+  // Helper para saber si es ROLE=USER
   get isUserRole(): boolean {
     return !!this.user && this.user.role === 'USER';
   }
 
-  // Condición para mostrar el popup de primera vez
+  // Condición para mostrar el popup de primera vez.
   get showFirstLoginDialog(): boolean {
     const u = this.user;
     return !!u && !u.firstLoginCompleted && !this.dialogDismissed;
@@ -44,8 +44,6 @@ export class HomeComponent { // ⬅️ NUEVO: implements OnInit
   }
 
   onChooseManageShelter() {
-    // No tocamos firstLoginCompleted aquí;
-    // se gestionará en la página de creación de shelter cuando todo salga bien.
     this.auth.clearJustLoggedIn();
     this.router.navigate(['/shelters/create']);
   }
@@ -73,14 +71,11 @@ export class HomeComponent { // ⬅️ NUEVO: implements OnInit
     });
   }
 
-  // ⬇️ NUEVO: helpers usados por el nuevo home.component.html
-
   onSeeAnimals() {
     this.router.navigate(['/auth/login']);
   }
 
   onGoToRegister() {
-    // Ajusta si tu ruta de registro es distinta
     this.router.navigate(['/auth/register']);
   }
 }

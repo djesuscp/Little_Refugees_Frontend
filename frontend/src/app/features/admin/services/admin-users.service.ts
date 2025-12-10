@@ -20,7 +20,7 @@ export class AdminUsersService {
   private SHELTERS_API = `${this.MAIN_URL}/api/shelters`;
   private ADOPTIONS_API = `${this.MAIN_URL}/api/adoptions`;
 
-  /** Devuelve los admins del shelter del owner (incluyendo al owner) */
+  // Devuelve los admins del shelter del owner (incluyendo al owner).
   getAdminsForMyShelter(): Observable<ShelterAdmin[]> {
     const currentUser = this.auth.getCurrentUser();
 
@@ -34,20 +34,20 @@ export class AdminUsersService {
       .get<{ message: string; admins: ShelterAdmin[] }>(
         `${this.SHELTERS_API}/${shelterId}/my-shelter-admins`
       )
-      .pipe(map(res => res.admins)); // <-- EXTRAEMOS SOLO "admins"
+      .pipe(map(res => res.admins)); // Obtener solo admins.
   }
 
-  /** Añadir admin por email */
+  // Añadir admin por email.
   addAdminByEmail(email: string) {
     return this.http.post(`${this.SHELTERS_API}/add-admin`, { email });
   }
 
-  /** Quitar admin del shelter */
+  // Quitar admin del shelter.
   removeAdmin(adminId: number) {
     return this.http.post(`${this.SHELTERS_API}/remove-admin`, { adminId });
   }
 
-  /** Reasignar solicitudes de adopción */
+  // Reasignar solicitudes de adopción.
   reassignAdoptionRequests(adminId: number, newAdminId: number) {
     return this.http.post(`${this.ADOPTIONS_API}/reassign`, {
       adminId,

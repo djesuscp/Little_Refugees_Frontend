@@ -54,13 +54,15 @@ $text-muted: #555;
    TARJETAS
 ========================================= */
 .cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   gap: 28px;
 }
 
 .card {
   display: block;
+  width: 20em;
   padding: 28px;
   background: #fff;
   border-radius: 16px;
@@ -130,74 +132,3 @@ $text-muted: #555;
     border-radius: 14px;
   }
 }
-
-
-
-
-// .admin-root {
-//   padding: 40px 24px;
-//   max-width: 1200px;
-//   margin: 0 auto;
-// }
-
-// /* HEADER */
-// .header {
-//   text-align: center;
-//   margin-bottom: 50px;
-
-//   h1 {
-//     font-size: 2.2rem;
-//     font-weight: 600;
-//     color: #1c7c54;
-//     margin-bottom: 8px;
-//   }
-
-//   .subtitle {
-//     font-size: 1.1rem;
-//     color: #555;
-//   }
-// }
-
-// /* TARJETAS */
-// .cards-grid {
-//   display: grid;
-//   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-//   gap: 24px;
-// }
-
-// .card {
-//   display: block;
-//   padding: 26px;
-//   background: #fff;
-//   border-radius: 12px;
-//   text-decoration: none;
-//   box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-//   transition: 0.25s;
-//   cursor: pointer;
-
-//   .icon {
-//     font-size: 2.2rem;
-//     margin-bottom: 12px;
-//   }
-
-//   h3 {
-//     color: #1c7c54;
-//     margin-bottom: 6px;
-//     font-size: 1.3rem;
-//   }
-
-//   p {
-//     color: #666;
-//     line-height: 1.3;
-//   }
-
-//   &:hover {
-//     transform: translateY(-4px);
-//     box-shadow: 0 8px 24px rgba(0,0,0,0.10);
-//   }
-// }
-// @media (max-width: 500px) {
-//   .admin-root {
-//     padding: 20px 12px;
-//   }
-// }

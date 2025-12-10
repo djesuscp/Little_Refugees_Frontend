@@ -21,14 +21,14 @@ export class ProfileChangePasswordComponent {
   private router = inject(Router);
   private auth = inject(AuthService);
 
-  /** FORMULARIO PARA CAMBIAR CONTRASEÑA */
+  // Formulario para ambiar contraseña.
   form = this.fb.group({
     currentPassword: ['', Validators.required],
     newPassword: ['', [Validators.required, Validators.minLength(6)]],
     newPasswordConfirm: ['', Validators.required]
   });
 
-  /** Usuario pulsa "Guardar cambios" */
+  // Guardar cambios.
   onSubmit() {
     if (this.form.invalid) {
       this.toastr.error('Te has equivocado al introducir tu antigua contraseña, o la nueva contraseña no cumple con los requisitos mínimos de seguridad.');

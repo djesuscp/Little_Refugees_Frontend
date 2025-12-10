@@ -50,12 +50,12 @@ export class AdoptionRequestService {
   getMyRequests(query: AdoptionRequestsQuery): Observable<AdoptionRequest[]> {
     let params = new HttpParams();
 
-    // Filtros por estado (status=PENDING,APPROVED,REJECTED)
+    // Filtros por estado (status= PENDING, APPROVED, REJECTED).
     if (query.statuses && query.statuses.length > 0) {
       params = params.set('status', query.statuses.join(','));
     }
 
-    // Ordenación
+    // Ordenar.
     if (query.orderBy) {
       params = params.set('orderBy', query.orderBy);
     }
@@ -65,7 +65,7 @@ export class AdoptionRequestService {
 
     return this.http.get<any>(this.API_URL, { params }).pipe(
       map((res) => {
-        // Soportar dos formatos: array puro o { requests: [...] }
+        // Soporta dos formatos: array puro o { requests: [...] }.
         if (Array.isArray(res)) {
           return res as AdoptionRequest[];
         }

@@ -29,14 +29,7 @@ export class UserService {
     return this.http.put<User>(`${this.API_URL}/me`, payload);
   }
 
-  // changePassword(payload: { currentPassword: string; newPassword: string }) {
-  //   return this.http.put(`${this.API_URL}/me`, payload);
-  // }
-
-  /**
-   * Eliminar mi cuenta.
-   * DELETE /api/users/me con body { currentPassword }
-   */
+  // Eliminar cuenta.
   deleteMyAccount(currentPassword: string): Observable<{ message: string }> {
     return this.http.request<{ message: string }>(
       'DELETE',
@@ -47,19 +40,12 @@ export class UserService {
     );
   }
 
-  // updateMyProfile(data: Partial<User>): Observable<User> {
-  //   return this.http.put<User>(`${this.API_URL}/me`, data);
-  // }
-
-  // deleteMyAccount() {
-  //   return this.http.delete(`${this.API_URL}/me`);
-  // }
-
+  // NO IMPLEMENTADO.
   deleteUserByOwner(id: number) {
     return this.http.delete(`${this.API_URL}/${id}`);
   }
 
-  // Marca firstLoginCompleted = true manteniendo el rol USER
+  // Marca firstLoginCompleted = true manteniendo el rol USER.
   completeFirstLogin() {
     return this.http.put<User>(`${this.API_URL}/first-login`, { firstLoginCompleted: true });
   }

@@ -27,16 +27,16 @@ export class AdminAnimalsListComponent implements OnInit {
   animals: AdminAnimal[] = [];
   loading = false;
 
-  // Paginación
+  // Paginación.
   currentPage = 1;
   readonly pageSize = 12;
   hasMore = false;
 
-  // Formulario de filtros
+  // Formulario de filtros.
   filtersForm = this.fb.group({
-    species: [''],        // "perro,gato"
-    breeds: [''],         // "siames,boxer"
-    gender: [''],         // "macho,hembra"
+    species: [''],        
+    breeds: [''],         
+    gender: [''],         
     ageMin: [''],
     ageMax: [''],
     orderByAgeDesc: [false],
@@ -77,7 +77,7 @@ export class AdminAnimalsListComponent implements OnInit {
       limit: this.pageSize
     };
 
-    // Orden por edad
+    // Orden por edad.
     if (raw.orderByAgeDesc && !raw.orderByAgeAsc) {
       query.orderBy = 'age';
       query.direction = 'desc';
@@ -86,22 +86,23 @@ export class AdminAnimalsListComponent implements OnInit {
       query.direction = 'asc';
     }
 
-    // Filtro adoptados / no adoptados
+    // Filtro adoptados/no adoptados.
     const showAdopted = !!raw.showAdopted;
     const showNotAdopted = !!raw.showNotAdopted;
 
     // Regla:
-    // - Si ambos marcados -> no enviamos "adopted" (se ven todos)
-    // - Si solo uno marcado -> enviamos adopted=true/false
-    // - Si ninguno marcado -> no enviamos "adopted" (se ven todos)
+    // - Si ambos marcados -> no enviamos "adopted" (se ven todos).
+    // - Si solo uno marcado -> enviamos adopted=true/false.
+    // - Si ninguno marcado -> no enviamos "adopted" (se ven todos).
     if (showAdopted !== showNotAdopted) {
-      // Solo uno es true
+      // Solo uno es true.
       query.adopted = showAdopted ? true : false;
     }
 
     return query;
   }
 
+  // Cargar animales.
   loadAnimals() {
     this.loading = true;
 
@@ -128,6 +129,7 @@ export class AdminAnimalsListComponent implements OnInit {
     this.loadAnimals();
   }
 
+  // Reiniciar filtros.
   onResetFilters() {
     this.filtersForm.reset({
       species: '',
@@ -144,6 +146,7 @@ export class AdminAnimalsListComponent implements OnInit {
     this.loadAnimals();
   }
 
+  // Paginación.
   onPrevPage() {
     if (this.currentPage <= 1) return;
     this.currentPage--;
@@ -156,14 +159,17 @@ export class AdminAnimalsListComponent implements OnInit {
     this.loadAnimals();
   }
 
+  // Crear animal.
   onCreateAnimal() {
     this.router.navigate(['/admin/animals/create']);
   }
 
+  // Editar animal.
   onEdit(animal: AdminAnimal) {
     this.router.navigate(['/admin/animals', animal.id, 'edit']);
   }
 
+  // Obtener url de foto.
   getPhotoUrl(animal: AdminAnimal): string {
     const firstPhoto = animal.photos?.[0]?.url;
     return firstPhoto || '/assets/images/animal/animal-placeholder.jpg';

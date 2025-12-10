@@ -144,7 +144,7 @@ $text-muted:    #555;
   }
 }
 
-/* Teléfonos muy compactos (iPhone SE, Android pequeños) */
+/* Muy pequeño */
 @media (max-width: 360px) {
   .brand {
     gap: 8px;
@@ -154,68 +154,3 @@ $text-muted:    #555;
     font-size: 1.1rem;
   }
 }
-
-
-// .nav-root {
-//   width: 100%;
-//   background: #ffffff;
-//   border-bottom: 1px solid #e6e6e6;
-//   padding: 12px 0;
-// }
-
-// .nav-content {
-//   max-width: 1200px;
-//   margin: 0 auto;
-//   padding: 0 24px;
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-// }
-
-// .brand {
-//   display: flex;
-//   align-items: center;
-//   gap: 10px;
-//   cursor: pointer;
-
-//   img {
-//     height: 36px;
-//   }
-
-//   span {
-//     font-size: 1.4rem;
-//     font-weight: 600;
-//     color: #333;
-//   }
-// }
-
-// .menu {
-//   display: flex;
-//   gap: 20px;
-//   list-style: none;
-
-//   a {
-//     text-decoration: none;
-//     color: #444;
-//     font-weight: 500;
-//     transition: color .2s;
-
-//     &:hover {
-//       color: #1c7c54; // tono verde elegante como Zooasis
-//     }
-//   }
-// }
-
-// .btn-logout {
-//   border: none;
-//   padding: 6px 14px;
-//   background: #1c7c54;
-//   color: #fff;
-//   border-radius: 6px;
-//   cursor: pointer;
-//   transition: background .2s;
-
-//   &:hover {
-//     background: #145c3e;
-//   }
-// }

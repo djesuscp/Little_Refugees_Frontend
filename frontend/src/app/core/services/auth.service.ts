@@ -13,7 +13,7 @@ export class AuthService {
   private currentUserSignal = signal<User | null>(null);
   currentUser$ = this.currentUserSignal.asReadonly();
 
-  // Marca si es justo después de un login
+  // Marca que indica si es justo después de un login.
   private justLoggedInSignal = signal<boolean>(false);
 
   constructor(
@@ -29,19 +29,22 @@ export class AuthService {
 
     if (token && user) {
       this.currentUserSignal.set(user);
-      // No es “justLoggedIn” al recargar, solo tras login real
+      // No es “justLoggedIn” al recargar, solo tras login real.
       this.justLoggedInSignal.set(false);
     }
   }
 
+  // Petición de login al backend.
   login(email: string, password: string) {
     return this.http.post<LoginResponse>(`${this.API_URL}/login`, { email, password });
   }
 
+  // Petición de registro al backend.
   register(data: any) {
     return this.http.post(`${this.API_URL}/register`, data);
   }
 
+  // Configuración de la sesión.
   setSession(token: string, user: User) {
     this.tokenService.saveToken(token);
     this.tokenService.saveUser(user);
@@ -49,31 +52,29 @@ export class AuthService {
     this.justLoggedInSignal.set(true);
   }
 
+  // Se fuerza logout.
   logout() {
     this.tokenService.clear();
     this.currentUserSignal.set(null);
     this.justLoggedInSignal.set(false);
   }
 
+  // Comprueba si existe login.
   isLoggedIn(): boolean {
     return !!this.tokenService.getToken();
   }
 
+  // Obtener usuario actual.
   getCurrentUser(): User | null {
     return this.currentUserSignal();
   }
 
-  // Para saber si debemos mostrar el popup de primera vez
-  // isJustLoggedIn(): boolean {
-  //   return this.justLoggedInSignal();
-  // }
-
-  // Para que el Home pueda “marcar” que ya no es justo tras login
+  // Home indica que ya no es justo tras login.
   clearJustLoggedIn(): void {
     this.justLoggedInSignal.set(false);
   }
 
-  // Para actualizar el usuario tras complete-first-login, o tras /me
+  // Actualizar el usuario tras complete-first-login, o tras /me
   updateCurrentUser(user: User): void {
     this.tokenService.saveUser(user);
     this.currentUserSignal.set(user);

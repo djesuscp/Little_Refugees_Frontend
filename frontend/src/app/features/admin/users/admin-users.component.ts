@@ -24,12 +24,12 @@ export class AdminUsersComponent implements OnInit {
   allAdmins: ShelterAdmin[] = [];
   loading = false;
 
-  // Form para añadir admin por email
+  // Form para añadir admin por email.
   addAdminForm = this.fb.group({
     email: ['', [Validators.required, realEmailValidator]]
   });
 
-  // Diálogo de reasignación
+  // Diálogo de reasignación.
   showReassignDialog = false;
   adminToReassign: ShelterAdmin | null = null;
 
@@ -41,13 +41,13 @@ export class AdminUsersComponent implements OnInit {
     return this.auth.getCurrentUser();
   }
 
-  /** Admins mostrados en la tabla (sin el owner) */
+  // Admins mostrados en la tabla (sin el owner).
   get displayedAdmins(): ShelterAdmin[] {
     const ownerId = this.currentUser?.id;
     return this.allAdmins.filter(a => a.id !== ownerId);
   }
 
-  /** Candidatos para reasignar solicitudes (todos menos el que se va) */
+  // Candidatos para reasignar solicitudes (NO IMPLEMENTADO).
   get reassignmentCandidates(): ShelterAdmin[] {
     if (!this.adminToReassign) return [];
     return this.allAdmins.filter(a => a.id !== this.adminToReassign!.id);
@@ -97,11 +97,9 @@ export class AdminUsersComponent implements OnInit {
       error: (err) => {
         const msg: string = err.error?.message ?? 'Error al quitar administrador.';
 
-        // Mostrar mensaje del backend
         this.toastr.error(msg);
 
-        // Si el backend indica que hay que reasignar solicitudes,
-        // abrimos el diálogo de reasignación
+        // Si el backend indica que hay que reasignar solicitudes, abrimos el diálogo de reasignación (NO IMPLEMENTADO).
         if (msg.toLowerCase().includes('reasignar')) {
           this.openReassignDialog(admin);
         }
@@ -132,7 +130,7 @@ export class AdminUsersComponent implements OnInit {
         next: () => {
           this.toastr.success('Solicitudes reasignadas correctamente.');
           this.closeReassignDialog();
-          // Tras reasignar, intentamos de nuevo quitar al admin
+          // Tras reasignar, intentamos de nuevo quitar al admin (NO IMPLEMENTADO).
           this.onClickRemoveAdmin(adminToReassign);
         },
         error: (err) => {

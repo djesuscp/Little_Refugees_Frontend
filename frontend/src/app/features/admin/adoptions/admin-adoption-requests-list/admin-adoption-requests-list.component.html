@@ -6,18 +6,6 @@
 
     <form [formGroup]="filtersForm" (ngSubmit)="onSearchSubmit()" class="filters-form">
 
-      <!-- Búsqueda por nombre del animal
-      <div class="filter-block">
-        <label>Nombre del animal</label>
-        <input formControlName="animalName" placeholder="Ej: Luna, Max..." />
-      </div>-->
-
-      <!-- Búsqueda por nombre del usuario
-      <div class="filter-block">
-        <label>Nombre del usuario</label>
-        <input formControlName="userName" placeholder="Ej: María, Juan..." />
-      </div>-->
-
       <!-- Orden por fecha -->
       <div class="filter-block">
         <label>Ordenar por fecha</label>
@@ -73,12 +61,11 @@
           @for (req of requests; track req.id) {
             <article class="adoption-card">
               <div class="image-wrapper">
-                <!-- Placeholder por ahora -->
                 <img [src]="getAnimalPhotoUrl(req)" [alt]="req.animal.name" />
               </div>
 
               <div class="card-content">
-                <!-- Cabecera: animal + estado -->
+                <!-- Cabecera: animal y estado -->
                 <div class="card-header-row">
                   <h3>{{ req.animal.name }}</h3>
                   <span [class]="getStatusClass(req.status)">

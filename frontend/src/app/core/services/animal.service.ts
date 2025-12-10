@@ -5,8 +5,8 @@ import { AnimalPublic, AnimalDetail } from '../models/animal.model';
 
 export interface AnimalsQuery {
   search?: string;
-  species?: string[];      // perro,gato
-  breeds?: string[];       // siames,boxer
+  species?: string[];
+  breeds?: string[];
   gender?: string[];
   ageMin?: number | null;
   ageMax?: number | null;
@@ -14,7 +14,7 @@ export interface AnimalsQuery {
   direction?: 'asc' | 'desc';
   page?: number;
   limit?: number;
-  shelterName?: string;    // filtro por protectora (backend puede ignorarlo si aún no lo usas)
+  shelterName?: string;    // Filtro por protectora (NO IMPLEMENTADO).
 }
 
 @Injectable({ providedIn: 'root' })
@@ -27,8 +27,8 @@ export class AnimalService {
   getPublicAnimals(query: AnimalsQuery): Observable<AnimalPublic[]> {
     let params = new HttpParams();
 
+    // Filtros.
     if (query.search) {
-      // Ajusta la clave ('search' / 'name') a como lo tengas en backend
       params = params.set('name', query.search);
     }
 
@@ -68,14 +68,14 @@ export class AnimalService {
       params = params.set('limit', String(query.limit));
     }
 
+    // NO IMPLEMENTADO.
     if (query.shelterName) {
-      // El backend puede ignorar este parámetro si aún no está soportado
       params = params.set('shelter', query.shelterName);
     }
 
     return this.http.get<any>(this.API_URL, { params }).pipe(
       map((res) => {
-        // Soportar tanto [ ... ] como { animals: [ ... ] }
+        // Soporta tanto array como { animals: [ ... ] }.
         if (Array.isArray(res)) {
           return res as AnimalPublic[];
         }
@@ -87,12 +87,12 @@ export class AnimalService {
     );
   }
 
-  // 👇 NUEVO: detalle de un animal (GET /api/animals/:id)
+  // Obtener detalle de un animal (GET /api/animals/:id).
   getAnimalDetail(id: number): Observable<any> {
     return this.http.get(`${this.API_URL}/${id}`);
   }
 
-  // 👇 NUEVO: enviar solicitud de adopción (POST /api/adoptions)
+  // Enviar solicitud de adopción (POST /api/adoptions).
   sendAdoptionRequest(animalId: number, message: string): Observable<any> {
     return this.http.post(this.ADOPTIONS_API, {
       animalId,

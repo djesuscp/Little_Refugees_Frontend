@@ -25,8 +25,8 @@ export class ShelterEditComponent implements OnInit {
   shelterId!: number;
   showPasswordDialog = false;
 
-  /** ⬅️ CAMBIO: guardamos los valores originales para detectar qué cambió */
-  originalData: any = {}; // ⬅️ CAMBIO
+  // Guardar los valores originales para detectar lo que se ha cambiado.
+  originalData: any = {};
 
   form = this.fb.group({
     name: ['', Validators.required],
@@ -53,7 +53,7 @@ export class ShelterEditComponent implements OnInit {
       next: (res) => {
         const s = res.shelter;
 
-        this.originalData = {     // ⬅️ CAMBIO
+        this.originalData = {     
           name: s.name,
           email: s.email,
           address: s.address,
@@ -69,7 +69,6 @@ export class ShelterEditComponent implements OnInit {
     });
   }
 
-  /** Paso 1: abrir popup de contraseña */
   onSubmit() {
     if (this.form.invalid) {
       this.toastr.error('Completa todos los campos obligatorios.');
@@ -79,19 +78,19 @@ export class ShelterEditComponent implements OnInit {
     this.showPasswordDialog = true;
   }
 
-  /** Paso 2: usuario introduce contraseña en el popup */
+  // Introducir contraseña en el popup.
   onPasswordConfirmed(password: string) {
     this.showPasswordDialog = false;
 
-    /** ⬅️ CAMBIO: construir payload SOLO con los campos modificados */
-    const payload: any = { currentPassword: password }; // ⬅️ CAMBIO
+    // Construir payload SOLO con los campos modificados.
+    const payload: any = { currentPassword: password }; 
 
     const formValue = this.form.value;
 
-    // Detectar qué campos han cambiado
+    // Detectar lo que se ha cambiado.
     Object.keys(formValue).forEach(key => {
       if (formValue[key as keyof typeof formValue] !== this.originalData[key]) {
-        payload[key] = formValue[key as keyof typeof formValue]; // ⬅️ CAMBIO
+        payload[key] = formValue[key as keyof typeof formValue]; 
       }
     });
 
@@ -107,7 +106,7 @@ export class ShelterEditComponent implements OnInit {
     });
   }
 
-  /** Cancelar popup */
+  // Cancelar popup.
   onPasswordDialogCancelled() {
     this.showPasswordDialog = false;
   }

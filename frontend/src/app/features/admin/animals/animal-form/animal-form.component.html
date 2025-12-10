@@ -42,13 +42,6 @@
       <label>Descripción</label>
       <textarea rows="4" formControlName="description"></textarea>
 
-      <!-- Adoptado (solo en edición) -->
-      <!-- @if (mode === 'edit') {
-        <label class="checkbox-row">
-          <input type="checkbox" formControlName="adopted" />
-          <span>Marcado como adoptado</span>
-        </label>
-      } -->
       @if (mode === 'edit') {
         <label>Estado de adopción *</label>
         <select formControlName="adopted">
@@ -61,7 +54,7 @@
       <div class="photos-section">
         <h2>Fotos</h2>
 
-        <!-- *** CLOUDINARY: fotos existentes en modo edición -->
+        <!-- CLOUDINARY: fotos existentes en modo edición -->
         @if (mode === 'edit') {
           @if (existingPhotos.length === 0) {
             <p class="no-photos">No hay fotos subidas.</p>
@@ -84,7 +77,7 @@
           }
         }
 
-        <!-- *** CLOUDINARY: selección y subida de nuevas fotos -->
+        <!-- CLOUDINARY: selección y subida de nuevas fotos -->
         <div class="add-photo-row">
           @if (!canManagePhotos) {
             <small>Para subir fotos: primero crea el animal; a continuación, desde la lista de animales, pulsa el botón editar para añadir fotos desde el formulario de edición.</small>
@@ -124,40 +117,6 @@
         }
       </div>
 
-      <!-- Fotos (URLs)
-      <div class="photos-section">
-        <h2>Fotos</h2>-->
-
-        <!-- Añadir nueva URL
-        <div class="add-photo-row">
-          <input
-            type="text"
-            [(ngModel)]="newPhotoUrl"
-            placeholder="Pega aquí la URL de la foto"
-            name="newPhotoUrl"
-          />
-          <button type="button" (click)="onAddPhotoUrl()">
-            Añadir foto
-          </button>
-        </div>-->
-
-        <!-- Lista de URLs añadidas 
-        @if (photoUrls.length === 0) {
-          <p class="no-photos">No hay fotos añadidas.</p>
-        } @else {
-          <ul class="photos-list">
-            @for (url of photoUrls; track url) {
-              <li>
-                <span class="photo-url">{{ url }}</span>
-                <button type="button" (click)="onRemovePhotoUrl($index)">
-                  Eliminar
-                </button>
-              </li>
-            }
-          </ul>
-        }
-      </div>-->
-
       <!-- Botones -->
       <div class="actions">
         <button type="submit" [disabled]="loading">
@@ -182,7 +141,7 @@
     </form>
   }
   
-  <!-- Diálogo de confirmación de eliminación -->
+  <!-- Diálogo de confirmación de eliminación de foto -->
   @if (showDeletePhotoDialog) {
     <app-confirm-action-dialog
       title="Eliminar fotografía"

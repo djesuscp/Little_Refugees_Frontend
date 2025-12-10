@@ -26,7 +26,7 @@ export class AdminShelterOverviewComponent implements OnInit {
     return this.auth.getCurrentUser();
   }
 
-  /** Solo el owner puede editar datos y gestionar admins */
+  // Solo el owner puede editar datos y gestionar admins.
   get isOwner(): boolean {
     return !!this.currentUser?.isAdminOwner;
   }

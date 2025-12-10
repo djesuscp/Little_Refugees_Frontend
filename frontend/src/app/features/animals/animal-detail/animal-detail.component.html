@@ -14,25 +14,6 @@
       </p>
     </header>
 
-    <!-- CAROUSEL DE FOTOS
-    <section class="carousel">
-      <div class="carousel-image-wrapper">
-        <img [src]="currentPhotoUrl" [alt]="animal.name" />
-      </div>
-
-      @if (photos.length > 1) {
-        <div class="carousel-controls">
-          <button type="button" (click)="onPrevPhoto()">
-            « Anterior
-          </button>
-          <span>{{ currentPhotoIndex + 1 }} / {{ photos.length }}</span>
-          <button type="button" (click)="onNextPhoto()">
-            Siguiente »
-          </button>
-        </div>
-      }
-    </section>-->
-
         <!-- CAROUSEL DE FOTOS -->
     <section class="carousel">
 
@@ -63,7 +44,7 @@
         }
       </div>
 
-      <!-- NUEVO: indicadores (dots) -->
+      <!-- Indicadores (dots) -->
       @if (photos.length > 1) {
         <div class="carousel-dots">
           @for (photo of photos; let i = $index; track i) {
@@ -80,7 +61,7 @@
     </section>
 
 
-    <!-- INFO ANIMAL + PROTECTORA -->
+    <!-- INFO ANIMAL y PROTECTORA -->
     <section class="info-grid">
 
       <!-- Columna izquierda: animal -->

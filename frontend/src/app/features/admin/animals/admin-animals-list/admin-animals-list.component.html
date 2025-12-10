@@ -18,13 +18,7 @@
 
       <form [formGroup]="filtersForm" (ngSubmit)="onSearchSubmit()" class="filters-form">
 
-        <!-- Búsqueda por nombre 
-        <div class="filter-block">
-          <label>Nombre</label>
-          <input formControlName="search" placeholder="Busca por nombre..." />
-        </div> -->
-
-        <!-- Species -->
+        <!-- Especies -->
         <div class="filter-block">
           <label>Especie</label>
           <input
@@ -34,7 +28,7 @@
           <small>Separa múltiples valores con comas.</small>
         </div>
 
-        <!-- Breed -->
+        <!-- Raza -->
         <div class="filter-block">
           <label>Raza</label>
           <input
@@ -44,7 +38,7 @@
           <small>Separa múltiples valores con comas.</small>
         </div>
 
-        <!-- Gender -->
+        <!-- Género -->
         <div class="filter-block">
           <label>Género</label>
           <input
@@ -64,15 +58,6 @@
           </div>
         </div>
 
-        <!-- Protectora
-        <div class="filter-block">
-          <label>Protectora</label>
-          <input
-            formControlName="shelterName"
-            placeholder="Nombre de la protectora"
-          />
-        </div>-->
-
         <!-- Orden: mayor a menor -->
         <div class="filter-block">
           <label class="checkbox-row">
@@ -81,7 +66,7 @@
           </label>
         </div>
 
-        <!-- 🆕 Orden: menor a mayor -->
+        <!-- Orden: menor a mayor -->
         <div class="filter-block">
           <label class="checkbox-row">
             <input type="checkbox" formControlName="orderByAgeAsc" />
@@ -89,7 +74,7 @@
           </label>
         </div>
 
-        <!-- 🆕 Filtro adoptados / no adoptados -->
+        <!-- Filtro adoptados/no adoptados -->
         <div class="filter-block">
           <label class="checkbox-row">
             <input type="checkbox" formControlName="showAdopted" />
@@ -145,19 +130,7 @@
                   } @else {
                     · <p>Estado actual: <strong>No adoptado</strong></p>
                   }
-                  <!-- @if (animal.adopted) {
-                    · <strong>(Adoptado)</strong>
-                  } -->
                 </p>
-
-                <!-- @if (animal.description) {
-                  <p class="description">
-                    {{ animal.description }}
-                  </p>
-                } -->
-
-                <!-- 🔁 Ya no mostramos la protectora aquí para admin -->
-
                 <button type="button" (click)="onEdit(animal)">
                   Editar
                 </button>

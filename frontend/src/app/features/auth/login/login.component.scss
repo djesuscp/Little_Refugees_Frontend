@@ -86,7 +86,7 @@ button {
 }
 
 /* =========================================
-   ENLACES (recuperar contraseña, ir a registro, etc.)
+   ENLACES
 ========================================= */
 a {
   color: $blue-main;
@@ -113,7 +113,7 @@ a {
 }
 
 /* =========================================
-   RESPONSIVE COMPLETO PARA MÓVIL
+   RESPONSIVE COMPLETO
 ========================================= */
 
 /* Pantallas <= 500px */
@@ -122,7 +122,7 @@ a {
   form {
     margin: 30px auto;
     padding: 24px 18px;
-    max-width: 90%;           // <-- Más cómodo en móvil
+    max-width: 90%;           
     gap: 1.1em;
   }
 
@@ -131,13 +131,13 @@ a {
   }
 
   button {
-    width: 100%;              // <-- Ocupa todo el ancho en móvil
+    width: 100%;            
     padding: 12px;
     font-size: 1.05rem;
   }
 }
 
-/* Pantallas MUY pequeñas (iPhone SE / Android compacto <= 360px) */
+/* Pantallas MUY pequeñas */
 @media (max-width: 360px) {
   form {
     padding: 18px 14px;

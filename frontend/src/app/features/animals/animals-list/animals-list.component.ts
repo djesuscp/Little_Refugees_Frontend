@@ -23,17 +23,17 @@ export class AnimalsListComponent implements OnInit {
   animals: AnimalPublic[] = [];
   loading = false;
 
-  // Paginación
+  // Paginación.
   currentPage = 1;
-  readonly pageSize = 12; // 12 por página, ajustable
+  readonly pageSize = 12; // Muestra 12 animales por página.
   hasMore = false;
 
-  // Formulario de filtros y búsqueda
+  // Formulario de filtros y búsqueda.
   filtersForm = this.fb.group({
     search: [''],
-    species: [''],    // texto libre: "perro,gato"
-    breeds: [''],     // texto libre: "siames,boxer"
-    gender: [''],     // texto libre: "macho,hembra"
+    species: [''],    
+    breeds: [''],     
+    gender: [''],     
     ageMin: [''],
     ageMax: [''],
     shelterName: [''],
@@ -86,6 +86,7 @@ export class AnimalsListComponent implements OnInit {
     return query;
   }
 
+  // Cargar animales.
   loadAnimals() {
     this.loading = true;
 
@@ -95,7 +96,7 @@ export class AnimalsListComponent implements OnInit {
       next: (animals) => {
         this.animals = animals;
         this.loading = false;
-        // Si llega menos que el pageSize, asumimos que no hay más
+        // Si llega menos que el pageSize, asumimos que no hay más.
         this.hasMore = animals.length === this.pageSize;
       },
       error: (err) => {
@@ -113,6 +114,7 @@ export class AnimalsListComponent implements OnInit {
     this.loadAnimals();
   }
 
+  // Reiniciar filtros.
   onResetFilters() {
     this.filtersForm.reset({
       search: '',
@@ -129,6 +131,7 @@ export class AnimalsListComponent implements OnInit {
     this.loadAnimals();
   }
 
+  // Paginación.
   onPrevPage() {
     if (this.currentPage <= 1) return;
     this.currentPage--;
@@ -141,10 +144,12 @@ export class AnimalsListComponent implements OnInit {
     this.loadAnimals();
   }
 
+  // Redirigir a la página del animal.
   onMoreInfo(animal: AnimalPublic) {
     this.router.navigate(['/animals/detail', animal.id]);
   }
 
+  // Obtener url de la foto.
   getPhotoUrl(animal: AnimalPublic): string {
     const firstPhoto = animal.photos?.[0]?.url;
     return firstPhoto || '/assets/images/animal/animal-placeholder.jpg';

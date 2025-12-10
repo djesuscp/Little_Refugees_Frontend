@@ -41,10 +41,8 @@ export class ShelterCreateComponent {
       next: (res) => {
         this.toastr.success('Protectora creada correctamente. Ahora podrás gestionarla como administrador. Debes volver a iniciar sesión de nuevo.');
         this.loading = false;
-        // Aquí actualizamos el usuario en el AuthService
         this.auth.updateCurrentUser(res.user);
         this.auth.logout();
-        // Y navegamos ya con rol ADMIN disponible
         this.router.navigate(['/']);        
       },
       error: (err) => {

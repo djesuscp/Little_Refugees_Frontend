@@ -28,9 +28,9 @@ export class AdoptionRequestsListComponent implements OnInit {
   requests: AdoptionRequest[] = [];
   loading = false;
 
-  // Formulario para filtros/orden
+  // Formulario para filtros/orden.
   filtersForm = this.fb.group({
-    orderDirection: ['desc'],     // 'desc' = más reciente primero
+    orderDirection: ['desc'],
     statusPending: [true],
     statusApproved: [true],
     statusRejected: [true],
@@ -66,6 +66,7 @@ export class AdoptionRequestsListComponent implements OnInit {
     return query;
   }
 
+  // Obtener solicitudes.
   loadRequests() {
     this.loading = true;
     const query = this.buildQuery();
@@ -84,10 +85,12 @@ export class AdoptionRequestsListComponent implements OnInit {
     });
   }
 
+  // Aplicar filtros.
   onApplyFilters() {
     this.loadRequests();
   }
 
+  // Reiniciar filtros.
   onResetFilters() {
     this.filtersForm.reset({
       orderDirection: 'desc',
@@ -98,11 +101,13 @@ export class AdoptionRequestsListComponent implements OnInit {
     this.loadRequests();
   }
 
+  // Obtener url de foto.
   getPhotoUrl(req: AdoptionRequest): string {
     const firstPhoto = req.animal?.photos?.[0]?.url;
     return firstPhoto || 'assets/images/animal/animal-placeholder.jpg';
   }
 
+  // Obtener estado de la solicitud.
   getStatusLabel(status: AdoptionRequestStatus): string {
     switch (status) {
       case 'PENDING':
@@ -129,6 +134,7 @@ export class AdoptionRequestsListComponent implements OnInit {
     }
   }
 
+  // Redirigir a la página del animal.
   onMoreInfo(req: AdoptionRequest) {
     if (!req.animal || !req.animal.id) {
       this.toastr.error('No se ha podido identificar el animal.');

@@ -27,11 +27,11 @@ export class AdminAdoptionRequestComponent implements OnInit {
   request: AdminAdoptionRequestDetail | null = null;
   loading = false;
 
-  // Para el diálogo de confirmación de cambio de estado
+  // Para el diálogo de confirmación de cambio de estado.
   showConfirmDialog = false;
   pendingStatusChange: AdoptionStatus | null = null;
 
-  // 🔹 NUEVO: diálogo específico para eliminar
+  // Diálogo específico para eliminar.
   showDeleteDialog = false;
 
   ngOnInit(): void {
@@ -63,13 +63,13 @@ export class AdminAdoptionRequestComponent implements OnInit {
     });
   }
 
-  // Foto del animal (primera o placeholder)
+  // Foto del animal (primera o placeholder).
   getAnimalPhotoUrl(): string {
     const firstPhoto = (this.request as any)?.animal?.photos?.[0]?.url;
     return firstPhoto || 'assets/images/animal/animal-placeholder.jpg';
   }
 
-  // Etiqueta legible de estado
+  // Etiqueta legible de estado.
   get statusLabel(): string {
     if (!this.request) return '';
     switch (this.request.status) {
@@ -80,7 +80,7 @@ export class AdminAdoptionRequestComponent implements OnInit {
     }
   }
 
-  // Clase CSS según estado
+  // Clase CSS según estado.
   get statusClass(): string {
     if (!this.request) return '';
     switch (this.request.status) {
@@ -91,12 +91,12 @@ export class AdminAdoptionRequestComponent implements OnInit {
     }
   }
 
-  // 🔹 NUEVO: solo se puede borrar si NO está aprobada
+  // Solo se puede borrar si NO está aprobada
   get canDelete(): boolean {
     return !!this.request && this.request.status !== 'APPROVED';
   }
 
-  // Texto dinámico para el confirm-action-dialog
+  // Texto dinámico para el confirm-action-dialog.
   get confirmMessage(): string {
     if (!this.pendingStatusChange) return '¿Confirmar cambio de estado?';
 
@@ -109,7 +109,7 @@ export class AdminAdoptionRequestComponent implements OnInit {
     return map[this.pendingStatusChange];
   }
 
-  // Acciones de botones
+  // Acciones de botones.
   onMarkPending() {
     this.openStatusDialog('PENDING');
   }
@@ -137,7 +137,7 @@ export class AdminAdoptionRequestComponent implements OnInit {
 
     this.adminAdoptionService.updateRequestStatus(id, newStatus).subscribe({
       next: (updated) => {
-        // Actualizamos estado local (por si en el futuro no redirigimos)
+        // Actualizamos estado local.
         this.request = updated;
         this.toastr.success(`Estado actualizado a ${updated.status}.`);
         this.router.navigate(['/admin/adoptions']);
@@ -145,7 +145,7 @@ export class AdminAdoptionRequestComponent implements OnInit {
       error: (err) => {
         const msg = err.error?.message ?? 'No se pudo actualizar el estado.';
         this.toastr.error(msg);
-        // Si el backend dice que la solicitud no existe o no está autorizada, volvemos al listado
+        // Si el backend dice que la solicitud no existe o no está autorizada, vuelve al listado.
         if (err.status === 404 || err.status === 403) {
           this.router.navigate(['/admin/adoptions']);
         }
@@ -158,13 +158,13 @@ export class AdminAdoptionRequestComponent implements OnInit {
     this.pendingStatusChange = null;
   }
 
-  // 🔹 NUEVO: abrir diálogo de borrado
+  // Abrir diálogo de borrado
   onAskDelete() {
     if (!this.request || !this.canDelete) return;
     this.showDeleteDialog = true;
   }
 
-  // 🔹 NUEVO: confirmar borrado
+  // Confirmar borrado
   onConfirmDelete() {
     if (!this.request) return;
 
@@ -187,7 +187,7 @@ export class AdminAdoptionRequestComponent implements OnInit {
     });
   }
 
-  // 🔹 NUEVO: cancelar borrado
+  // Cancelar borrado
   onCancelDelete() {
     this.showDeleteDialog = false;
   }

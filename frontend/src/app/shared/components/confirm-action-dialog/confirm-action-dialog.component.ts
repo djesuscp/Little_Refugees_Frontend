@@ -10,19 +10,19 @@ import { CommonModule } from '@angular/common';
 })
 export class ConfirmActionDialogComponent {
 
-  /** Texto que aparecerá en el popup */
+  //Texto que aparecerá en el popup.
   @Input() message: string = '¿Seguro que deseas continuar?';
 
-  /** Texto del botón de confirmar (por defecto: Confirmar) */
+  // Texto del botón de confirmar (por defecto: Confirmar).
   @Input() confirmText: string = 'Confirmar';
 
-  /** Texto del botón de cancelar */
+  // Texto del botón de cancelar.
   @Input() cancelText: string = 'Cancelar';
 
-  /** Emitido al pulsar confirmar */
+  // Emitido al pulsar confirmar.
   @Output() confirm = new EventEmitter<void>();
 
-  /** Emitido al pulsar cancelar */
+  // Emitido al pulsar cancelar.
   @Output() cancel = new EventEmitter<void>();
 
   onConfirm() {

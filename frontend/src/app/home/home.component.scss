@@ -283,7 +283,6 @@ $text-muted:    #666;
   overflow: hidden;
   box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 
-  /* Si sigues teniendo radios en el HTML, los ocultamos */
   input[type="radio"] {
     display: none;
   }
@@ -301,7 +300,6 @@ $text-muted:    #666;
     inset: 0;
     opacity: 0;
     animation: autoSlide 20s infinite;
-    /* Suavizar un poco el cambio con transform */
     transition: opacity 0.8s ease-in-out;
 
     img {
@@ -312,7 +310,6 @@ $text-muted:    #666;
     }
   }
 
-  /* 4 imágenes → 20s de ciclo total → 5s por imagen */
   .hero-slide:nth-child(1) {
     animation-delay: 0s;
   }
@@ -330,12 +327,12 @@ $text-muted:    #666;
   }
 }
 
-/* Keyframes: cada slide visible ~5s en bucle */
+/* Keyframes: cada slide visible 5s en bucle */
 @keyframes autoSlide {
   0%   { opacity: 0; }
-  5%   { opacity: 1; }   /* aparece */
-  25%  { opacity: 1; }   /* se mantiene visible */
-  30%  { opacity: 0; }   /* desaparece */
+  5%   { opacity: 1; }   
+  25%  { opacity: 1; }   
+  30%  { opacity: 0; }   
   100% { opacity: 0; }
 }
 
@@ -532,240 +529,3 @@ $text-muted:    #666;
     min-width: 100px;
   }
 }
-
-
-
-
-
-
-
-// /* =========================================
-//    PALETA DE COLORES (marca recomendada)
-// ========================================= */
-// $blue-main:     #4A90E2;
-// $green-main:    #6DBF73;
-// $beige-bg:      #F5F0E6;
-// $yellow-cta:    #F9CC41;
-// $orange-cta:    #F7A26A;
-// $text-dark:     #333;
-// $text-muted:    #666;
-
-// // /* =========================================
-// //    APLICAR FUENTE GLOBAL AL COMPONENTE
-// // ========================================= */
-// // .home-root,
-// // .home-root * {
-// //   font-family: "Inter", sans-serif;
-// // }
-
-// // /* =========================================
-// //    LAYOUT GENERAL
-// // ========================================= */
-// // .home-root {
-// //   padding: 40px 24px;
-// //   max-width: 1200px;
-// //   margin: 0 auto;
-// //   background: $beige-bg;
-// //   min-height: calc(100vh - 80px);
-// // }
-
-// /* =========================================
-//    HERO / BIENVENIDA
-// ========================================= */
-// .hero {
-//   text-align: center;
-//   margin-bottom: 60px;
-
-//   h1 {
-//     font-size: 2.8rem;
-//     font-weight: 700;
-//     color: $blue-main;
-//     margin-bottom: 12px;
-//   }
-
-//   .subtitle {
-//     font-size: 1.25rem;
-//     color: $text-dark;
-//     max-width: 650px;
-//     margin: 0 auto;
-//     opacity: 0.9;
-//     line-height: 1.4;
-//   }
-// }
-
-// /* =========================================
-//    TARJETAS PRINCIPALES
-// ========================================= */
-// .cards-grid {
-//   margin-top: 40px;
-//   display: grid;
-//   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-//   gap: 28px;
-// }
-
-// .card {
-//   display: block;
-//   padding: 28px;
-//   border-radius: 16px;
-//   background: #ffffff;
-//   text-decoration: none;
-
-//   box-shadow: 0 6px 20px rgba(0,0,0,0.07);
-//   transition: transform .25s ease, box-shadow .25s ease, border .25s ease;
-//   border: 2px solid transparent;
-
-//   .icon {
-//     font-size: 2.2rem;
-//     margin-bottom: 14px;
-//   }
-
-//   h3 {
-//     font-size: 1.35rem;
-//     margin-bottom: 10px;
-//     font-weight: 600;
-//     color: $green-main;
-//   }
-
-//   p {
-//     color: $text-muted;
-//     line-height: 1.45;
-//   }
-
-//   &:hover {
-//     transform: translateY(-6px);
-//     box-shadow: 0 10px 26px rgba(0,0,0,0.12);
-//     border-color: $green-main;
-//   }
-// }
-
-// /* =========================================
-//    POPUP PRIMER LOGIN
-// ========================================= */
-// .first-login-backdrop {
-//   position: fixed;
-//   inset: 0;
-//   background: rgba(0,0,0,0.42);
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   z-index: 1000;
-// }
-
-// .first-login-dialog {
-//   background: #ffffff;
-//   border-radius: 18px;
-//   padding: 32px;
-//   max-width: 420px;
-//   width: 100%;
-//   box-shadow: 0 10px 30px rgba(0,0,0,0.22);
-//   text-align: center;
-//   animation: popupFade .25s ease-out;
-
-//   h2 {
-//     margin-bottom: 10px;
-//     font-size: 1.7rem;
-//     font-weight: 700;
-//     color: $blue-main;
-//   }
-
-//   p {
-//     margin-bottom: 22px;
-//     color: $text-dark;
-//     line-height: 1.45;
-//   }
-
-//   .buttons {
-//     display: flex;
-//     gap: 12px;
-//     justify-content: center;
-//     margin-bottom: 18px;
-
-//     button {
-//       flex: 1;
-//       padding: 10px 14px;
-//       border-radius: 10px;
-//       border: none;
-//       cursor: pointer;
-//       background: $green-main;
-//       color: #fff;
-//       font-weight: 600;
-//       transition: background .2s, transform .2s;
-
-//       &:hover {
-//         background: darken($green-main, 8%);
-//         transform: translateY(-2px);
-//       }
-//     }
-//   }
-
-//   .link-button {
-//     background: transparent;
-//     border: none;
-//     color: $blue-main;
-//     text-decoration: underline;
-//     cursor: pointer;
-//     font-size: 0.95rem;
-
-//     &:hover {
-//       color: darken($blue-main, 10%);
-//     }
-//   }
-// }
-
-// /* Animación del popup */
-// @keyframes popupFade {
-//   from {
-//     opacity: 0;
-//     transform: scale(.92);
-//   }
-//   to {
-//     opacity: 1;
-//     transform: scale(1);
-//   }
-// }
-
-// // /* =========================================
-// //    RESPONSIVE - GENERAL
-// // ========================================= */
-// // @media (max-width: 600px) {
-// //   .home-root {
-// //     padding: 24px 16px;
-// //   }
-
-// //   .hero h1 {
-// //     font-size: 2.2rem;
-// //   }
-
-// //   .hero .subtitle {
-// //     font-size: 1.1rem;
-// //     padding: 0 10px;
-// //   }
-
-// //   .card {
-// //     padding: 22px;
-// //   }
-
-// //   .first-login-dialog {
-// //     padding: 24px;
-// //     max-width: 90%;
-// //   }
-// // }
-
-// // /* =========================================
-// //    RESPONSIVE EXTRA (pantallas muy pequeñas <= 360px)
-// // ========================================= */
-// // @media (max-width: 360px) {
-// //   .hero h1 {
-// //     font-size: 1.8rem;
-// //   }
-
-// //   .first-login-dialog {
-// //     padding: 18px;
-// //     border-radius: 14px;
-// //   }
-
-// //   .buttons button {
-// //     padding: 8px 12px;
-// //     font-size: 0.95rem;
-// //   }
-// // }

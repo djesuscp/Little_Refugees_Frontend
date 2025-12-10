@@ -79,6 +79,7 @@ export class AdminAdoptionRequestsService {
   ): Observable<AdminAdoptionRequest[]> {
     let params = new HttpParams();
 
+    // Filtros.
     if (query.animalName) {
       params = params.set('animalName', query.animalName);
     }
@@ -88,7 +89,6 @@ export class AdminAdoptionRequestsService {
     }
 
     if (query.statuses && query.statuses.length > 0) {
-      // backend: status=PENDING,APPROVED,...
       params = params.set('status', query.statuses.join(','));
     }
 
@@ -110,11 +110,10 @@ export class AdminAdoptionRequestsService {
 
     return this.http.get<any>(`${this.API_URL}/shelter`, { params }).pipe(
       map((res) => {
-        // backend: { message, page, limit, total, totalPages, requests }
         if (Array.isArray(res?.requests)) {
           return res.requests as AdminAdoptionRequest[];
         }
-        // fallback por si algún día el backend devolviera solo un array
+        // En caso de que el backend devuelva array.
         if (Array.isArray(res)) {
           return res as AdminAdoptionRequest[];
         }
@@ -123,11 +122,11 @@ export class AdminAdoptionRequestsService {
     );
   }
 
-  // 👇 NUEVO: obtener una solicitud concreta (GET /api/adoptions/request/:id)
+  // Obtener una solicitud concreta (GET /api/adoptions/request/:id).
   getRequestById(id: number): Observable<AdminAdoptionRequestDetail> {
     return this.http.get<any>(`${this.API_URL}/request/${id}`).pipe(
       map(res => {
-        // Soportar tanto objeto directo como { request: {...} }
+        // Soportar tanto objeto directo como { request: {...} }.
         if (res && res.id && res.animal && res.user) {
           return res as AdminAdoptionRequestDetail;
         }
@@ -139,15 +138,14 @@ export class AdminAdoptionRequestsService {
     );
   }
 
-  // 👇 NUEVO: actualizar estado (PUT /api/adoptions/:id/status)
+  // Actualizar estado (PUT /api/adoptions/:id/status).
   updateRequestStatus(id: number, status: AdoptionStatus): Observable<AdminAdoptionRequestDetail> {
     return this.http.put<any>(`${this.API_URL}/${id}/status`, { status }).pipe(
       map(res => {
-        // 🔥🔥 CAMBIO 1: aceptar el formato REAL del backend
         if (res && res.updatedRequest) {
           return res.updatedRequest as AdminAdoptionRequestDetail;
         }
-        // De nuevo, soportar objeto directo o { request: {...} }
+        // Soporta objeto directo o { request: {...} }.
         if (res && res.id && res.animal && res.user) {
           return res as AdminAdoptionRequestDetail;
         }
@@ -159,7 +157,7 @@ export class AdminAdoptionRequestsService {
     );
   }
 
-  // 🔹 NUEVO: eliminar solicitud (DELETE /api/adoptions/:id)
+  // Eliminar solicitud (DELETE /api/adoptions/:id).
   deleteRequest(id: number): Observable<{ message: string }> {
     return this.http.delete<{ message: string }>(`${this.API_URL}/${id}`);
   }

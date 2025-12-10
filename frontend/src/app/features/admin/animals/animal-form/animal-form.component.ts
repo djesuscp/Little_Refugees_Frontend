@@ -28,37 +28,37 @@ export class AnimalFormComponent implements OnInit {
   animalId: number | null = null;
   loading = false;
 
-  // *** CLOUDINARY: fotos existentes del animal (las que vienen de la BD)
+  // CLOUDINARY: fotos existentes del animal (las que vienen de la BD).
   existingPhotos: AdminAnimalPhoto[] = [];
 
-  // *** CLOUDINARY: archivos seleccionados para subir (aún no subidos)
+  // CLOUDINARY: archivos seleccionados para subir (aún no subidos).
   selectedFiles: File[] = [];
 
-  // *** CLOUDINARY: estado de subida
+  // CLOUDINARY: estado de subida.
   uploadingPhotos = false;
 
-  // *** CLOUDINARY: configuración de validación
+  // CLOUDINARY: configuración de validación.
   readonly maxPhotos = 5;
   readonly maxFileSizeMb = 5;
   readonly allowedExtensions = ['jpg', 'jpeg', 'png', 'webp'];
 
-  // URLs de fotos que vamos a enviar al backend
+  // URLs de fotos que vamos a enviar al backend.
   photoUrls: string[] = [];
 
-  // Campo auxiliar para añadir fotos desde un input de texto
+  // Campo auxiliar para añadir fotos desde un input de texto.
   newPhotoUrl = '';
 
-  // NUEVO: flag para mostrar el diálogo de confirmación de borrado
+  // NUEVO: flag para mostrar el diálogo de confirmación de borrado.
   showDeleteDialog = false;
-  // ⭐ NUEVO: control del diálogo
-  showDeletePhotoDialog = false;         // si mostrar el diálogo
-  photoPendingDeletion: AdminAnimalPhoto | null = null;   // qué foto borrar
+  // Control del diálogo popup.
+  showDeletePhotoDialog = false;         
+  photoPendingDeletion: AdminAnimalPhoto | null = null;  
 
   form = this.fb.group({
     name: ['', Validators.required],
     species: ['', Validators.required],
     breed: ['', Validators.required],
-    gender: ['', Validators.required], // select macho/hembra en HTML
+    gender: ['', Validators.required],
     age: [0], // opcional
     description: [''],
     adopted: [false], // solo visible en modo edición
@@ -76,14 +76,14 @@ export class AnimalFormComponent implements OnInit {
     }
   }
 
-  /** Cargar datos del animal en modo edición */
+  // Cargar datos del animal en modo edición.
   loadAnimalForEdit(id: number) {
     this.loading = true;
     this.adminAnimalService.getAnimalById(id).subscribe({
       next: (res) => {
         this.loading = false;
         const a = res.animal;
-        // Patch de los datos principales
+        // Patch de los datos principales.
         this.form.patchValue({
           name: a.name,
           species: a.species,
@@ -94,14 +94,11 @@ export class AnimalFormComponent implements OnInit {
           adopted: a.adopted,
         });
 
-        // *** CLOUDINARY: guardamos las fotos existentes (con id + url)
+        // CLOUDINARY: guardamos las fotos existentes (con id + url).
         this.existingPhotos = a.photos ?? [];
 
-        // Mantener photoUrls por compatibilidad, aunque backend ya gestiona fotos aparte
+        // Mantener photoUrls por compatibilidad, aunque backend ya gestiona fotos aparte.
         this.photoUrls = this.existingPhotos.map((p) => p.url);
-
-        // Fotos existentes → las pasamos a array de URLs
-        //this.photoUrls = a.photos?.map((p) => p.url) ?? [];
       },
       error: (err) => {
         const msg =
@@ -113,21 +110,19 @@ export class AnimalFormComponent implements OnInit {
     });
   }
 
-  // ---------------------------------------------------------------------------
-  // *** CLOUDINARY: gestión de selección de archivos
-  // ---------------------------------------------------------------------------
+  // CLOUDINARY: gestión de selección de archivos.
 
-  /** Indica si podemos gestionar fotos (solo en modo edición y con id) */
+  // Indica si podemos gestionar fotos (solo en modo edición y con id).
   get canManagePhotos(): boolean {
     return this.mode === 'edit' && !!this.animalId;
   }
 
-  /** Cuántas fotos más se pueden subir */
+  // Cuántas fotos más se pueden subir.
   get remainingSlots(): number {
     return this.maxPhotos - this.existingPhotos.length;
   }
 
-  /** Selección de archivos desde el input type="file" */
+  // Selección de archivos desde el input type="file".
   onFilesSelected(event: Event) {
     if (!this.canManagePhotos) {
       return;
@@ -141,7 +136,7 @@ export class AnimalFormComponent implements OnInit {
     const files = Array.from(input.files);
 
     for (const file of files) {
-      // Si ya no queda hueco, avisamos
+      // Si ya no queda hueco, se notifica.
       if (this.existingPhotos.length + this.selectedFiles.length >= this.maxPhotos) {
         this.toastr.warning(
           `Solo puedes subir un máximo de ${this.maxPhotos} fotos por animal.`
@@ -149,7 +144,7 @@ export class AnimalFormComponent implements OnInit {
         break;
       }
 
-      // Validar extensión
+      // Validar extensión.
       const ext = file.name.split('.').pop()?.toLowerCase() ?? '';
       if (!this.allowedExtensions.includes(ext)) {
         this.toastr.error(
@@ -160,7 +155,7 @@ export class AnimalFormComponent implements OnInit {
         continue;
       }
 
-      // Validar tamaño
+      // Validar tamaño.
       const sizeMb = file.size / (1024 * 1024);
       if (sizeMb > this.maxFileSizeMb) {
         this.toastr.error(
@@ -172,16 +167,16 @@ export class AnimalFormComponent implements OnInit {
       this.selectedFiles.push(file);
     }
 
-    // Limpiamos el input para poder volver a seleccionar los mismos archivos si se quiere
+    // Limpiamos el input para poder volver a seleccionar los mismos archivos si se quiere.
     input.value = '';
   }
 
-  /** Quitar un archivo de la selección local (antes de subir) */
+  // Quitar un archivo de la selección local (antes de subir).
   onRemoveSelectedFile(file: File) {
     this.selectedFiles = this.selectedFiles.filter((f) => f !== file);
   }
 
-  /** Subir las fotos seleccionadas al backend/Cloudinary */
+  // Subir las fotos seleccionadas al backend/Cloudinary.
   onUploadSelectedPhotos() {
     if (!this.canManagePhotos || !this.animalId) return;
     if (this.selectedFiles.length === 0) {
@@ -195,7 +190,7 @@ export class AnimalFormComponent implements OnInit {
       .uploadAnimalPhotos(this.animalId, this.selectedFiles)
       .subscribe({
         next: (newPhotos) => {
-          // Añadimos las nuevas fotos a las existentes
+          // Añadimos las nuevas fotos a las existentes.
           this.existingPhotos = [...this.existingPhotos, ...newPhotos];
           this.photoUrls = this.existingPhotos.map((p) => p.url);
 
@@ -212,15 +207,14 @@ export class AnimalFormComponent implements OnInit {
       });
   }
 
-  /** Eliminar una foto existente (ya subida) */
-  // ⭐ MODIFICADO: ahora solo abre el confirm dialog
+  // Eliminar una foto existente (ya subida).
   onDeleteExistingPhoto(photo: AdminAnimalPhoto) {
     if (!this.canManagePhotos || !this.animalId) return;
 
     this.photoPendingDeletion = photo;      // guardamos la foto que se va a borrar
     this.showDeletePhotoDialog = true;      // mostramos el diálogo
   }
-  // ⭐ NUEVO: el usuario confirma que quiere borrar la foto
+  // El usuario confirma que quiere borrar la foto.
   onConfirmDeletePhoto() {
     if (!this.photoPendingDeletion || !this.animalId) return;
 
@@ -232,7 +226,7 @@ export class AnimalFormComponent implements OnInit {
       .deleteAnimalPhoto(this.animalId, photo.id)
       .subscribe({
         next: () => {
-          // eliminar de listado local
+          // Eliminar de listado local.
           this.existingPhotos = this.existingPhotos.filter(p => p.id !== photo.id);
           this.photoUrls = this.existingPhotos.map(p => p.url);
           this.uploadingPhotos = false;
@@ -248,55 +242,13 @@ export class AnimalFormComponent implements OnInit {
     this.photoPendingDeletion = null;
   }
 
-  // ⭐ NUEVO: cancelar diálogo
+  // Cancelar diálogo.
   onCancelDeletePhoto() {
     this.showDeletePhotoDialog = false;
     this.photoPendingDeletion = null;
   }
 
-  // onDeleteExistingPhoto(photo: AdminAnimalPhoto) {
-  //   if (!this.canManagePhotos || !this.animalId) return;
-
-  //   const confirmed = confirm('¿Seguro que quieres eliminar esta foto?');
-  //   if (!confirmed) return;
-
-  //   this.uploadingPhotos = true;
-
-  //   this.adminAnimalService
-  //     .deleteAnimalPhoto(this.animalId, photo.id)
-  //     .subscribe({
-  //       next: () => {
-  //         this.existingPhotos = this.existingPhotos.filter(
-  //           (p) => p.id !== photo.id
-  //         );
-  //         this.photoUrls = this.existingPhotos.map((p) => p.url);
-  //         this.uploadingPhotos = false;
-  //         this.toastr.success('Foto eliminada correctamente.');
-  //       },
-  //       error: (err) => {
-  //         const msg =
-  //           err.error?.message ?? 'No se pudo eliminar la foto del animal.';
-  //         this.toastr.error(msg);
-  //         this.uploadingPhotos = false;
-  //       },
-  //     });
-  // }
-
-  // /** Añadir una nueva URL de foto al listado */
-  // onAddPhotoUrl() {
-  //   const url = this.newPhotoUrl.trim();
-  //   if (!url) return;
-
-  //   this.photoUrls.push(url);
-  //   this.newPhotoUrl = '';
-  // }
-
-  // /** Eliminar una foto existente del listado (solo en frontend, se reflejará al guardar) */
-  // onRemovePhotoUrl(index: number) {
-  //   this.photoUrls.splice(index, 1);
-  // }
-
-  /** Guardar (crear o editar) */
+  // Guardar (crear o editar).
   onSubmit() {
     if (this.form.invalid) {
       this.toastr.error('Completa correctamente los campos obligatorios.');
@@ -313,9 +265,9 @@ export class AnimalFormComponent implements OnInit {
   private createAnimal() {
     this.loading = true;
     this.adminAnimalService
-      .createAnimal(this.form.value, []) //Aqui estaba this.photoUrls en lugar del array.
+      .createAnimal(this.form.value, [])
       .subscribe({
-        next: () => {                 // Aqui se supone que, en el parentesis, va "created".
+        next: () => {                 
           this.loading = false;
           this.toastr.success('Animal creado correctamente.');
           this.router.navigate(['/admin/animals']);
@@ -352,13 +304,13 @@ export class AnimalFormComponent implements OnInit {
     this.router.navigate(['/admin/animals']);
   }
 
-  /** Pulsan el botón "Eliminar animal" */
+  // Botón para eliminar animal.
   onClickDelete() {
     if (this.animalId == null) return;
     this.showDeleteDialog = true;
   }
 
-  /** Confirman en el ConfirmActionDialog */
+  // Confirmación en el ConfirmActionDialog.
   onConfirmDelete() {
     if (this.animalId == null) return;
 
@@ -380,7 +332,7 @@ export class AnimalFormComponent implements OnInit {
     });
   }
 
-  /** Cancelan el diálogo de confirmación */
+  // Cancelar el diálogo de confirmación.
   onCancelDeleteDialog() {
     this.showDeleteDialog = false;
   }
