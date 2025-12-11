@@ -57,10 +57,10 @@
         @if (mode === 'edit') {
           @if (existingPhotos.length === 0) {
             <p class="no-photos">No hay fotos subidas.</p>
-            <small>Para subir fotos: primero haz click sobre "Seleccionar imágenes" y escoge los archivos, y luego haz click sobre "Agregar fotos". Así, cuando guardes los cambios, también se guardarán las fotos.</small>
-            </br>
+            <small>Para subir fotos: primero haz click sobre "Seleccionar fotos" y escoge los archivos, y luego haz click sobre "Subir fotos seleccionadas". Así, cuando guardes los cambios, también se guardarán las fotos.</small>
+            <br>
           } @else {
-            <small>Para subir fotos: primero haz click sobre "Seleccionar imágenes" y escoge los archivos, y luego haz click sobre "Agregar fotos". Así, cuando guardes los cambios, también se guardarán las fotos.</small>
+            <small>Para subir fotos: primero haz click sobre "Seleccionar fotos" y escoge los archivos, y luego haz click sobre "Subir fotos seleccionadas". Así, cuando guardes los cambios, también se guardarán las fotos.</small>
             <div class="photos-row">
               @for (photo of existingPhotos; track photo.id) {
                 <div class="photo-thumb">
@@ -85,7 +85,7 @@
             <small>Para subir fotos: primero crea el animal; a continuación, desde la lista de animales, pulsa el botón editar para añadir fotos desde el formulario de edición.</small>
           } @else {
             <label class="custom-file-btn">
-              Seleccionar imágenes
+              Seleccionar fotos
               <input
                 type="file"
                 multiple
@@ -99,7 +99,7 @@
               (click)="onUploadSelectedPhotos()"
               [disabled]="!canManagePhotos || uploadingPhotos || selectedFiles.length === 0"
             >
-              Agregar fotos
+              Subir fotos seleccionadas
             </button>
             <small>Puedes subir hasta {{ remainingSlots }} foto(s) más.</small>
           }
