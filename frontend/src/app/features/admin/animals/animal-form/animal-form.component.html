@@ -56,9 +56,7 @@
         <!-- CLOUDINARY: fotos existentes en modo edición -->
         @if (mode === 'edit') {
           @if (existingPhotos.length === 0) {
-            <p class="no-photos">No hay fotos subidas.</p>
-            <small>Para subir fotos: primero haz click sobre "Seleccionar fotos" y escoge los archivos, y luego haz click sobre "Subir fotos seleccionadas". Así, cuando guardes los cambios, también se guardarán las fotos.</small>
-            <br>
+            <p class="no-photos">No hay fotos subidas. Para subir fotos: primero haz click sobre "Seleccionar fotos" y escoge los archivos, y luego haz click sobre "Subir fotos seleccionadas". Así, cuando guardes los cambios, también se guardarán las fotos.</p>
           } @else {
             <small>Para subir fotos: primero haz click sobre "Seleccionar fotos" y escoge los archivos, y luego haz click sobre "Subir fotos seleccionadas". Así, cuando guardes los cambios, también se guardarán las fotos.</small>
             <div class="photos-row">
