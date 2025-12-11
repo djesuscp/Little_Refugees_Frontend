@@ -27,7 +27,11 @@
     <a class="card" routerLink="/admin/shelter">
       <div class="icon">🏠</div>
       <h3>Mi protectora</h3>
-      <p>Actualiza información de tu protectora.</p>
+      @if (user?.isAdminOwner) {
+        <p>Actualiza información de tu protectora.</p>
+      } @else {
+        <p>Visualiza la información de la protectora.</p>
+      }
     </a>
 
     <!-- Usuarios (solo owner admin) -->
