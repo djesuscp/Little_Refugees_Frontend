@@ -53,12 +53,12 @@
       <!-- Fotos (Cloudinary) -->
       <div class="photos-section">
         <h2>Fotos</h2>
-        <small>Para subir fotos: primero haz click sobre "Seleccionar imágenes" y escoge los archivos, y luego haz click sobre "Agregar fotos". Así, cuando guardes los cambios, también se guardarán las fotos.</small>
         <!-- CLOUDINARY: fotos existentes en modo edición -->
         @if (mode === 'edit') {
           @if (existingPhotos.length === 0) {
             <p class="no-photos">No hay fotos subidas.</p>
           } @else {
+            <small>Para subir fotos: primero haz click sobre "Seleccionar imágenes" y escoge los archivos, y luego haz click sobre "Agregar fotos". Así, cuando guardes los cambios, también se guardarán las fotos.</small>
             <div class="photos-row">
               @for (photo of existingPhotos; track photo.id) {
                 <div class="photo-thumb">
