@@ -39,8 +39,7 @@ export class AdminAnimalsListComponent implements OnInit {
     gender: [''],         
     ageMin: [''],
     ageMax: [''],
-    orderByAgeDesc: [false],
-    orderByAgeAsc: [false],
+    ageSort: [''],
     showAdopted: [false],
     showNotAdopted: [false],
   });
@@ -77,13 +76,11 @@ export class AdminAnimalsListComponent implements OnInit {
       limit: this.pageSize
     };
 
-    // Orden por edad.
-    if (raw.orderByAgeDesc && !raw.orderByAgeAsc) {
+    // Orden por edad (select)
+    const ageSort = raw.ageSort as ('' | 'asc' | 'desc');
+    if (ageSort === 'asc' || ageSort === 'desc') {
       query.orderBy = 'age';
-      query.direction = 'desc';
-    } else if (raw.orderByAgeAsc && !raw.orderByAgeDesc) {
-      query.orderBy = 'age';
-      query.direction = 'asc';
+      query.direction = ageSort;
     }
 
     // Filtro adoptados/no adoptados.
@@ -137,8 +134,7 @@ export class AdminAnimalsListComponent implements OnInit {
       gender: '',
       ageMin: '',
       ageMax: '',
-      orderByAgeDesc: false,
-      orderByAgeAsc: false,
+      ageSort: '',
       showAdopted: false,
       showNotAdopted: false,
     });

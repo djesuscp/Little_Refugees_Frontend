@@ -85,6 +85,22 @@ $text-muted: #555;
 .filter-block {
   display: flex;
   flex-direction: column;
+  input,
+  select {
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.18);
+    padding: 10px 12px;
+    font-size: 0.95rem;
+    background: $beige-bg;
+    color: $text-dark;
+    transition: .18s ease;
+
+    &:focus {
+      border-color: $blue-main;
+      box-shadow: 0 0 0 3px rgba(74,144,226,0.25);
+      outline: none;
+    }
+  }
 }
 
 .age-range {

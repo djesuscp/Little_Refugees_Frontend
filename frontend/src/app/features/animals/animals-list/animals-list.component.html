@@ -46,21 +46,15 @@
         </div>
       </div>
 
-      <!-- Orden: mayor a menor -->
-      <div class="filter-block">
-        <label class="checkbox-row">
-          <input type="checkbox" formControlName="orderByAgeDesc" />
-          <span>Ordenar por edad (mayor a menor)</span>
-        </label>
-      </div>
-
-      <!-- Orden: menor a mayor -->
-      <div class="filter-block">
-        <label class="checkbox-row">
-          <input type="checkbox" formControlName="orderByAgeAsc" />
-          <span>Ordenar por edad (menor a mayor)</span>
-        </label>
-      </div>
+      <!-- Orden por edad -->
+        <div class="filter-block">
+          <label>Ordenar por edad</label>
+          <select formControlName="ageSort">
+            <option value="">Sin ordenar</option>
+            <option value="desc">De mayor a menor</option>
+            <option value="asc">De menor a mayor</option>
+          </select>
+        </div>
 
       <!-- Botones -->
       <div class="filters-actions">

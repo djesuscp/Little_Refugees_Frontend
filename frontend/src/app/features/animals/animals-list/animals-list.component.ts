@@ -37,8 +37,7 @@ export class AnimalsListComponent implements OnInit {
     ageMin: [''],
     ageMax: [''],
     shelterName: [''],
-    orderByAgeDesc: [false],
-    orderByAgeAsc: [false]
+    ageSort: ['']
   });
 
   ngOnInit(): void {
@@ -75,12 +74,11 @@ export class AnimalsListComponent implements OnInit {
       limit: this.pageSize
     };
 
-    if (raw.orderByAgeDesc) {
+    // Orden por edad (select)
+    const ageSort = raw.ageSort as ('' | 'asc' | 'desc');
+    if (ageSort === 'asc' || ageSort === 'desc') {
       query.orderBy = 'age';
-      query.direction = 'desc';
-    } else if (raw.orderByAgeAsc) {
-      query.orderBy = 'age';
-      query.direction = 'asc';
+      query.direction = ageSort;
     }
 
     return query;
@@ -124,8 +122,7 @@ export class AnimalsListComponent implements OnInit {
       ageMin: '',
       ageMax: '',
       shelterName: '',
-      orderByAgeDesc: false,
-      orderByAgeAsc: false
+      ageSort: ''
     });
     this.currentPage = 1;
     this.loadAnimals();
