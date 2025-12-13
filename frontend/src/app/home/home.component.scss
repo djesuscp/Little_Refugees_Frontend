@@ -21,9 +21,9 @@ $text-muted:    #666;
    HOME ROOT
 ===================================================================== */
 .home-root {
-  max-width: 1200px;
+  width: 100%;
   margin: 32px auto;
-  padding: 0 24px;
+  //padding: 0 24px;
   background: #F5F0E6;
   min-height: calc(100vh - 80px);
 }
@@ -189,9 +189,8 @@ $text-muted:    #666;
    HERO
 ===================================================================== */
 .hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-  gap: 32px;
+  display: flex;
+  flex-direction: row;
   align-items: center;
   margin-bottom: 48px;
 
@@ -216,11 +215,17 @@ $text-muted:    #666;
   }
 }
 
-.hero-content p {
-  font-size: 1.05rem;
-  color: #333;
-  margin-bottom: 20px;
-  line-height: 1.45;
+.hero-content {
+  h1 {
+    width: 85%;
+  }
+  p {
+    width: 85%;
+    font-size: 1.05rem;
+    color: #333;
+    margin-bottom: 20px;
+    line-height: 1.45;
+  }
 }
 
 .hero-actions {
@@ -276,8 +281,8 @@ $text-muted:    #666;
 
 .hero-carousel {
   position: relative;
-  width: 600px;
-  height: 400px;
+  width: 700px;
+  height: 450px;
   margin-left: auto;
   border-radius: 16px;
   overflow: hidden;
