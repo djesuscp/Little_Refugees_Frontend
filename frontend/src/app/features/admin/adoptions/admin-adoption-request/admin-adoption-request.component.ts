@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 import {
@@ -13,7 +13,7 @@ import { ConfirmActionDialogComponent } from '../../../../shared/components/conf
 @Component({
   selector: 'app-adoption-request',
   standalone: true,
-  imports: [CommonModule, RouterLink, ConfirmActionDialogComponent],
+  imports: [CommonModule, ConfirmActionDialogComponent],
   templateUrl: './admin-adoption-request.component.html',
   styleUrls: ['./admin-adoption-request.component.scss']
 })
